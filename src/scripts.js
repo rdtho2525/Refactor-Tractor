@@ -4,7 +4,7 @@ import './css/style.scss';
 import './images/person walking on path.jpg';
 import './images/The Rock.jpg';
 
-import userData from './data/users';
+// import userData from './data/users';
 import hydrationData from './data/hydration';
 import sleepData from './data/sleep';
 import activityData from './data/activity';
@@ -14,6 +14,15 @@ import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
+
+fetch('http://localhost:3001/api/v1/users')
+  .then(response => response.json())
+  .then(data => {
+    startApp(data.userData);
+    // console.log(data.userData);
+   
+  })
+  .catch(err => console.log(`Oh snap, there is an error ${err}`));
 
 var sidebarName = document.getElementById('sidebarName');
 var stepGoalCard = document.getElementById('stepGoalCard');
@@ -48,10 +57,10 @@ var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes')
 
-function startApp() {
-  let userList = [];
-  makeUsers(userList);
-  let userRepo = new UserRepo(userList);
+function startApp(userList) {
+  // let userList = [];
+  const allUsers = makeUsers(userList);
+  let userRepo = new UserRepo(allUsers);
   let hydrationRepo = new Hydration(hydrationData);
   let sleepRepo = new Sleep(sleepData);
   let activityRepo = new Activity(activityData);
@@ -68,11 +77,15 @@ function startApp() {
   addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
 }
 
-function makeUsers(array) {
-  userData.forEach(function(dataItem) {
+function makeUsers(userList) {
+  // console.log('this is userList:', userList)
+  const allUsers = userList.map( function(dataItem) {
     let user = new User(dataItem);
-    array.push(user);
-  })
+    return user;
+    // array.push(user);
+  });
+  console.log('allUsers:', allUsers);
+  return allUsers;
 }
 
 function pickUser() {
@@ -182,4 +195,4 @@ function makeStepStreakHTML(id, activityInfo, userStorage, method) {
   return method.map(streakData => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
 }
 
-startApp();
+// startApp();
