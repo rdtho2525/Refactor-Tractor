@@ -5,9 +5,9 @@ import './images/person walking on path.jpg';
 import './images/The Rock.jpg';
 
 // import userData from './data/users';
-import hydrationData from './data/hydration';
-import sleepData from './data/sleep';
-import activityData from './data/activity';
+// import hydrationData from './data/hydration';
+// import sleepData from './data/sleep';
+// import activityData from './data/activity';
 
 import User from './User';
 import Activity from './Activity';
@@ -15,14 +15,25 @@ import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
 
-fetch('http://localhost:3001/api/v1/users')
+const userFetch = fetch('http://localhost:3001/api/v1/users')
   .then(response => response.json())
-  .then(data => {
-    startApp(data.userData);
-    // console.log(data.userData);
-   
-  })
-  .catch(err => console.log(`Oh snap, there is an error ${err}`));
+  .catch(err => console.log(`Error ${err}`));
+  console.log(userFetch);
+
+const hydrationFetch = fetch('http://localhost:3001/api/v1/hydration')
+  .then(response => response.json())
+  .catch(err => console.log(`Error ${err}`));
+
+const sleepFetch = fetch('http://localhost:3001/api/v1/sleep')
+  .then(response => response.json())
+  .catch(err => console.log(`Error ${err}`));
+
+const activityFetch = fetch('http://localhost:3001/api/v1/activity')
+  .then(response => response.json())
+  .catch(err => console.log(`Error ${err}`));
+
+Promise.all([userFetch, hydrationFetch, sleepFetch, activityFetch])
+  .then(values => startApp(values));
 
 var sidebarName = document.getElementById('sidebarName');
 var stepGoalCard = document.getElementById('stepGoalCard');
@@ -57,17 +68,18 @@ var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes')
 
-function startApp(userList) {
+function startApp(lists) {
   // let userList = [];
-  const allUsers = makeUsers(userList);
+  console.log(lists)
+  const allUsers = makeUsers(lists[0].userData);
   let userRepo = new UserRepo(allUsers);
-  let hydrationRepo = new Hydration(hydrationData);
-  let sleepRepo = new Sleep(sleepData);
-  let activityRepo = new Activity(activityData);
+  let hydrationRepo = new Hydration(lists[1].hydrationData);
+  let sleepRepo = new Sleep(lists[2].sleepData);
+  let activityRepo = new Activity(lists[3].activityData);
   var userNowId = pickUser();
   let userNow = getUserById(userNowId, userRepo);
-  let today = makeToday(userRepo, userNowId, hydrationData);
-  let randomHistory = makeRandomDate(userRepo, userNowId, hydrationData);
+  let today = makeToday(userRepo, userNowId, lists[1].hydrationData);
+  let randomHistory = makeRandomDate(userRepo, userNowId, lists[1].hydrationData);
   historicalWeek.forEach(instance => instance.insertAdjacentHTML('afterBegin', `Week of ${randomHistory}`));
   addInfoToSidebar(userNow, userRepo);
   addHydrationInfo(userNowId, hydrationRepo, today, userRepo, randomHistory);
