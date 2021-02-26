@@ -16,7 +16,7 @@ h1 {
   padding-top: 10px;
 }
 
-.main {
+.main2 {
   display: flex;
   flex-direction: row;
   height: 1500px;
@@ -247,4 +247,52 @@ h1 {
   padding: .3em;
   font-weight: bold;
   font-family: sans-serif;
+}
+
+// JULIA EDITS
+
+@mixin flex-row() {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin flex-col() {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 220px;
+}
+
+.user-prof {
+  @include flex-row();
+  width: 40%;
+}
+
+.input-box {
+  @include flex-row();
+  width: 60%;
+}
+
+.input-feild {
+  @include flex-col();
+}
+
+.grid-box {
+  background-color: white;
+}
+
+main {
+  margin: 1em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 700px);
+  grid-gap: 1em;
+}
+.box-title {
+
 }

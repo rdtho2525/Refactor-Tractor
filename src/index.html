@@ -8,8 +8,56 @@
 
 <body>
   <h1 id="headerText">Activity Tracker</h1>
-  <section class="main">
-    <section class="main-sidebar-body">
+  <h2 class="sidebar-header-name" id="sidebarName">Name Name</h2>
+  <hr />
+  <nav class="nav-bar">
+    <div class="user-prof">
+      <img src="./images/The Rock.jpg" class="sidebar-header-userImage"></img>
+      <div class="user-info">
+        <p class="sidebar-header-userInfo" id="userEmail"></p>
+        <p class="sidebar-header-userInfo" id="userAddress"></p>
+        <p class="sidebar-header-userInfo" id="userStridelength"></p>
+        <p class="sidebar-header-userInfo" id="stepGoalCard"></p>
+        <ul class="card-vertical-list" id="friendList"></ul>
+        <!-- <p class="sidebar-header-userInfo" id="avStepGoalCard"> -->
+      </div>
+    </div>
+    <div class="input-box">
+      <div class="input-feild">
+        <label for="water-date">Date:</label>
+        <input type="text" id="water-date" name="water-date">
+        <label for="oz-input">Ounces Drank:</label>
+        <input type="text" id="oz-input" name="oz-input">
+        <label for="hr-sleep-input">Hours Slept:</label>
+        <input type="text" id="hr-sleep-input" name="hr-sleep-input">
+        <label for="qa-sleep-input">Sleep Quality:</label>
+        <input type="text" id="qa-sleep-input" name="qa-sleep-input">
+      </div>
+      <div class="input-feild">
+        <label for="num-step-input">Number of Steps:</label>
+        <input type="text" id="num-step-input" name="num-step-input">
+        <label for="min-act-input">Minutes Active:</label>
+        <input type="text" id="min-act-input" name="min-act-input">
+        <label for="flight-input">Flight of Stairs:</label>
+        <input type="text" id="flight-input" name="flight-input">
+      </div>
+      </div>
+    </div>
+  </nav>
+  <hr />
+  <main>
+    <section class="hydration-container grid-box">
+      <div class="box-title"><h2>Hydration</h2></div>
+    </section>
+    <section class="sleep-container grid-box">
+      <h2>Sleep</h2>
+    </section>
+    <section class="activiy-container grid-box">
+      <h2>Activiy</h2>
+    </section>
+  </main>
+  <section class="main2">
+    <!-- <section class="main-sidebar-body">
       <section class="body-sidebar-sidebarContainer">
         <h2 class="sidebar-header-name" id="sidebarName">Name Name</h2>
         <div class="sidebar-header-line"></div>
@@ -29,17 +77,15 @@
               <p class="sidebar-header-userInfo">Friends</p>
               <section class="sidebar-friendContainer-listItems">
                 <ul class="card-vertical-list" id="friendList">
-                  <!-- friend list goes here -->
                 </ul>
               </section>
               <div class="sidebar-header-line"></div>
               <p class="thisWeek">Keep up the good work! You were increasingly active on these dates:</p>
               <ul class="card-vertical-list" id="streakListMinutes">
-                <!-- friend list goes here -->
               </ul>
             </section>
       </section>
-    </section>
+    </section> -->
     <section class="body-main-infoContainter">
       <section class="main-column-hydration">
         <section class="infoContainer-cardContainer-card-horizontal">
@@ -69,6 +115,7 @@
       </section>
       <section class="main-column-activity">
         <section class="infoContainer-cardContainer-card-horizontal">
+
           <section class="horizontalCard-activity-container">
             <div class="card-today-activity">
               <p id="userStepsToday"></p>
@@ -131,6 +178,7 @@
       </section>
       <section class="main-column-sleep">
         <section class="infoContainer-cardContainer-card-horizontal">
+
           <div class="card-today-sleep">
             <p id="sleepToday"></p>
           </div>
