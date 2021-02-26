@@ -15,26 +15,6 @@ import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
 
-const userFetch = fetch('http://localhost:3001/api/v1/users')
-  .then(response => response.json())
-  .catch(err => console.log(`Error ${err}`));
-  console.log(userFetch);
-
-const hydrationFetch = fetch('http://localhost:3001/api/v1/hydration')
-  .then(response => response.json())
-  .catch(err => console.log(`Error ${err}`));
-
-const sleepFetch = fetch('http://localhost:3001/api/v1/sleep')
-  .then(response => response.json())
-  .catch(err => console.log(`Error ${err}`));
-
-const activityFetch = fetch('http://localhost:3001/api/v1/activity')
-  .then(response => response.json())
-  .catch(err => console.log(`Error ${err}`));
-
-Promise.all([userFetch, hydrationFetch, sleepFetch, activityFetch])
-  .then(values => startApp(values));
-
 var sidebarName = document.getElementById('sidebarName');
 var stepGoalCard = document.getElementById('stepGoalCard');
 var headerText = document.getElementById('headerText');
@@ -66,11 +46,9 @@ var userStairsThisWeek = document.getElementById('userStairsThisWeek');
 var userMinutesThisWeek = document.getElementById('userMinutesThisWeek');
 var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
-var streakListMinutes = document.getElementById('streakListMinutes')
+var streakListMinutes = document.getElementById('streakListMinutes');
 
 function startApp(lists) {
-  // let userList = [];
-  console.log(lists)
   const allUsers = makeUsers(lists[0].userData);
   let userRepo = new UserRepo(allUsers);
   let hydrationRepo = new Hydration(lists[1].hydrationData);
@@ -90,13 +68,10 @@ function startApp(lists) {
 }
 
 function makeUsers(userList) {
-  // console.log('this is userList:', userList)
   const allUsers = userList.map( function(dataItem) {
     let user = new User(dataItem);
     return user;
-    // array.push(user);
   });
-  console.log('allUsers:', allUsers);
   return allUsers;
 }
 
@@ -207,4 +182,75 @@ function makeStepStreakHTML(id, activityInfo, userStorage, method) {
   return method.map(streakData => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
 }
 
-// startApp();
+const userFetch = fetch('http://localhost:3001/api/v1/users')
+  .then(response => response.json())
+  .catch(err => console.log(err));
+
+const hydrationFetch = fetch('http://localhost:3001/api/v1/hydration')
+  .then(response => response.json())
+  .catch(err => console.log(err));
+
+const sleepFetch = fetch('http://localhost:3001/api/v1/sleep')
+  .then(response => response.json())
+  .catch(err => console.log(err));
+
+const activityFetch = fetch('http://localhost:3001/api/v1/activity')
+  .then(response => response.json())
+  .catch(err => console.log(err));
+
+Promise.all([userFetch, hydrationFetch, sleepFetch, activityFetch])
+  .then(values => startApp(values));
+
+// submitButton.addEventListener('click', () => {
+//   const sleepObj = {
+//     userID: /*currentUser.id*/,
+//     date: /*get Date() */,
+//     hoursSelept: /*hrSleepInput.value*/,
+//     sleepQuality: /*qaSleepInput.value*/
+//   };
+//   const activityObj = {
+//     userID: /*currentUser.id*/,
+//     date: /*get Date()*/,
+//     numSteps: /*numOfStepsInput.value*/,
+//     minutesActive: /*activeMinutesInput.value*/,
+//     flightsOfStairs: /*flightsOfStairsInput.value*/
+//   };
+//   const hydrationObj = {
+//     userId: /*currentUser.id*/,
+//     date: /*get Date()*/,
+//     numOunces: /*ouncesInput.value*/
+//   };
+
+  const postSleep = fetch('http://localhost:3001/api/v1/sleep', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(sleepObj),
+})
+  .then(response => response.json())
+  .catch(err => console.log(err))
+
+const postActivity = fetch('http://localhost:3001/api/v1/activity', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(activityObj),
+})
+  .then(response => response.json())
+  .catch(err => console.log(err))
+
+const postHydration = fetch('http://localhost:3001/api/v1/hydration', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(hydrationObj),
+})
+  .then(response => response.json())
+  .catch(err => console.log(err))
+
+  // Promise.all([postSleep, postActivity, postHydration]);
+})
+
