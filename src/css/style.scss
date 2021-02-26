@@ -262,20 +262,20 @@ h1 {
 }
 
 .nav-bar {
-  display: flex;
-  flex-direction: row;
+  @include flex-row();
   justify-content: center;
   height: 220px;
 }
 
 .user-prof {
   @include flex-row();
-  width: 40%;
+  width: 50%;
 }
 
 .input-box {
   @include flex-row();
-  width: 60%;
+  justify-content: space-around;
+  width: 50%;
 }
 
 .input-feild {
@@ -289,10 +289,49 @@ h1 {
 main {
   margin: 1em;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 700px);
+  grid-template-columns: 25% 50% 25%;
+  grid-template-rows: 50px 700px;
   grid-gap: 1em;
 }
-.box-title {
 
+.box-title {
+  display: flex;
+  justify-content: center;
+}
+
+#hydration-chart {
+  width: 100%;
+  height: 60%;
+  border: solid red;
+}
+
+.step-tracker {
+  grid-area: tracker;
+}
+
+.user-act-stats {
+  grid-area: stairActMin;
+}
+
+.all-act-stats {
+  grid-area: allStairActMin;
+}
+
+.step-chart {
+  grid-area: stepChart;
+}
+
+.act-min-chart {
+  grid-area: actMinChart;
+}
+
+
+.activiy-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 15% 42% 42%;
+  grid-template-areas:
+    "tracker tracker"
+    "stairActMin allStairActMin"
+    "stepChart actMinChart";
 }

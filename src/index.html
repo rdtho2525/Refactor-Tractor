@@ -4,20 +4,26 @@
   <meta charset="UTF-8">
   <title>Activity Tracker</title>
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
 </head>
 
 <body>
   <h1 id="headerText">Activity Tracker</h1>
-  <h2 class="sidebar-header-name" id="sidebarName">Name Name</h2>
+  <!-- <h2 class="sidebar-header-name" id="sidebarName">Name Name</h2> -->
   <hr />
   <nav class="nav-bar">
     <div class="user-prof">
       <img src="./images/The Rock.jpg" class="sidebar-header-userImage"></img>
       <div class="user-info">
+        <i class="fas fa-envelope"></i>
         <p class="sidebar-header-userInfo" id="userEmail"></p>
+        <i class="fas fa-home"></i>
         <p class="sidebar-header-userInfo" id="userAddress"></p>
+        <i class="fas fa-walking"></i>
         <p class="sidebar-header-userInfo" id="userStridelength"></p>
+        <i class="fas fa-shoe-prints"></i>
         <p class="sidebar-header-userInfo" id="stepGoalCard"></p>
+        <i class="fas fa-user-friends"></i>
         <ul class="card-vertical-list" id="friendList"></ul>
         <!-- <p class="sidebar-header-userInfo" id="avStepGoalCard"> -->
       </div>
@@ -26,6 +32,8 @@
       <div class="input-feild">
         <label for="water-date">Date:</label>
         <input type="text" id="water-date" name="water-date">
+      </div>
+      <div class="input-feild">
         <label for="oz-input">Ounces Drank:</label>
         <input type="text" id="oz-input" name="oz-input">
         <label for="hr-sleep-input">Hours Slept:</label>
@@ -46,14 +54,50 @@
   </nav>
   <hr />
   <main>
+    <div class="box-title grid-box"><h2>Hydration</h2></div>
+    <div class="box-title grid-box"><h2>Activity</h2></div>
+    <div class="box-title grid-box"><h2>Sleep</h2></div>
     <section class="hydration-container grid-box">
-      <div class="box-title"><h2>Hydration</h2></div>
-    </section>
-    <section class="sleep-container grid-box">
-      <h2>Sleep</h2>
+      <div class="card-today-hydration">
+        <p id="hydrationToday"></p>
+      </div>
+      <div class="card-today-hydration">
+        <p id="hydrationAverage"></p>
+      </div>
+      <!-- <div class="chart"> -->
+        <canvas id="hydration-chart"></canvas>
+      <!-- </div> -->
     </section>
     <section class="activiy-container grid-box">
-      <h2>Activiy</h2>
+      <div class="step-tracker">
+        STEP TRACKER
+      </div>
+      <div class="user-act-stats">
+        USER STAIRS CLIMBED AND ACTIVE MINUTES
+      </div>
+      <div class="all-act-stats">
+        ALL USER STAIRS CLIMBED AND ACTIVE MINUTES
+      </div>
+      <div class="step-chart">
+        STEP CHART
+      </div>
+      <div class="act-min-chart">
+        ACTIVE MINUTE CHART
+      </div>
+    </section>
+    <section class="sleep-container grid-box">
+      <div class="card-today-sleep">
+        <p id="sleepToday"></p>
+      </div>
+      <div class="card-today-sleep">
+        <p id="sleepQualityToday"></p>
+      </div>
+      <div class="card-today-sleep">
+        <p id="avUserSleepQuality"></p>
+      </div>
+      <div class="sleep-chart">
+        CHART FOR WEEKLY SLEEP HOURS?
+      </div>
     </section>
   </main>
   <section class="main2">
