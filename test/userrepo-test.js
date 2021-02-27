@@ -472,6 +472,24 @@ describe('User Repo', function() {
         "sleepQuality": 2.9
       });
     });
+    it('should make a sorted user array', function() {
+      expect(userRepo.makeSortedUserArray(2, hydrationData)).to.eql([{
+          "userID": 2,
+          "date": "2019/06/15",
+          "numOunces": 38
+        },
+        {
+          "userID": 2,
+          "date": "2018/10/23",
+          "numOunces": 34
+        },
+        {
+          "userID": 2,
+          "date": "2016/04/27",
+          "numOunces": 40
+        },
+      ]);
+    });
     it('should get a users most recent date using the app', function() {
       expect(userRepo.getToday(4, hydrationData)).to.eql("2019/09/20");
     });
