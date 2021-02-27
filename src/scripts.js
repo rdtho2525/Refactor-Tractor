@@ -54,7 +54,7 @@ var hoursSleptInput = document.querySelector('#hoursSleptInput');
 var sleepQualityInput = document.querySelector('#sleepQualityInput');
 var stepNumberInput = document.querySelector('#stepNumberInput');
 var activeMinutesInput = document.querySelector('#activeMinutesInput');
-var flightInput = document.querySelector('#flightInput');
+var flightsOfStairsInput = document.querySelector('#flightInput');
 var submitButton = document.querySelector('#submitButton');
 
 var userNowId;
