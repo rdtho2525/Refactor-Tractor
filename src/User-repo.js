@@ -3,9 +3,11 @@ class UserRepo {
     this.users = users;
   };
   getDataFromID(id) {
+    // returns basic user info (e.g. name, address, etc. for user 1)
     return this.users.find((user) => id === user.id);
   };
   getDataFromUserID(id, dataSet) {
+    // returns category data (e.g. hydration data for user 1)
     return dataSet.filter((userData) => id === userData.userID);
   };
   calculateAverageStepGoal() {

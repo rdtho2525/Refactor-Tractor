@@ -61,16 +61,12 @@ describe('User Repo', function() {
   });
 
   it('should return user data when given user ID', function() {
-
-
     userRepo.getDataFromID(1);
 
     expect(userRepo.getDataFromID(1)).to.eql(user1);
   });
 
   it('should return the average of all users step goals', function() {
-
-
     userRepo.calculateAverageStepGoal();
 
     expect(userRepo.calculateAverageStepGoal()).to.eql(9500);
@@ -469,6 +465,12 @@ describe('User Repo', function() {
           "numOunces": 30
         }
       ]);
+      expect(userRepo.getDataFromUserID(2, sleepData)[1]).to.eql({
+        "userID": 2,
+        "date": "2018/07/15",
+        "hoursSlept": 9.6,
+        "sleepQuality": 2.9
+      });
     });
     it('should get a users most recent date using the app', function() {
       expect(userRepo.getToday(4, hydrationData)).to.eql("2019/09/20");
