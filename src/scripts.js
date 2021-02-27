@@ -48,13 +48,24 @@ var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes');
 
+var dateInput = document.querySelector("#waterDate");
+var waterInput = document.querySelector('#waterInput');
+var hoursSleptInput = document.querySelector('#hoursSleptInput');
+var sleepQualityInput = document.querySelector('#sleepQualityInput');
+var stepNumberInput = document.querySelector('#stepNumberInput');
+var activeMinutesInput = document.querySelector('#activeMinutesInput');
+var flightInput = document.querySelector('#flightInput');
+var submitButton = document.querySelector('#submitButton');
+
+var userNowId;
+
 function startApp(lists) {
   const allUsers = makeUsers(lists[0].userData);
   let userRepo = new UserRepo(allUsers);
   let hydrationRepo = new Hydration(lists[1].hydrationData);
   let sleepRepo = new Sleep(lists[2].sleepData);
   let activityRepo = new Activity(lists[3].activityData);
-  var userNowId = pickUser();
+  userNowId = pickUser();
   let userNow = getUserById(userNowId, userRepo);
   let today = makeToday(userRepo, userNowId, lists[1].hydrationData);
   let randomHistory = makeRandomDate(userRepo, userNowId, lists[1].hydrationData);
@@ -201,25 +212,29 @@ const activityFetch = fetch('http://localhost:3001/api/v1/activity')
 Promise.all([userFetch, hydrationFetch, sleepFetch, activityFetch])
   .then(values => startApp(values));
 
-// submitButton.addEventListener('click', () => {
-//   const sleepObj = {
-//     userID: /*currentUser.id*/,
-//     date: /*get Date() */,
-//     hoursSelept: /*hrSleepInput.value*/,
-//     sleepQuality: /*qaSleepInput.value*/
-//   };
-//   const activityObj = {
-//     userID: /*currentUser.id*/,
-//     date: /*get Date()*/,
-//     numSteps: /*numOfStepsInput.value*/,
-//     minutesActive: /*activeMinutesInput.value*/,
-//     flightsOfStairs: /*flightsOfStairsInput.value*/
-//   };
-//   const hydrationObj = {
-//     userId: /*currentUser.id*/,
-//     date: /*get Date()*/,
-//     numOunces: /*ouncesInput.value*/
-//   };
+
+submitButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  const sleepObj = {
+    "userID": userNowId,
+    "date": dateInput.value,
+    "hoursSlept": hoursSleptInput.value,
+    "sleepQuality": sleepQualityInput.value
+  };
+
+  const activityObj = {
+    "userID": userNowId,
+    "date": dateInput.value,
+    "numSteps": stepNumberInput.value,
+    "minutesActive": activeMinutesInput.value,
+    "flightsOfStairs": flightsOfStairsInput.value
+  };
+
+  const hydrationObj = {
+    "userID": userNowId,
+    "date": dateInput.value,
+    "numOunces": waterInput.value
+  };
 
   const postSleep = fetch('http://localhost:3001/api/v1/sleep', {
   method: 'POST',
@@ -236,7 +251,7 @@ const postActivity = fetch('http://localhost:3001/api/v1/activity', {
   headers: {
     'Content-Type': 'application/json'
   },
-  body: JSON.stringify(activityObj),
+  body: JSON.stringify(activityObj)
 })
   .then(response => response.json())
   .catch(err => console.log(err))
@@ -249,8 +264,6 @@ const postHydration = fetch('http://localhost:3001/api/v1/hydration', {
   body: JSON.stringify(hydrationObj),
 })
   .then(response => response.json())
+  .then(thisData => console.log(thisData))
   .catch(err => console.log(err))
-
-  // Promise.all([postSleep, postActivity, postHydration]);
 })
-
