@@ -48,6 +48,9 @@ var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes')
 
+const hydrationChart = document.querySelector('#hydrationChart');
+
+
 function startApp() {
   let userList = [];
   makeUsers(userList);

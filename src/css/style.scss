@@ -261,6 +261,11 @@ h1 {
   flex-direction: column;
 }
 
+@mixin flex-center() {
+  display: flex;
+  justify-content: center;
+}
+
 .nav-bar {
   @include flex-row();
   justify-content: center;
@@ -294,12 +299,12 @@ main {
   grid-gap: 1em;
 }
 
-.box-title {
-  display: flex;
-  justify-content: center;
+.box-title, .hydration-container  {
+  @include flex-col();
+  align-items: center;
 }
 
-#hydration-chart {
+#hydrationChart {
   width: 100%;
   height: 60%;
   border: solid red;
