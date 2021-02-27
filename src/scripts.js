@@ -4,10 +4,10 @@ import './css/style.scss';
 import './images/person walking on path.jpg';
 import './images/The Rock.jpg';
 
-import userData from './data/users';
-import hydrationData from './data/hydration';
-import sleepData from './data/sleep';
-import activityData from './data/activity';
+// import userData from './data/users';
+// import hydrationData from './data/hydration';
+// import sleepData from './data/sleep';
+// import activityData from './data/activity';
 
 import User from './User';
 import Activity from './Activity';
@@ -46,19 +46,29 @@ var userStairsThisWeek = document.getElementById('userStairsThisWeek');
 var userMinutesThisWeek = document.getElementById('userMinutesThisWeek');
 var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
-var streakListMinutes = document.getElementById('streakListMinutes')
+var streakListMinutes = document.getElementById('streakListMinutes');
 
-function startApp() {
-  let userList = [];
-  makeUsers(userList);
-  let userRepo = new UserRepo(userList);
-  let hydrationRepo = new Hydration(hydrationData);
-  let sleepRepo = new Sleep(sleepData);
-  let activityRepo = new Activity(activityData);
-  var userNowId = pickUser();
+var dateInput = document.querySelector("#waterDate");
+var waterInput = document.querySelector('#waterInput');
+var hoursSleptInput = document.querySelector('#hoursSleptInput');
+var sleepQualityInput = document.querySelector('#sleepQualityInput');
+var stepNumberInput = document.querySelector('#stepNumberInput');
+var activeMinutesInput = document.querySelector('#activeMinutesInput');
+var flightsOfStairsInput = document.querySelector('#flightInput');
+var submitButton = document.querySelector('#submitButton');
+
+var userNowId;
+
+function startApp(lists) {
+  const allUsers = makeUsers(lists[0].userData);
+  let userRepo = new UserRepo(allUsers);
+  let hydrationRepo = new Hydration(lists[1].hydrationData);
+  let sleepRepo = new Sleep(lists[2].sleepData);
+  let activityRepo = new Activity(lists[3].activityData);
+  userNowId = pickUser();
   let userNow = getUserById(userNowId, userRepo);
-  let today = makeToday(userRepo, userNowId, hydrationData);
-  let randomHistory = makeRandomDate(userRepo, userNowId, hydrationData);
+  let today = makeToday(userRepo, userNowId, lists[1].hydrationData);
+  let randomHistory = makeRandomDate(userRepo, userNowId, lists[1].hydrationData);
   historicalWeek.forEach(instance => instance.insertAdjacentHTML('afterBegin', `Week of ${randomHistory}`));
   addInfoToSidebar(userNow, userRepo);
   addHydrationInfo(userNowId, hydrationRepo, today, userRepo, randomHistory);
@@ -68,11 +78,12 @@ function startApp() {
   addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
 }
 
-function makeUsers(array) {
-  userData.forEach(function(dataItem) {
+function makeUsers(userList) {
+  const allUsers = userList.map( function(dataItem) {
     let user = new User(dataItem);
-    array.push(user);
-  })
+    return user;
+  });
+  return allUsers;
 }
 
 function pickUser() {
@@ -182,4 +193,77 @@ function makeStepStreakHTML(id, activityInfo, userStorage, method) {
   return method.map(streakData => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
 }
 
-startApp();
+const userFetch = fetch('http://localhost:3001/api/v1/users')
+  .then(response => response.json())
+  .catch(err => console.log(err));
+
+const hydrationFetch = fetch('http://localhost:3001/api/v1/hydration')
+  .then(response => response.json())
+  .catch(err => console.log(err));
+
+const sleepFetch = fetch('http://localhost:3001/api/v1/sleep')
+  .then(response => response.json())
+  .catch(err => console.log(err));
+
+const activityFetch = fetch('http://localhost:3001/api/v1/activity')
+  .then(response => response.json())
+  .catch(err => console.log(err));
+
+Promise.all([userFetch, hydrationFetch, sleepFetch, activityFetch])
+  .then(values => startApp(values));
+
+
+submitButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  const sleepObj = {
+    "userID": userNowId,
+    "date": dateInput.value,
+    "hoursSlept": hoursSleptInput.value,
+    "sleepQuality": sleepQualityInput.value
+  };
+
+  const activityObj = {
+    "userID": userNowId,
+    "date": dateInput.value,
+    "numSteps": stepNumberInput.value,
+    "minutesActive": activeMinutesInput.value,
+    "flightsOfStairs": flightsOfStairsInput.value
+  };
+
+  const hydrationObj = {
+    "userID": userNowId,
+    "date": dateInput.value,
+    "numOunces": waterInput.value
+  };
+
+  const postSleep = fetch('http://localhost:3001/api/v1/sleep', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(sleepObj),
+})
+  .then(response => response.json())
+  .catch(err => console.log(err))
+
+const postActivity = fetch('http://localhost:3001/api/v1/activity', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(activityObj)
+})
+  .then(response => response.json())
+  .catch(err => console.log(err))
+
+const postHydration = fetch('http://localhost:3001/api/v1/hydration', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(hydrationObj),
+})
+  .then(response => response.json())
+  .then(thisData => console.log(thisData))
+  .catch(err => console.log(err))
+})
