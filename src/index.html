@@ -13,27 +13,37 @@
   <hr />
   <nav class="nav-bar">
     <div class="user-prof">
-      <img src="./images/The Rock.jpg" class="sidebar-header-userImage"></img>
-      <div class="user-info">
-        <i class="fas fa-envelope"></i>
-        <p class="sidebar-header-userInfo" id="userEmail"></p>
-        <i class="fas fa-home"></i>
-        <p class="sidebar-header-userInfo" id="userAddress"></p>
-        <i class="fas fa-walking"></i>
-        <p class="sidebar-header-userInfo" id="userStridelength"></p>
-        <i class="fas fa-shoe-prints"></i>
-        <p class="sidebar-header-userInfo" id="stepGoalCard"></p>
-        <i class="fas fa-user-friends"></i>
-        <ul class="card-vertical-list" id="friendList"></ul>
+      <img src="./images/The Rock.jpg" class="user-img"></img>
+      <div>
+        <div class="icon-display">
+          <i class="fas fa-envelope"></i>
+          <p class="user-info hidden" id="userEmail"></p>
+        </div>
+        <div class="icon-display">
+          <i class="fas fa-home"></i>
+          <p class="user-info hidden" id="userAddress"></p>
+        </div>
+        <div class="icon-display">
+          <i class="fas fa-walking"></i>
+          <p class="user-info hidden" id="userStridelength"></p>
+        </div>
+        <div class="icon-display">
+          <i class="fas fa-shoe-prints"></i>
+          <p class="user-info hidden" id="stepGoalCard"></p>
+        </div>
+        <div class="icon-display">
+          <i class="fas fa-user-friends"></i>
+          <ul class="user-info friend-list hidden" id="friendList"></ul>
+        </div>
         <!-- <p class="sidebar-header-userInfo" id="avStepGoalCard"> -->
       </div>
     </div>
     <div class="input-box">
-      <div class="input-feild">
+      <div class="input-feild user-info">
         <label for="water-date">Date:</label>
         <input type="text" id="water-date" name="water-date">
       </div>
-      <div class="input-feild">
+      <div class="input-feild user-info">
         <label for="oz-input">Ounces Drank:</label>
         <input type="text" id="oz-input" name="oz-input">
         <label for="hr-sleep-input">Hours Slept:</label>
@@ -41,7 +51,7 @@
         <label for="qa-sleep-input">Sleep Quality:</label>
         <input type="text" id="qa-sleep-input" name="qa-sleep-input">
       </div>
-      <div class="input-feild">
+      <div class="input-feild user-info">
         <label for="num-step-input">Number of Steps:</label>
         <input type="text" id="num-step-input" name="num-step-input">
         <label for="min-act-input">Minutes Active:</label>

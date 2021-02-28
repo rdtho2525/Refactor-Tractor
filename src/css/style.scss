@@ -5,7 +5,7 @@
 body {
   font-family: 'Open Sans';
   margin: 0;
-  background-color: #4d4e4f;
+  background-color: #a3a3a3;
   height: auto;
 }
 
@@ -43,13 +43,12 @@ h1 {
   text-align: center;
 }
 
-.sidebar-header-userInfo {
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 1.2em;
-  margin: .5em .5em .5em .5em;
-  width: inherit;
-}
+// .sidebar-header-userInfo {
+//   font-family: sans-serif;
+//   font-weight: bold;
+//   font-size: 1.2em;
+//   margin: .5em;
+// }
 
 .sidebar-header-line {
   color: #ffffff;
@@ -235,12 +234,11 @@ h1 {
   color: black;
 }
 
+
 .card-vertical-list {
   list-style-type: none;
   font-weight: lighter;
   font-style: italic;
-  padding-left: 0;
-  font-size: 1em;
 }
 
 .historical-list-listItem {
@@ -250,6 +248,8 @@ h1 {
 }
 
 // JULIA EDITS
+
+// NAV BAR //
 
 @mixin flex-row() {
   display: flex;
@@ -270,11 +270,43 @@ h1 {
   @include flex-row();
   justify-content: center;
   height: 220px;
+  padding: 10px;
+}
+
+.user-info {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
 .user-prof {
   @include flex-row();
+  align-items: center;
   width: 50%;
+}
+
+.user-img {
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 1px;
+  height: 200px;
+  width: 200px;
+  margin: 10px;
+}
+
+.icon-display {
+  @include flex-row();
+  align-items: center;
+}
+
+i {
+  font-size: 20px;
+  margin: 15px;
+}
+
+.friend-list {
+  padding-left: 0;
+  font-size: 1em;
 }
 
 .input-box {
@@ -285,7 +317,14 @@ h1 {
 
 .input-feild {
   @include flex-col();
+  justify-content: start;
 }
+
+label {
+  margin-top: 1em;
+}
+
+// MAIN GRID DISPLAY //
 
 .grid-box {
   background-color: white;
@@ -339,4 +378,11 @@ main {
     "tracker tracker"
     "stairActMin allStairActMin"
     "stepChart actMinChart";
+}
+
+
+// HIDDEN //
+
+.hidden {
+  display: none;
 }

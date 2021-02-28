@@ -48,8 +48,39 @@ var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes')
 
+// JULIA
 const hydrationChart = document.querySelector('#hydrationChart');
+const emailIcon = document.querySelector('.fa-envelope');
+const addressIcon = document.querySelector('.fa-home');
+const strideIcon = document.querySelector('.fa-walking');
+const stepIcon = document.querySelector('.fa-shoe-prints');
+const friendsIcon = document.querySelector('.fa-user-friends');
+const email = document.querySelector('#userEmail');
+const address = document.querySelector('#userAddress');
+const stride = document.querySelector('#userStridelength');
+const step = document.querySelector('#stepGoalCard');
+const friends = document.querySelector('#friendList');
 
+
+emailIcon.addEventListener('click', function() {
+  displayIconInfo(email)
+});
+addressIcon.addEventListener('click', function() {
+  displayIconInfo(address)
+});
+strideIcon.addEventListener('click', function() {
+  displayIconInfo(stride)
+});
+stepIcon.addEventListener('click', function() {
+  displayIconInfo(step)
+});
+friendsIcon.addEventListener('click', function() {
+  displayIconInfo(friends)
+});
+
+function displayIconInfo(icon) {
+  icon.classList.toggle('hidden');
+}
 
 function startApp() {
   let userList = [];
@@ -86,20 +117,26 @@ function getUserById(id, listRepo) {
   return listRepo.getDataFromID(id);
 };
 
+// JULIA
+// removed extra name and added last name to header.
+// alluser avg step function isn't being used. commented out on html and .js for now
 
 function addInfoToSidebar(user, userStorage) {
-  sidebarName.innerText = user.name;
-  headerText.innerText = `${user.getFirstName()}'s Activity Tracker`;
-  stepGoalCard.innerText = `Your daily step goal is ${user.dailyStepGoal}.`
-  avStepGoalCard.innerText = `The average daily step goal is ${userStorage.calculateAverageStepGoal()}`;
+  // sidebarName.innerText = user.name;
+  headerText.innerText = `${user.name}'s Activity Tracker`;
   userAddress.innerText = user.address;
   userEmail.innerText = user.email;
-  userStridelength.innerText = `Your stridelength is ${user.strideLength} meters.`;
+  stepGoalCard.innerText = `Step goal is ${user.dailyStepGoal}.`
+  // avStepGoalCard.innerText = `The average daily step goal is ${userStorage.calculateAverageStepGoal()}`;
+  userStridelength.innerText = `Stridelength is ${user.strideLength} meters.`;
   friendList.insertAdjacentHTML('afterBegin', makeFriendHTML(user, userStorage))
 };
 
+// JULIA
+// made friend list in a line instead of a stacked list (dont like it but it fits)
+
 function makeFriendHTML(user, userStorage) {
-  return user.getFriendsNames(userStorage).map(friendName => `<li class='historical-list-listItem'>${friendName}</li>`).join('');
+  return user.getFriendsNames(userStorage).map(friendName => `-${friendName}`).join('');
 }
 
 function makeWinnerID(activityInfo, user, dateString, userStorage){
