@@ -6,7 +6,6 @@ body {
   font-family: 'Open Sans';
   margin: 0;
   background-color: white;
-  // height: auto;
 }
 
 // GLOBAL STYLES //
@@ -125,6 +124,7 @@ input {
 }
 
 // MAIN GRID DISPLAY //
+// text-shadow: 0 0 .75em #808080;
 main {
   margin: 1em;
   display: grid;
@@ -181,8 +181,14 @@ main {
   border-radius: 6px;
 }
 
-.step-tracker {
+.user-all-compare {
   grid-area: tracker;
+  @include flex-col();
+}
+
+.user-act-daily, .all-act-avg {
+  @include flex-row();
+  justify-content: space-around;
 }
 
 .user-act-stats {
@@ -204,7 +210,7 @@ main {
 .activiy-container {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 15% 42% 42%;
+  grid-template-rows: 20% 40% 40%;
   grid-template-areas:
     "tracker tracker"
     "stairActMin allStairActMin"

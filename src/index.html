@@ -80,20 +80,34 @@
       <ul class="card-vertical-list" id="hydrationThisWeek"></ul>
     </section>
     <section class="activiy-container grid-boxA">
-      <div class="step-tracker">
-        STEP TRACKER
+      <div class="user-all-compare">
+        <div class="user-act-daily">
+          <h2>YOUR STATS</h2>
+          <div><p id="userStepsToday"></p></div>
+          <div><p id="userStairsToday"></p></div>
+          <div><p id="userMinutesToday"></p></div>
+        </div>
+        <div class="all-act-avg">
+          <h2>USER AVG</h2>
+          <div><p id="avgStepsToday"></p></div>
+          <div><p id="avgStairsToday"></p></div>
+          <div><p id="avgMinutesToday"></p></div>
+        </div>
       </div>
       <div class="user-act-stats">
-        USER STAIRS CLIMBED AND ACTIVE MINUTES
+        MILES WALKED
       </div>
       <div class="all-act-stats">
-        ALL USER STAIRS CLIMBED AND ACTIVE MINUTES
+        STAIR CHART COUNT THIS WEEK
+        <ul class="card-vertical-list" id="userStairsThisWeek"></ul>
       </div>
       <div class="step-chart">
-        STEP CHART
+        STEP CHART COUNT THIS WEEK
+        <ul class="card-vertical-list"id="userStepsThisWeek"></ul>
       </div>
       <div class="act-min-chart">
-        ACTIVE MINUTE CHART
+        ACTIVE MINUTE CHART THIS WEEK
+        <ul class="card-vertical-list" id="userMinutesThisWeek"></ul>
       </div>
     </section>
     <section class="sleep-container grid-boxS">
@@ -107,6 +121,9 @@
         <p id="avUserSleepQuality"></p>
       </div>
       <div class="sleep-chart">
+        <div id="sleepThisWeek">
+          
+        </div>
         CHART FOR WEEKLY SLEEP HOURS?
       </div>
     </section>
@@ -130,54 +147,12 @@
     <!-- INCREASING ACTIVITY -->
     <p class="thisWeek">Keep up the good work! You were increasingly active on these dates:</p>
     <ul class="card-vertical-list" id="streakListMinutes">
+    <p class="thisWeek">You had 3 DAY STEP STREAKS on these days:</p>
+    <ul class="card-vertical-list"id="streakList"></ul>
   </section>
   <section class="main2">
     <section class="body-main-infoContainter">
-      <section class="main-column-activity">
         <section class="infoContainer-cardContainer-card-horizontal">
-
-          <section class="horizontalCard-activity-container">
-            <div class="card-today-activity">
-              <p id="userStepsToday"></p>
-            </div>
-            <div class="card-today-activity">
-              <p id="avgStepsToday"></p>
-            </div>
-          </section>
-          <section class="horizontalCard-activity-container">
-            <div class="card-today-activity">
-              <p id="userStairsToday"></p>
-            </div>
-            <div class="card-today-activity">
-              <p id="avgStairsToday"></p>
-            </div>
-          </section>
-          <section class="horizontalCard-activity-container">
-            <div class="card-today-activity">
-              <p id="userMinutesToday"></p>
-            </div>
-            <div class="card-today-activity">
-              <p id="avgMinutesToday"></p>
-            </div>
-          </section>
-        </section>
-        <section class="infoContainer-cardContainer-card-horizontal">
-          <section class="horizontalCard-activity-container">
-            <div class="card-history-activity">
-              <p class="thisWeek">Your steps this week</p>
-              <div class="sidebar-header-line"></div>
-              <ul class="card-vertical-list" id="userStepsThisWeek">
-                Activity week list goes here
-              </ul>
-            </div>
-            <div class="card-history-activity">
-              <p class="thisWeek">Your stair count this week</p>
-              <div class="sidebar-header-line"></div>
-              <ul class="card-vertical-list" id="userStairsThisWeek">
-                Activity week list goes here
-              </ul>
-            </div>
-          </section>
           <section class="horizontalCard-activity-container">
             <div class="card-history-activity">
               <p class="thisWeek">Your minutes of activity this week</p>
@@ -196,50 +171,6 @@
           </section>
         </section>
       </section>
-      <section class="main-column-sleep">
-        <section class="infoContainer-cardContainer-card-horizontal">
-
-          <!-- <div class="card-today-sleep">
-            <p id="sleepToday"></p>
-          </div>
-          <div class="card-today-sleep">
-            <p id="sleepQualityToday"></p>
-          </div>
-          <div class="card-today-sleep">
-            <p id="avUserSleepQuality"></p>
-          </div> -->
-        </section>
-        <section class="infoContainer-cardContainer-card-vertical">
-          <!-- <div class="card-history-sleep">
-            <p class="thisWeek">Hours of sleep this week</p>
-            <div class="sidebar-header-line"></div>
-            <ul class="card-vertical-list" id="sleepThisWeek">
-              Sleep week list goes here
-            </ul>
-          </div> -->
-          <div class="card-history-sleep">
-            <p class="historicalWeek"></p>
-            <div class="sidebar-header-line"></div>
-            <ul class="card-vertical-list" id="sleepEarlierWeek">
-              Sleep week list goes here
-            </ul>
-          </div>
-        </section>
-      </section>
-    </section>
-    <section class="main-sidebar-body">
-      <section class="body-sidebar-sidebarContainer">
-        <h2 class="sidebar-header-name" id="sidebarName">FRIENDLY STEP CHALLENGE!</h2>
-
-            <section class="sidebar-body-friendContainer">
-
-              <p class="thisWeek">You had 3 DAY STEP STREAKS on these days:</p>
-              <ul class="card-vertical-list" id="streakList">
-                friend list goes here
-              </ul>
-            </section>
-      </section>
-    </section>
   </section>
 </body>
 
