@@ -4,6 +4,10 @@ import './css/style.scss';
 import './images/person walking on path.jpg';
 import './images/The Rock.jpg';
 
+import './charts.js';
+import waterConsumed from './charts.js';
+
+
 // import userData from './data/users';
 // import hydrationData from './data/hydration';
 // import sleepData from './data/sleep';
@@ -76,6 +80,7 @@ function startApp(lists) {
   let winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
   addActivityInfo(userNowId, activityRepo, today, userRepo, randomHistory, userNow, winnerNow);
   addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
+  buildHydrationChart(userRepo, userNowId, hydrationRepo);
 }
 
 function makeUsers(userList) {
@@ -93,7 +98,6 @@ function pickUser() {
 function getUserById(id, listRepo) {
   return listRepo.getDataFromID(id);
 };
-
 
 function addInfoToSidebar(user, userStorage) {
   sidebarName.innerText = user.name;
@@ -191,6 +195,11 @@ function makeFriendChallengeHTML(id, activityInfo, userStorage, method) {
 
 function makeStepStreakHTML(id, activityInfo, userStorage, method) {
   return method.map(streakData => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
+}
+
+function buildHydrationChart(userRepo, user, hydration) {
+  waterConsumed.data.datasets.data = hydration.calculateFirstWeekOunces(userRepo, user);
+  waterConsumed.update();
 }
 
 const userFetch = fetch('http://localhost:3001/api/v1/users')
