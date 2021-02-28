@@ -63,11 +63,21 @@ describe('User', function() {
   it('should take a user data object', function() {
     expect(user1.id).to.equal(1);
     expect(user1.name).to.equal("Alex Roth");
+    expect(user1.address).to.equal("1234 Turing Street, Denver CO 80301-1697");
+    expect(user1.email).to.equal("alex.roth1@hotmail.com");
+    expect(user1.strideLength).to.equal(4.3);
+    expect(user1.dailyStepGoal).to.equal(10000);
+    expect(user1.friends).to.eql([2, 3, 4]);
   });
 
   it('should take a different user data object', function() {
     expect(user2.id).to.equal(2);
     expect(user2.name).to.equal("Allie McCarthy");
+    expect(user2.address).to.equal("1235 Turing Street, Denver CO 80301-1697");
+    expect(user2.email).to.equal("allie.mcc1@hotmail.com");
+    expect(user2.strideLength).to.equal(3.3);
+    expect(user2.dailyStepGoal).to.equal(9000);
+    expect(user2.friends).to.eql([1, 3, 4]);
   });
 
   it('should return user first name', function() {
