@@ -494,7 +494,6 @@ describe('User Repo', function() {
       expect(userRepo.getToday(4, hydrationData)).to.eql("2019/09/20");
     });
     it('should sort data by date and extract its week', function() {
-
       expect(userRepo.getFirstWeek(4, hydrationData)[3].date).to.eql("2019/09/17");
     });
     it('should get a sorted week of data for a single user from a date', function() {
