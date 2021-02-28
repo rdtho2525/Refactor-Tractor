@@ -45,38 +45,38 @@
       </div>
       <div class="input-feild user-info">
         <label for="oz-input">Ounces Drank:</label>
-        <input type="text" id="oz-input" name="oz-input">
+        <input type="number" id="oz-input" name="oz-input">
         <label for="hr-sleep-input">Hours Slept:</label>
-        <input type="text" id="hr-sleep-input" name="hr-sleep-input">
+        <input type="number" id="hr-sleep-input" name="hr-sleep-input">
         <label for="qa-sleep-input">Sleep Quality:</label>
-        <input type="text" id="qa-sleep-input" name="qa-sleep-input">
+        <input type="number" id="qa-sleep-input" name="qa-sleep-input">
       </div>
       <div class="input-feild user-info">
         <label for="num-step-input">Number of Steps:</label>
-        <input type="text" id="num-step-input" name="num-step-input">
+        <input type="number" id="num-step-input" name="num-step-input">
         <label for="min-act-input">Minutes Active:</label>
-        <input type="text" id="min-act-input" name="min-act-input">
+        <input type="number" id="min-act-input" name="min-act-input">
         <label for="flight-input">Flight of Stairs:</label>
-        <input type="text" id="flight-input" name="flight-input">
+        <input type="number" id="flight-input" name="flight-input">
       </div>
       </div>
     </div>
   </nav>
   <hr />
   <main>
-    <div class="box-title grid-box"><h2>Hydration</h2></div>
-    <div class="box-title grid-box"><h2>Activity</h2></div>
-    <div class="box-title grid-box"><h2>Sleep</h2></div>
-    <section class="hydration-container grid-box">
-      <div class="card-today-hydration">
+    <div class="box-title grid-boxH"><h2>Hydration</h2></div>
+    <div class="box-title grid-boxA"><h2>Activity</h2></div>
+    <div class="box-title grid-boxS"><h2>Sleep</h2></div>
+    <section class="hydration-container grid-boxH box-title">
+      <div class="hydration-card">
         <p id="hydrationToday"></p>
       </div>
-      <div class="card-today-hydration">
+      <div class="hydration-card">
         <p id="hydrationAverage"></p>
       </div>
       <canvas id="hydrationChart"></canvas>
     </section>
-    <section class="activiy-container grid-box">
+    <section class="activiy-container grid-boxA">
       <div class="step-tracker">
         STEP TRACKER
       </div>
@@ -93,14 +93,14 @@
         ACTIVE MINUTE CHART
       </div>
     </section>
-    <section class="sleep-container grid-box">
-      <div class="card-today-sleep">
+    <section class="sleep-container grid-boxS">
+      <div class="sleep-card">
         <p id="sleepToday"></p>
       </div>
-      <div class="card-today-sleep">
+      <div class="sleep-card">
         <p id="sleepQualityToday"></p>
       </div>
-      <div class="card-today-sleep">
+      <div class="sleep-card">
         <p id="avUserSleepQuality"></p>
       </div>
       <div class="sleep-chart">
@@ -108,6 +108,10 @@
       </div>
     </section>
   </main>
+  <hr />
+  <section class="friends">
+
+  </section>
   <section class="main2">
     <!-- <section class="main-sidebar-body">
       <section class="body-sidebar-sidebarContainer">

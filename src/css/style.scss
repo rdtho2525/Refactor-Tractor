@@ -5,13 +5,13 @@
 body {
   font-family: 'Open Sans';
   margin: 0;
-  background-color: #a3a3a3;
+  background-color: white;
   height: auto;
 }
 
 h1 {
   text-align: center;
-  color: #ffffff;
+  color: #000000;
   height: 80px;
   padding-top: 10px;
 }
@@ -266,7 +266,7 @@ h1 {
   justify-content: center;
 }
 
-.nav-bar {
+.nav-bar, .friends {
   @include flex-row();
   justify-content: center;
   height: 220px;
@@ -324,11 +324,14 @@ label {
   margin-top: 1em;
 }
 
+input {
+  border-radius: 6px;
+  height: 2em;
+}
+
 // MAIN GRID DISPLAY //
 
-.grid-box {
-  background-color: white;
-}
+$graybackground: #e0e0e0;
 
 main {
   margin: 1em;
@@ -338,15 +341,46 @@ main {
   grid-gap: 1em;
 }
 
-.box-title, .hydration-container  {
+.box-title  {
   @include flex-col();
   align-items: center;
+}
+
+// HYDRATION
+.grid-boxH {
+  background-color: $graybackground;
+  border-radius: 6px;
+}
+
+.hydration-container {
+  border: solid #e0e0e0;
+  background-color: $graybackground;
+  border-radius: 6px;
+}
+
+.hydration-card, .sleep-card {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: .5em;
+  font-family: sans-serif;
+}
+
+.hydration-container {
+  padding: 1em;
+  width: 90%;
 }
 
 #hydrationChart {
   width: 100%;
   height: 60%;
   border: solid red;
+}
+
+// ACTIVITY
+
+.grid-boxA {
+  background-color: $graybackground;
+  border-radius: 6px;
 }
 
 .step-tracker {
@@ -369,7 +403,6 @@ main {
   grid-area: actMinChart;
 }
 
-
 .activiy-container {
   display: grid;
   grid-template-columns: 50% 50%;
@@ -380,6 +413,17 @@ main {
     "stepChart actMinChart";
 }
 
+// SLEEP //
+.grid-boxS {
+  background-color: $graybackground;
+  border-radius: 6px;
+}
+
+// FRIENDS //
+
+.friends {
+  // height:
+}
 
 // HIDDEN //
 
