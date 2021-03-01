@@ -42,7 +42,7 @@
       <div class="input-feild user-info">
         <label for="water-date">Date:</label>
         <input type="text" id="water-date" name="water-date">
-        <i class="far fa-edit log-icon"></i>
+        <button class="submit-btn" id="submitButton">SUBMIT</button>
       </div>
       <div class="input-feild user-info">
         <label for="oz-input">Ounces Drank:</label>
@@ -77,7 +77,7 @@
       </div>
       <canvas id="hydrationChart"></canvas>
       WATER INTAKE WEEK
-      <ul class="card-vertical-list" id="hydrationThisWeek"></ul>
+      <!-- <ul class="card-vertical-list" id="hydrationThisWeek"></ul> -->
     </section>
     <section class="activiy-container grid-boxA">
       <div class="user-all-compare">
@@ -99,14 +99,17 @@
       </div>
       <div class="all-act-stats">
         STAIR CHART COUNT THIS WEEK
+        <canvas id="stepCountChart"></canvas>
         <ul class="card-vertical-list" id="userStairsThisWeek"></ul>
       </div>
       <div class="step-chart">
         STEP CHART COUNT THIS WEEK
+        <canvas id="flightsOfStairsChart"></canvas>
         <ul class="card-vertical-list"id="userStepsThisWeek"></ul>
       </div>
       <div class="act-min-chart">
         ACTIVE MINUTE CHART THIS WEEK
+        <canvas id="activeMinutesChart"></canvas>
         <ul class="card-vertical-list" id="userMinutesThisWeek"></ul>
       </div>
     </section>
@@ -124,6 +127,7 @@
         <div id="sleepThisWeek">
 
         </div>
+        <canvas id="hoursSleptChart"></canvas>
         CHART FOR WEEKLY SLEEP HOURS?
       </div>
     </section>
@@ -145,6 +149,7 @@
   <hr />
   <section>
     <!-- INCREASING ACTIVITY -->
+    <canvas id="increasinglyActiveChart"></canvas>
     <p class="thisWeek">Keep up the good work! You were increasingly active on these dates:</p>
     <ul class="card-vertical-list" id="streakListMinutes">
     <p class="thisWeek">You had 3 DAY STEP STREAKS on these days:</p>
