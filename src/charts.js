@@ -2,7 +2,7 @@ import Chart from 'chart.js';
 
 var hydrationChart = document.getElementById('hydrationChart');
 var waterConsumed = new Chart(hydrationChart, {
-  type: 'bar',
+  type: 'horizontalBar',
   data: {
     labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
     datasets: [{
@@ -35,8 +35,8 @@ var weeklySteps = new Chart(stepCountChart, {
     datasets: [{
       label: 'Steps taken this week: ',
       data: getTestData(),
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgba(54, 162, 235, 1)',
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderColor: 'rgba(255, 99, 132, 1)',
       borderWidth: 1
     }]
   },
@@ -62,8 +62,8 @@ var flightsWalked = new Chart(flightsOfStairsChart, {
     datasets: [{
       label: 'Flights of stairs walked this week:',
       data: getTestData(),
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgba(54, 162, 235, 1)',
+      backgroundColor: 'rgba(255, 159, 64, 0.2)',
+      borderColor: 'rgba(255, 159, 64, 1)',
       borderWidth: 1
     }]
   },
@@ -89,8 +89,8 @@ var minutesActive = new Chart(activeMinutesChart, {
     datasets: [{
       label: 'Minutes active this week:',
       data: getTestData(),
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgba(54, 162, 235, 1)',
+      backgroundColor: 'rgba(153, 102, 255, 0.2)',
+      borderColor: 'rgba(153, 102, 255, 1)',
       borderWidth: 1
     }]
   },
@@ -110,14 +110,14 @@ var minutesActive = new Chart(activeMinutesChart, {
 
 var hoursSleptChart = document.getElementById('hoursSleptChart');
 var hoursSlept = new Chart(hoursSleptChart, {
-  type: 'bar',
+  type: 'horizontalBar',
   data: {
     labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
     datasets: [{
       label: 'Ounces of water drank in the week of :',
       data: getTestData(),
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgba(54, 162, 235, 1)',
+      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      borderColor: 'rgba(75, 192, 192, 1)',
       borderWidth: 1
     }]
   },

@@ -130,7 +130,6 @@ input {
 }
 
 // MAIN GRID DISPLAY //
-// text-shadow: 0 0 .75em #808080;
 main {
   margin: 1em;
   display: grid;
@@ -175,10 +174,10 @@ main {
   width: 90%;
 }
 
+
 #hydrationChart {
-  width: 100%;
-  height: 60%;
-  border: solid red;
+  // width: 100%;
+  // height: 100%;
 }
 
 // ACTIVITY //
