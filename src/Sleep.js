@@ -25,9 +25,15 @@ class Sleep {
     return findSleepQualityByDate.sleepQuality;
   }
   calculateWeekSleep(date, id, userRepo) {
+    // NB: returns data for (up to) 7 data points leading up to and including given date
+    // ... but keep in mind that if there are any days leading up to the given date that we don't have data for,
+    // then the data points returned will not correspond to the calendar dates you might expect
     return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.hoursSlept}`);
   }
   calculateWeekSleepQuality(date, id, userRepo) {
+    // NB: returns data for (up to) 7 data points leading up to and including given date
+    // ... but keep in mind that if there are any days leading up to the given date that we don't have data for,
+    // then the data points returned will not correspond to the calendar dates you might expect
     return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.sleepQuality}`);
   }
   calculateAllUserSleepQuality() {
