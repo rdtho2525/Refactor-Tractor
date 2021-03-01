@@ -102,6 +102,11 @@ describe('Hydration', function() {
         "date": "2019/09/15",
         "numOunces": 30
       },
+      {
+        "userID": 4,
+        "date": "2019/09/14",
+        "numOunces": 25
+      },
     ]
 
     hydration = new Hydration(hydrationData);
@@ -148,21 +153,32 @@ describe('Hydration', function() {
 
   it('should find water intake by day for first week', function() {
     expect(hydration.calculateFirstWeekOunces(userRepo, 4)[0]).to.eql('2019/09/20: 40');
-    expect(hydration.calculateFirstWeekOunces(userRepo, 4)[6]).to.eql('2019/04/15: 36');
+    expect(hydration.calculateFirstWeekOunces(userRepo, 4)[6]).to.eql('2019/09/14: 25');
   });
 
   it('should find water intake by day for a chosen week', function() {
+    expect(hydration.calculateRandomWeekOunces('2019/09/20', 4, userRepo)).to.have.lengthOf(7);
+    expect(hydration.calculateRandomWeekOunces('2019/09/20', 4, userRepo)[0]).to.eql('2019/09/20: 40');
+    expect(hydration.calculateRandomWeekOunces('2019/09/20', 4, userRepo)[6]).to.eql('2019/09/14: 25');
+
+    expect(hydration.calculateRandomWeekOunces('2019/09/18', 4, userRepo)).to.have.lengthOf(7);
     expect(hydration.calculateRandomWeekOunces('2019/09/18', 4, userRepo)[0]).to.eql('2019/09/18: 40');
+    expect(hydration.calculateRandomWeekOunces('2019/09/18', 4, userRepo)[3]).to.eql('2019/09/15: 30');
+    // as originally built, method return at index 6 should be the 7th-most-recent date leading up to 2019/09/18,
+    // ... even if that 7th-most-recent date isn't in the same week as the given date
+    expect(hydration.calculateRandomWeekOunces('2019/09/18', 4, userRepo)[6]).to.eql('2019/03/15: 35');
 
-    // Original (failing) version:
-    // expect(hydration.calculateRandomWeekOunces('2018/02/01', 4, userRepo)[6]).to.eql('2019/09/16: 30');
-
-    // Note: original version failed b/c can't access index 6 in array with one item
-    // (and only one item in array because only one test data point during week that includes 2018/02/01)
+    // test week that has data for only one date (using earliest date we have a record for)
+    expect(hydration.calculateRandomWeekOunces('2018/02/01', 4, userRepo)).to.have.lengthOf(1);
     expect(hydration.calculateRandomWeekOunces('2018/02/01', 4, userRepo)[0]).to.eql('2018/02/01: 28');
 
+    // test week that has data for only, say, 3 dates
+    expect(hydration.calculateRandomWeekOunces('2019/04/15', 4, userRepo)).to.have.lengthOf(3);
+    expect(hydration.calculateRandomWeekOunces('2019/04/15', 4, userRepo)[0]).to.eql('2019/04/15: 36');
+    expect(hydration.calculateRandomWeekOunces('2019/04/15', 4, userRepo)[2]).to.eql('2018/02/01: 28');
   })
-  //day of hydration should not include user 2 or user 1 on August 22
-  //week of hydration should not include user 4 not during the week
 
+  // [ETA: the two comments below were in the original file; not sure what they're about]
+  // day of hydration should not include user 2 or user 1 on August 22
+  //week of hydration should not include user 4 not during the week
 });
