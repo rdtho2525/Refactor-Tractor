@@ -234,8 +234,8 @@ describe('Sleep', function() {
       }
     ];
 
-
     sleep = new Sleep(sleepData);
+
     user1 = new User({
       id: 1,
       name: "Alex Roth",
@@ -245,6 +245,7 @@ describe('Sleep', function() {
       dailyStepGoal: 10000,
       friends: [2, 3, 4]
     });
+
     user2 = new User({
       id: 2,
       name: "Allie McCarthy",
@@ -254,6 +255,7 @@ describe('Sleep', function() {
       dailyStepGoal: 9000,
       friends: [1, 3, 4]
     });
+    
     user3 = new User({
       id: 3,
       name: "The Rock",
