@@ -5,7 +5,7 @@ import './images/person walking on path.jpg';
 import './images/The Rock.jpg';
 
 import './charts.js';
-import waterConsumed from './charts.js';
+import buildHydroChart from './charts.js';
 
 
 // import userData from './data/users';
@@ -111,7 +111,12 @@ function startApp(lists) {
   let winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
   addActivityInfo(userNowId, activityRepo, today, userRepo, randomHistory, userNow, winnerNow);
   addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
-  buildHydrationChart(userRepo, userNowId, hydrationRepo);
+  // buildHydroChart(userRepo, userNowId, hydrationRepo);
+  buildCharts(userRepo, userNowId, hydrationRepo);
+}
+
+function buildCharts(repo, id, hydroData, sleepData, actData) {
+  buildHydroChart(repo, id, hydroData);
 }
 
 function makeUsers(userList) {
@@ -189,12 +194,12 @@ function makeSleepQualityHTML(id, sleepInfo, userStorage, method) {
 }
 
 function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateString, user, winnerId) {
-  userStairsToday.insertAdjacentHTML("afterBegin", `<p>Stair Count:</p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'flightsOfStairs')}</span></p>`)
-  avgStairsToday.insertAdjacentHTML("afterBegin", `<p>Stair Count: </p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'flightsOfStairs')}</span></p>`)
-  userStepsToday.insertAdjacentHTML("afterBegin", `<p>Step Count:</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'numSteps')}</span></p>`)
-  avgStepsToday.insertAdjacentHTML("afterBegin", `<p>Step Count:</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'numSteps')}</span></p>`)
-  userMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'minutesActive')}</span></p>`)
-  avgMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'minutesActive')}</span></p>`)
+  userStairsToday.insertAdjacentHTML("afterBegin", `<p>Stair Count:</p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'flightsOfStairs')}</span></p>`);
+  avgStairsToday.insertAdjacentHTML("afterBegin", `<p>Stair Count: </p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'flightsOfStairs')}</span></p>`);
+  userStepsToday.insertAdjacentHTML("afterBegin", `<p>Step Count:</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'numSteps')}</span></p>`);
+  avgStepsToday.insertAdjacentHTML("afterBegin", `<p>Step Count:</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'numSteps')}</span></p>`);
+  userMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'minutesActive')}</span></p>`);
+  avgMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'minutesActive')}</span></p>`);
   userStepsThisWeek.insertAdjacentHTML("afterBegin", makeStepsHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, "numSteps")));
   userStairsThisWeek.insertAdjacentHTML("afterBegin", makeStairsHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, "flightsOfStairs")));
   userMinutesThisWeek.insertAdjacentHTML("afterBegin", makeMinutesHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, "minutesActive")));
@@ -227,11 +232,6 @@ function makeFriendChallengeHTML(id, activityInfo, userStorage, method) {
 
 function makeStepStreakHTML(id, activityInfo, userStorage, method) {
   return method.map(streakData => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
-}
-
-function buildHydrationChart(userRepo, user, hydration) {
-  waterConsumed.data.datasets.data = hydration.calculateFirstWeekOunces(userRepo, user);
-  waterConsumed.update();
 }
 
 const userFetch = fetch('http://localhost:3001/api/v1/users')
