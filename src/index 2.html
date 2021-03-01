@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Activity Tracker</title>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+</head>
+
+<body>
+  <h1 id="headerText">Activity Tracker</h1>
+  <!-- <h2 class="sidebar-header-name" id="sidebarName">Name Name</h2> -->
+  <hr />
+  <nav class="nav-bar">
+    <div class="user-prof">
+      <img src="./images/The Rock.jpg" class="user-img"></img>
+      <div>
+        <div class="icon-display">
+          <i class="fas fa-envelope"></i>
+          <p class="user-info hidden" id="userEmail"></p>
+        </div>
+        <div class="icon-display">
+          <i class="fas fa-home"></i>
+          <p class="user-info hidden" id="userAddress"></p>
+        </div>
+        <div class="icon-display">
+          <i class="fas fa-walking"></i>
+          <p class="user-info hidden" id="userStridelength"></p>
+        </div>
+        <div class="icon-display">
+          <i class="fas fa-shoe-prints"></i>
+          <p class="user-info hidden" id="stepGoalCard"></p>
+        </div>
+        <div class="icon-display">
+          <i class="fas fa-user-friends"></i>
+          <ul class="user-info friend-list hidden" id="friendList"></ul>
+        </div>
+        <!-- <p class="sidebar-header-userInfo" id="avStepGoalCard"> -->
+      </div>
+    </div>
+    <div class="input-box">
+      <div class="input-feild user-info">
+        <label for="water-date">Date:</label>
+        <input type="text" id="water-date" name="water-date">
+        <i class="far fa-edit log-icon"></i>
+      </div>
+      <div class="input-feild user-info">
+        <label for="oz-input">Ounces Drank:</label>
+        <input type="number" id="oz-input" name="oz-input">
+        <label for="hr-sleep-input">Hours Slept:</label>
+        <input type="number" id="hr-sleep-input" name="hr-sleep-input">
+        <label for="qa-sleep-input">Sleep Quality:</label>
+        <input type="number" id="qa-sleep-input" name="qa-sleep-input">
+      </div>
+      <div class="input-feild user-info">
+        <label for="num-step-input">Number of Steps:</label>
+        <input type="number" id="num-step-input" name="num-step-input">
+        <label for="min-act-input">Minutes Active:</label>
+        <input type="number" id="min-act-input" name="min-act-input">
+        <label for="flight-input">Flight of Stairs:</label>
+        <input type="number" id="flight-input" name="flight-input">
+      </div>
+      </div>
+    </div>
+  </nav>
+  <hr />
+  <main>
+    <div class="box-title grid-boxH"><h2>Hydration</h2></div>
+    <div class="box-title grid-boxA"><h2>Activity</h2></div>
+    <div class="box-title grid-boxS"><h2>Sleep</h2></div>
+    <section class="hydration-container grid-boxH box-title">
+      <div class="hydration-card">
+        <p id="hydrationToday"></p>
+      </div>
+      <div class="hydration-card">
+        <p id="hydrationAverage"></p>
+      </div>
+      <canvas id="hydrationChart"></canvas>
+      WATER INTAKE WEEK
+      <ul class="card-vertical-list" id="hydrationThisWeek"></ul>
+    </section>
+    <section class="activiy-container grid-boxA">
+      <div class="user-all-compare">
+        <div class="user-act-daily">
+          <h2>YOUR STATS</h2>
+          <div><p id="userStepsToday"></p></div>
+          <div><p id="userStairsToday"></p></div>
+          <div><p id="userMinutesToday"></p></div>
+        </div>
+        <div class="all-act-avg">
+          <h2>USER AVG</h2>
+          <div><p id="avgStepsToday"></p></div>
+          <div><p id="avgStairsToday"></p></div>
+          <div><p id="avgMinutesToday"></p></div>
+        </div>
+      </div>
+      <div class="user-act-stats">
+        MILES WALKED
+      </div>
+      <div class="all-act-stats">
+        STAIR CHART COUNT THIS WEEK
+        <ul class="card-vertical-list" id="userStairsThisWeek"></ul>
+      </div>
+      <div class="step-chart">
+        STEP CHART COUNT THIS WEEK
+        <ul class="card-vertical-list"id="userStepsThisWeek"></ul>
+      </div>
+      <div class="act-min-chart">
+        ACTIVE MINUTE CHART THIS WEEK
+        <ul class="card-vertical-list" id="userMinutesThisWeek"></ul>
+      </div>
+    </section>
+    <section class="sleep-container grid-boxS">
+      <div class="sleep-card">
+        <p id="sleepToday"></p>
+      </div>
+      <div class="sleep-card">
+        <p id="sleepQualityToday"></p>
+      </div>
+      <div class="sleep-card">
+        <p id="avUserSleepQuality"></p>
+      </div>
+      <div class="sleep-chart">
+        <div id="sleepThisWeek">
+
+        </div>
+        CHART FOR WEEKLY SLEEP HOURS?
+      </div>
+    </section>
+  </main>
+  <hr />
+  <section class="friends">
+    <img class="friend-img" src="./images/person walking on path.jpg"/>
+    <h2 class="friends-title">FRIENDLY STEP CHALLENGE!</h2>
+    <p class="sidebar-header-userInfo" id="bigWinner"></p>
+    <p class="sidebar-header-userInfo" id="stepGoalCard"></p>
+    <p class="sidebar-header-userInfo" id="avStepGoalCard"><p>
+      <section class="sidebar-friendContainer-listItems">
+        <p class="thisWeek">Rank this week</p>
+        <ul class="card-vertical-list" id="friendChallengeListToday"></ul>
+        <p class="historicalWeek">- Historical Rank</p>
+        <ul class="card-vertical-list" id="friendChallengeListHistory"></ul>
+      </section>
+  </section>
+  <hr />
+  <section>
+    <!-- INCREASING ACTIVITY -->
+    <p class="thisWeek">Keep up the good work! You were increasingly active on these dates:</p>
+    <ul class="card-vertical-list" id="streakListMinutes">
+    <p class="thisWeek">You had 3 DAY STEP STREAKS on these days:</p>
+    <ul class="card-vertical-list"id="streakList"></ul>
+  </section>
+  <section class="main2">
+    <section class="body-main-infoContainter">
+        <section class="infoContainer-cardContainer-card-horizontal">
+          <section class="horizontalCard-activity-container">
+            <div class="card-history-activity">
+              <p class="thisWeek">Your minutes of activity this week</p>
+              <div class="sidebar-header-line"></div>
+              <ul class="card-vertical-list" id="userMinutesThisWeek">
+                Activity week list goes here
+              </ul>
+            </div>
+            <div class="card-history-activity">
+              <p class="thisWeek">Winner's steps this week</p>
+              <div class="sidebar-header-line"></div>
+              <ul class="card-vertical-list" id="bestUserSteps">
+                Activity week list goes here
+              </ul>
+            </div>
+          </section>
+        </section>
+      </section>
+  </section>
+</body>
+
+</html>
