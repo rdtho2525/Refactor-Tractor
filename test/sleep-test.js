@@ -325,6 +325,10 @@ describe('Sleep', function() {
     expect(sleep.calculateWeekSleepQuality('2019/06/18', 4, userRepo)[6]).to.eql('2017/06/15: 3');
   });
 
+  it('should find average sleep quality across all users', function() {
+    expect(sleep.calculateAllUserSleepQuality()).to.equal(2.98);
+  });
+
   it('should determine the best quality sleepers for a week', function() {
     expect(sleep.determineBestSleepers("2019/06/21", userRepo)).to.eql(["Allie McCarthy", "Bugs Bunny"]);
   });

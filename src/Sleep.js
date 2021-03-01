@@ -40,8 +40,9 @@ class Sleep {
     var totalSleepQuality = this.sleepData.reduce(function(sumSoFar, dataItem) {
       sumSoFar += dataItem.sleepQuality;
       return sumSoFar;
-    }, 0)
-    return totalSleepQuality / sleepData.length
+    }, 0);
+    const average = totalSleepQuality / this.sleepData.length;
+    return Math.round(average * 100) /100;
   }
   determineBestSleepers(date, userRepo) {
     let timeline = userRepo.chooseWeekDataForAllUsers(this.sleepData, date);
