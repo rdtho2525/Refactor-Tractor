@@ -51,7 +51,17 @@ var userMinutesThisWeek = document.getElementById('userMinutesThisWeek');
 var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes');
-
+const hydrationChart = document.querySelector('#hydrationChart');
+const emailIcon = document.querySelector('.fa-envelope');
+const addressIcon = document.querySelector('.fa-home');
+const strideIcon = document.querySelector('.fa-walking');
+const stepIcon = document.querySelector('.fa-shoe-prints');
+const friendsIcon = document.querySelector('.fa-user-friends');
+const email = document.querySelector('#userEmail');
+const address = document.querySelector('#userAddress');
+const stride = document.querySelector('#userStridelength');
+const step = document.querySelector('#stepGoalCard');
+const friends = document.querySelector('#friendList');
 var dateInput = document.querySelector("#waterDate");
 var waterInput = document.querySelector('#waterInput');
 var hoursSleptInput = document.querySelector('#hoursSleptInput');
@@ -61,7 +71,28 @@ var activeMinutesInput = document.querySelector('#activeMinutesInput');
 var flightsOfStairsInput = document.querySelector('#flightInput');
 var submitButton = document.querySelector('#submitButton');
 
+
 var userNowId;
+
+emailIcon.addEventListener('click', function() {
+  displayIconInfo(email)
+});
+addressIcon.addEventListener('click', function() {
+  displayIconInfo(address)
+});
+strideIcon.addEventListener('click', function() {
+  displayIconInfo(stride)
+});
+stepIcon.addEventListener('click', function() {
+  displayIconInfo(step)
+});
+friendsIcon.addEventListener('click', function() {
+  displayIconInfo(friends)
+});
+
+function displayIconInfo(icon) {
+  icon.classList.toggle('hidden');
+}
 
 function startApp(lists) {
   const allUsers = makeUsers(lists[0].userData);
@@ -99,19 +130,20 @@ function getUserById(id, listRepo) {
   return listRepo.getDataFromID(id);
 };
 
+
+
 function addInfoToSidebar(user, userStorage) {
-  sidebarName.innerText = user.name;
-  headerText.innerText = `${user.getFirstName()}'s Activity Tracker`;
-  stepGoalCard.innerText = `Your daily step goal is ${user.dailyStepGoal}.`
-  avStepGoalCard.innerText = `The average daily step goal is ${userStorage.calculateAverageStepGoal()}`;
+  headerText.innerText = `${user.name}'s Activity Tracker`;
   userAddress.innerText = user.address;
   userEmail.innerText = user.email;
-  userStridelength.innerText = `Your stridelength is ${user.strideLength} meters.`;
+  stepGoalCard.innerText = `Step goal is ${user.dailyStepGoal}.`
+  // avStepGoalCard.innerText = `The average daily step goal is ${userStorage.calculateAverageStepGoal()}`;
+  userStridelength.innerText = `Stridelength is ${user.strideLength} meters.`;
   friendList.insertAdjacentHTML('afterBegin', makeFriendHTML(user, userStorage))
 };
 
 function makeFriendHTML(user, userStorage) {
-  return user.getFriendsNames(userStorage).map(friendName => `<li class='historical-list-listItem'>${friendName}</li>`).join('');
+  return user.getFriendsNames(userStorage).map(friendName => `-${friendName}`).join('');
 }
 
 function makeWinnerID(activityInfo, user, dateString, userStorage){
@@ -130,10 +162,10 @@ function makeRandomDate(userStorage, id, dataSet) {
 }
 
 function addHydrationInfo(id, hydrationInfo, dateString, userStorage, laterDateString) {
-  hydrationToday.insertAdjacentHTML('afterBegin', `<p>You drank</p><p><span class="number">${hydrationInfo.calculateDailyOunces(id, dateString)}</span></p><p>oz water today.</p>`);
-  hydrationAverage.insertAdjacentHTML('afterBegin', `<p>Your average water intake is</p><p><span class="number">${hydrationInfo.calculateAverageOunces(id)}</span></p> <p>oz per day.</p>`)
+  hydrationToday.insertAdjacentHTML('afterBegin', `<p><span class="number">${hydrationInfo.calculateDailyOunces(id, dateString)}</span></p><p>oz water</p>`);
+  hydrationAverage.insertAdjacentHTML('afterBegin', `<p><span class="number">${hydrationInfo.calculateAverageOunces(id)}</span></p> <p>average oz per day</p>`)
   hydrationThisWeek.insertAdjacentHTML('afterBegin', makeHydrationHTML(id, hydrationInfo, userStorage, hydrationInfo.calculateFirstWeekOunces(userStorage, id)));
-  hydrationEarlierWeek.insertAdjacentHTML('afterBegin', makeHydrationHTML(id, hydrationInfo, userStorage, hydrationInfo.calculateRandomWeekOunces(laterDateString, id, userStorage)));
+  // hydrationEarlierWeek.insertAdjacentHTML('afterBegin', makeHydrationHTML(id, hydrationInfo, userStorage, hydrationInfo.calculateRandomWeekOunces(laterDateString, id, userStorage)));
 }
 
 function makeHydrationHTML(id, hydrationInfo, userStorage, method) {
@@ -141,11 +173,11 @@ function makeHydrationHTML(id, hydrationInfo, userStorage, method) {
 }
 
 function addSleepInfo(id, sleepInfo, dateString, userStorage, laterDateString) {
-  sleepToday.insertAdjacentHTML("afterBegin", `<p>You slept</p> <p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> <p>hours today.</p>`);
-  sleepQualityToday.insertAdjacentHTML("afterBegin", `<p>Your sleep quality was</p> <p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span></p><p>out of 5.</p>`);
-  avUserSleepQuality.insertAdjacentHTML("afterBegin", `<p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() *100)/100}</span></p><p>out of 5.</p>`);
+  sleepToday.insertAdjacentHTML("afterBegin", `<p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> <p>hours slept</p>`);
+  sleepQualityToday.insertAdjacentHTML("afterBegin", `<p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span></p><p>sleep quality of 5</p>`);
+  avUserSleepQuality.insertAdjacentHTML("afterBegin", `<p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() *100)/100}</span></p><p>average sleep quality of 5</p>`);
   sleepThisWeek.insertAdjacentHTML('afterBegin', makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(dateString, id, userStorage)));
-  sleepEarlierWeek.insertAdjacentHTML('afterBegin', makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(laterDateString, id, userStorage)));
+  // sleepEarlierWeek.insertAdjacentHTML('afterBegin', makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(laterDateString, id, userStorage)));
 }
 
 function makeSleepHTML(id, sleepInfo, userStorage, method) {
@@ -157,12 +189,12 @@ function makeSleepQualityHTML(id, sleepInfo, userStorage, method) {
 }
 
 function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateString, user, winnerId) {
-  userStairsToday.insertAdjacentHTML("afterBegin", `<p>Stair Count:</p><p>You</><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'flightsOfStairs')}</span></p>`)
-  avgStairsToday.insertAdjacentHTML("afterBegin", `<p>Stair Count: </p><p>All Users</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'flightsOfStairs')}</span></p>`)
-  userStepsToday.insertAdjacentHTML("afterBegin", `<p>Step Count:</p><p>You</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'numSteps')}</span></p>`)
-  avgStepsToday.insertAdjacentHTML("afterBegin", `<p>Step Count:</p><p>All Users</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'numSteps')}</span></p>`)
-  userMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p>You</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'minutesActive')}</span></p>`)
-  avgMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p>All Users</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'minutesActive')}</span></p>`)
+  userStairsToday.insertAdjacentHTML("afterBegin", `<p>Stair Count:</p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'flightsOfStairs')}</span></p>`)
+  avgStairsToday.insertAdjacentHTML("afterBegin", `<p>Stair Count: </p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'flightsOfStairs')}</span></p>`)
+  userStepsToday.insertAdjacentHTML("afterBegin", `<p>Step Count:</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'numSteps')}</span></p>`)
+  avgStepsToday.insertAdjacentHTML("afterBegin", `<p>Step Count:</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'numSteps')}</span></p>`)
+  userMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'minutesActive')}</span></p>`)
+  avgMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'minutesActive')}</span></p>`)
   userStepsThisWeek.insertAdjacentHTML("afterBegin", makeStepsHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, "numSteps")));
   userStairsThisWeek.insertAdjacentHTML("afterBegin", makeStairsHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, "flightsOfStairs")));
   userMinutesThisWeek.insertAdjacentHTML("afterBegin", makeMinutesHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, "minutesActive")));
