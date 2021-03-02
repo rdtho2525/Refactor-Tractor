@@ -56,6 +56,21 @@ class Activity {
     let timeline = userRepo.chooseWeekDataForAllUsers(friendsActivity, date);
     return userRepo.combineRankedUserIDsAndAveragedData(friendsActivity, date, 'numSteps', timeline)
   }
+
+  getFriendsWeeklyTotalSteps(user, date, userRepo) {
+    const friendsActivity = this.getFriendsActivity(user, userRepo);
+    const timeline = userRepo.chooseWeekDataForAllUsers(friendsActivity, date);
+    const sortedObjectKeys = userRepo.isolateUsernameAndRelevantData(friendsActivity, date, 'numSteps', timeline);
+    const rankedUsersAndAverages = userRepo.rankUserIDsbyRelevantDataValue(friendsActivity, date, 'numSteps', timeline);
+    return rankedUsersAndAverages.map(function(rankedUser) {
+      return rankedUser = {
+      [rankedUser]: sortedObjectKeys[rankedUser].reduce(
+        function(currentSum, stepValue) {
+          return currentSum + stepValue;
+        }, 0)
+      }
+    });
+  }
   showChallengeListAndWinner(user, date, userRepo) {
     let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
 
