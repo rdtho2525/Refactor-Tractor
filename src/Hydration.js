@@ -16,7 +16,7 @@ class Hydration {
   calculateFirstWeekOunces(userRepo, id) {
     return userRepo.getFirstWeek(id, this.hydrationData).reduce((acc, data) => {
       acc[data.date] = data.numOunces;
-      return acc
+      return acc;
     },{});
   }
   calculateRandomWeekOunces(date, id, userRepo) {

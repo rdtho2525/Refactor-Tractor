@@ -1,6 +1,6 @@
 import Chart from 'chart.js';
-
-function buildHydroChart(userRepo, user, hydration) {
+console.log('hi there')
+export function buildHydroChart(userRepo, user, hydration) {
   var hydrationChart = document.getElementById('hydrationChart');
   var waterConsumed = new Chart(hydrationChart, {
     type: 'bar',
@@ -27,10 +27,9 @@ function buildHydroChart(userRepo, user, hydration) {
       }
     }
   });
-console.log(hydration.calculateFirstWeekOunces(userRepo, user))
 }
 
-function buildStepChart() {
+function buildStepChart(userRepo, user, actData) {
   var stepCountChart = document.getElementById('stepCountChart');
   var weeklySteps = new Chart(stepCountChart, {
     type: 'bar',
@@ -117,15 +116,15 @@ function buildActivityChart() {
   });
 }
 
-function buildSleepChart() {
+export function buildSleepChart(date, userRepo, user, sleepData) {
   var hoursSleptChart = document.getElementById('hoursSleptChart');
   var hoursSlept = new Chart(hoursSleptChart, {
     type: 'horizontalBar',
     data: {
-      labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+      labels: Object.keys(sleepData.calculateWeekSleep(date, user, userRepo)),
       datasets: [{
         label: 'Hours slept in the week of :',
-        data: getTestData(),
+        data: Object.values(sleepData.calculateWeekSleep(date, user, userRepo)),
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1
@@ -137,7 +136,7 @@ function buildSleepChart() {
           ticks: {
             beginAtZero: true,
             callback: function(value) {
-              return `${value} hrs.`;
+              return `${value}`;
             }
           }
         }]
@@ -203,10 +202,3 @@ function buildIncreasinglyActChart() {
     }
   });
 }
-
-
-function getTestData() {
-  return [10, 20, 30, 40, 50, 60, 70]
-}
-
-export default buildHydroChart;

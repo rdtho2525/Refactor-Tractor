@@ -4,14 +4,10 @@ import './css/style.scss';
 import './images/person walking on path.jpg';
 import './images/The Rock.jpg';
 
-import './charts.js';
-import buildHydroChart from './charts.js';
-
-
-// import userData from './data/users';
-// import hydrationData from './data/hydration';
-// import sleepData from './data/sleep';
-// import activityData from './data/activity';
+// import  from './charts.js';
+import { buildHydroChart, buildSleepChart } from './charts.js';
+// import buildHydroChart from './charts.js';
+// import buildSleepChart from './charts.js';
 
 import User from './User';
 import Activity from './Activity';
@@ -70,6 +66,7 @@ var stepNumberInput = document.querySelector('#stepNumberInput');
 var activeMinutesInput = document.querySelector('#activeMinutesInput');
 var flightsOfStairsInput = document.querySelector('#flightInput');
 var submitButton = document.querySelector('#submitButton');
+const milesWalked = document.querySelector('.miles-walked');
 
 
 var userNowId;
@@ -110,13 +107,15 @@ function startApp(lists) {
   addSleepInfo(userNowId, sleepRepo, today, userRepo, randomHistory);
   let winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
   addActivityInfo(userNowId, activityRepo, today, userRepo, randomHistory, userNow, winnerNow);
+  // addMilesWalked(activityRepo);
   addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
-  // buildHydroChart(userRepo, userNowId, hydrationRepo);
-  buildCharts(userRepo, userNowId, hydrationRepo);
+  buildCharts(today, userRepo, userNowId, hydrationRepo, sleepRepo, activityRepo);
 }
 
-function buildCharts(repo, id, hydroData, sleepData, actData) {
+function buildCharts(date, repo, id, hydroData, sleepData, actData) {
   buildHydroChart(repo, id, hydroData);
+  // buildStepChart(repo, id, actData);
+  buildSleepChart(date, repo, id, sleepData);
 }
 
 function makeUsers(userList) {
@@ -135,14 +134,11 @@ function getUserById(id, listRepo) {
   return listRepo.getDataFromID(id);
 };
 
-
-
 function addInfoToSidebar(user, userStorage) {
   headerText.innerText = `${user.name}'s Activity Tracker`;
   userAddress.innerText = user.address;
   userEmail.innerText = user.email;
   stepGoalCard.innerText = `Step goal is ${user.dailyStepGoal}.`
-  // avStepGoalCard.innerText = `The average daily step goal is ${userStorage.calculateAverageStepGoal()}`;
   userStridelength.innerText = `Stridelength is ${user.strideLength} meters.`;
   friendList.insertAdjacentHTML('afterBegin', makeFriendHTML(user, userStorage))
 };
@@ -169,25 +165,19 @@ function makeRandomDate(userStorage, id, dataSet) {
 function addHydrationInfo(id, hydrationInfo, dateString, userStorage, laterDateString) {
   hydrationToday.insertAdjacentHTML('afterBegin', `<p><span class="number">${hydrationInfo.calculateDailyOunces(id, dateString)}</span></p><p>oz water</p>`);
   hydrationAverage.insertAdjacentHTML('afterBegin', `<p><span class="number">${hydrationInfo.calculateAverageOunces(id)}</span></p> <p>average oz per day</p>`)
-  // hydrationThisWeek.insertAdjacentHTML('afterBegin', makeHydrationHTML(id, hydrationInfo, userStorage, hydrationInfo.calculateFirstWeekOunces(userStorage, id)));
-  // hydrationEarlierWeek.insertAdjacentHTML('afterBegin', makeHydrationHTML(id, hydrationInfo, userStorage, hydrationInfo.calculateRandomWeekOunces(laterDateString, id, userStorage)));
-}
-
-function makeHydrationHTML(id, hydrationInfo, userStorage, method) {
-  return method.map(drinkData => `<li class="historical-list-listItem">On ${drinkData}oz</li>`).join('');
 }
 
 function addSleepInfo(id, sleepInfo, dateString, userStorage, laterDateString) {
   sleepToday.insertAdjacentHTML("afterBegin", `<p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> <p>hours slept</p>`);
   sleepQualityToday.insertAdjacentHTML("afterBegin", `<p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span></p><p>sleep quality of 5</p>`);
   avUserSleepQuality.insertAdjacentHTML("afterBegin", `<p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() *100)/100}</span></p><p>average sleep quality of 5</p>`);
-  sleepThisWeek.insertAdjacentHTML('afterBegin', makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(dateString, id, userStorage)));
+  // sleepThisWeek.insertAdjacentHTML('afterBegin', makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(dateString, id, userStorage)));
   // sleepEarlierWeek.insertAdjacentHTML('afterBegin', makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(laterDateString, id, userStorage)));
 }
 
-function makeSleepHTML(id, sleepInfo, userStorage, method) {
-  return method.map(sleepData => `<li class="historical-list-listItem">On ${sleepData} hours</li>`).join('');
-}
+// function makeSleepHTML(id, sleepInfo, userStorage, method) {
+//   return method.map(sleepData => `<li class="historical-list-listItem">On ${sleepData} hours</li>`).join('');
+// }
 
 function makeSleepQualityHTML(id, sleepInfo, userStorage, method) {
   return method.map(sleepQualityData => `<li class="historical-list-listItem">On ${sleepQualityData}/5 quality of sleep</li>`).join('');
@@ -217,6 +207,10 @@ function makeStairsHTML(id, activityInfo, userStorage, method) {
 function makeMinutesHTML(id, activityInfo, userStorage, method) {
   return method.map(data => `<li class="historical-list-listItem">On ${data} minutes</li>`).join('');
 }
+
+// function addMilesWalked(actData) {
+//   milesWalked.innerHTML = `You walked ${actData.getMilesFromStepsByDatemiles()}!`;
+// }
 
 function addFriendGameInfo(id, activityInfo, userStorage, dateString, laterDateString, user) {
   friendChallengeListToday.insertAdjacentHTML("afterBegin", makeFriendChallengeHTML(id, activityInfo, userStorage, activityInfo.showChallengeListAndWinner(user, dateString, userStorage)));

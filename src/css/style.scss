@@ -194,6 +194,9 @@ main {
 .user-act-daily, .all-act-avg {
   @include flex-row();
   justify-content: space-around;
+  align-items: center;
+  border-radius: 6px;
+  border-bottom: solid darkgray;
 }
 
 .user-act-stats {
