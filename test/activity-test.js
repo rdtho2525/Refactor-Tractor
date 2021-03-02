@@ -218,6 +218,9 @@ describe('Activity', function() {
   it('should return true/false if the given user met their step goal on a given day', function() {
     expect(activity.accomplishStepGoal(4, "2019/06/15", userRepo.users[3])).to.eql(false);
   });
+  it('should return true if user exceeds their step goal', function() {
+    expect(activity.accomplishStepGoal(1, "2019/06/17", userRepo.users[0])).to.eql(true);
+  });
   it('should return all days that a given user exceeded their step goal', function() {
     expect(activity.getDaysGoalExceeded(1, userRepo.users[0])).to.eql([
       "2019/06/17",
