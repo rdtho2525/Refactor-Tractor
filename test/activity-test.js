@@ -557,4 +557,14 @@ describe('Friend Activity', function() {
   it('should show a 3-day increasing streak for a users minutes of activity', function() {
     expect(activity.getStreak(userRepo, 1, 'minutesActive')).to.eql(['2019/06/18'])
   });
+  it('should display the sum of steps in a given week for each of the user\'s friends', function() {
+    console.log('total steps?: ', activity.getFriendsWeeklyTotalSteps(user4, '2019/06/15', userRepo));
+    expect(activity.getFriendsWeeklyTotalSteps(user4, '2019/06/15', userRepo)).to.eql([{
+        '2': 19104
+      },
+      {
+        '1': 14951
+      }
+    ])
+  })
 });
