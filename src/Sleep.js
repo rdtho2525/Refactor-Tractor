@@ -45,19 +45,23 @@ class Sleep {
     return Math.round(average * 100) /100;
   }
   determineBestSleepers(date, userRepo) {
+    // returns an array of name strings corresponding to all sleepers with sleep quality > 3 
+    // ... in (up to) 7 date entries leading up to and including given date
     let timeline = userRepo.chooseWeekDataForAllUsers(this.sleepData, date);
     let userSleepObject = userRepo.isolateUsernameAndRelevantData(this.sleepData, date, 'sleepQuality', timeline);
 
     return Object.keys(userSleepObject).filter(function(key) {
       return (userSleepObject[key].reduce(function(sumSoFar, sleepQualityValue) {
-        sumSoFar += sleepQualityValue
+        sumSoFar += sleepQualityValue;
         return sumSoFar;
       }, 0) / userSleepObject[key].length) > 3
     }).map(function(sleeper) {
       return userRepo.getDataFromID(parseInt(sleeper)).name;
-    })
+    });
   }
   determineSleepWinnerForWeek(date, userRepo) {
+    // returns array with name string of person with best quality sleep during (up to) 7 days leading up to given date
+    // the returned array can contain more than one name if there's a tie
     let timeline = userRepo.chooseWeekDataForAllUsers(this.sleepData, date);
     let sleepRankWithData = userRepo.combineRankedUserIDsAndAveragedData(this.sleepData, date, 'sleepQuality', timeline);
 

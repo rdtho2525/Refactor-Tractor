@@ -371,6 +371,18 @@ describe('Sleep', function() {
       "date": "2019/06/21",
       "hoursSlept": 9,
       "sleepQuality": 4
+    },
+    {
+      "userID": 7,
+      "date": "2019/06/21",
+      "hoursSlept": 10,
+      "sleepQuality": 4
+    },
+    {
+      "userID": 8,
+      "date": "2019/06/21",
+      "hoursSlept": 10,
+      "sleepQuality": 4
     });
 
     let user6 = new User({
@@ -383,10 +395,34 @@ describe('Sleep', function() {
       friends: [1, 2, 3]
     });
 
-    users = [user1, user2, user3, user4, user5, user6];
+    let user7 = new User({
+      id: 7,
+      name: "Sichmond",
+      address: "1234 Looney Street, Denver CO 80301-1697",
+      email: "SugsB1@hotmail.com",
+      strideLength: 3.8,
+      dailyStepGoal: 7000,
+      friends: [1, 2, 3]
+    });
+
+    let user8 = new User({
+      id: 8,
+      name: "Tichmond",
+      address: "1234 Looney Street, Denver CO 80301-1697",
+      email: "TugsB1@hotmail.com",
+      strideLength: 3.8,
+      dailyStepGoal: 7000,
+      friends: [1, 2, 3]
+    });
+
+    users = [user1, user2, user3, user4, user5, user6, user7, user8];
     userRepo = new UserRepo(users);
 
-    expect(sleep.determineSleepHoursWinnerForDay('2019/06/21', userRepo)).to.eql(["Bugs Bunny", "Richmond"]);
+    expect(sleep.determineSleepHoursWinnerForDay('2019/06/21', userRepo)).to.eql(["Sichmond", "Tichmond"]);
   });
-  //make this test fail when user is NOT best in week
+
+  it('get winner names from a list of ids', function() {
+    expect(sleep.getWinnerNamesFromList([{'2': 9}, {'3': 8}, {'1': 6.5}], userRepo)).to.eql(["Allie McCarthy"]);
+    expect(sleep.getWinnerNamesFromList([{'2': 9.5}, {'3': 9.5}, {'1': 6.5}], userRepo)).to.eql(["Allie McCarthy", "The Rock"]);
+  });
 });
