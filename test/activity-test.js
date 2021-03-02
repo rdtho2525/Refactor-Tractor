@@ -553,6 +553,10 @@ describe('Friend Activity', function() {
   });
   it('should know the ID of the winning friend', function() {
     expect(activity.getWinnerId(user4, "2019/06/15", userRepo)).to.eql(2)
+  });
+
+  it.only('should include user in competition for weekly challenge', function() {
+    expect(activity.showcaseWinner(user4, "2019/06/15", userRepo)).to.eql(2)
   })
   it('should show a 3-day increasing streak for a users step count', function() {
     expect(activity.getStreak(userRepo, 1, 'numSteps')).to.eql(['2019/06/17', '2019/06/18'])
