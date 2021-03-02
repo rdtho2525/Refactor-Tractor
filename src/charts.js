@@ -7,7 +7,7 @@ export function buildHydroChart(userRepo, user, hydration) {
     data: {
       labels: Object.keys(hydration.calculateFirstWeekOunces(userRepo, user)),
       datasets: [{
-        label: 'Ounces of water drank in the week of :',
+        label: 'Ounces of water drank',
         data: Object.values(hydration.calculateFirstWeekOunces(userRepo, user)),
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         borderColor: 'rgba(54, 162, 235, 1)',
@@ -119,11 +119,11 @@ function buildActivityChart() {
 export function buildSleepChart(date, userRepo, user, sleepData) {
   var hoursSleptChart = document.getElementById('hoursSleptChart');
   var hoursSlept = new Chart(hoursSleptChart, {
-    type: 'horizontalBar',
+    type: 'bar',
     data: {
       labels: Object.keys(sleepData.calculateWeekSleep(date, user, userRepo)),
       datasets: [{
-        label: 'Hours slept in the week of :',
+        label: 'Hours slept',
         data: Object.values(sleepData.calculateWeekSleep(date, user, userRepo)),
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
@@ -145,17 +145,17 @@ export function buildSleepChart(date, userRepo, user, sleepData) {
   });
 }
 
-function buildSleepQualityChart() {
+export function buildSleepQualityChart(date, userRepo, user, sleepData) {
   var sleepQualityChart = document.getElementById('sleepQualityChart');
   var sleepQuality = new Chart(sleepQualityChart, {
     type: 'bar',
     data: {
-      labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+      labels: Object.keys(sleepData.calculateWeekSleepQuality(date, user, userRepo)),
       datasets: [{
         label: 'Quality of sleep:',
-        data: getTestData(),
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        borderColor: 'rgba(54, 162, 235, 1)',
+        data: Object.values(sleepData.calculateWeekSleepQuality(date, user, userRepo)),
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1
       }]
     },

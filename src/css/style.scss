@@ -195,7 +195,6 @@ main {
   @include flex-row();
   justify-content: space-around;
   align-items: center;
-  border-radius: 6px;
   border-bottom: solid darkgray;
 }
 
@@ -229,6 +228,11 @@ main {
 .grid-boxS {
   background-color: $graybackground;
   border-radius: 6px;
+}
+
+.user-sleep {
+  @include flex-row();
+  justify-content: space-around;
 }
 
 // FRIENDS //

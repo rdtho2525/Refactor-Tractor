@@ -31,7 +31,10 @@ class Sleep {
     },{});
   }
   calculateWeekSleepQuality(date, id, userRepo) {
-    return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.sleepQuality}`);
+    return userRepo.getWeekFromDate(date, id, this.sleepData).reduce((acc, data) => {
+      acc[data.date] = data.sleepQuality;
+      return acc;
+    },{});
   }
   calculateAllUserSleepQuality() {
     var totalSleepQuality = this.sleepData.reduce(function(sumSoFar, dataItem) {
