@@ -17,8 +17,6 @@ class Activity {
   }
   accomplishStepGoal(id, date, userRepo) {
     let userStepsByDate = this.activityData.find(data => id === data.userID && date === data.date);
-    console.log(userStepsByDate.numSteps);
-    console.log(userRepo.dailyStepGoal);
     if (userStepsByDate.numSteps >= userRepo.dailyStepGoal) {
       return true;
     }
