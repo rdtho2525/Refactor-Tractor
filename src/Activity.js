@@ -41,7 +41,6 @@ class Activity {
   }
 
   // Friends
-
   getFriendsActivity(user, userRepo) {
     let data = this.activityData;
     let userDatalist = user.friends.map(function(friend) {

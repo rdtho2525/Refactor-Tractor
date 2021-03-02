@@ -4,7 +4,7 @@ import './css/style.scss';
 import './images/person walking on path.jpg';
 import './images/The Rock.jpg';
 
-import { buildHydroChart, buildSleepChart, buildSleepQualityChart } from './charts.js';
+import { buildHydroChart, buildActivityChart, buildSleepChart, buildSleepQualityChart } from './charts.js';
 
 import User from './User';
 import Activity from './Activity';
@@ -112,6 +112,7 @@ function startApp(lists) {
 function buildCharts(date, repo, id, hydroData, sleepData, actData) {
   buildHydroChart(repo, id, hydroData);
   // buildStepChart(repo, id, actData);
+  buildActivityChart();
   buildSleepChart(date, repo, id, sleepData);
   buildSleepQualityChart(date, repo, id, sleepData)
 }

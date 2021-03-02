@@ -87,7 +87,7 @@ function buildStairsChart() {
   });
 }
 
-function buildActivityChart() {
+ export function buildActivityChart() {
   var activeMinutesChart = document.getElementById('activeMinutesChart');
   var minutesActive = new Chart(activeMinutesChart, {
     type: 'bar',
