@@ -4,7 +4,7 @@ import './css/style.scss';
 import './images/person walking on path.jpg';
 import './images/The Rock.jpg';
 
-import { buildHydroChart, buildActivityChart, buildSleepChart, buildSleepQualityChart } from './charts.js';
+import { buildHydroChart, buildActivityChart, buildStepChart, buildStairsChart, buildSleepChart, buildSleepQualityChart } from './charts.js';
 
 import User from './User';
 import Activity from './Activity';
@@ -111,8 +111,9 @@ function startApp(lists) {
 
 function buildCharts(date, repo, id, hydroData, sleepData, actData) {
   buildHydroChart(repo, id, hydroData);
-  // buildStepChart(repo, id, actData);
-  buildActivityChart();
+  buildStepChart(id, date, repo, actData);
+  buildStairsChart(id, date, repo, actData);
+  buildActivityChart(id, date, repo, actData);
   buildSleepChart(date, repo, id, sleepData);
   buildSleepQualityChart(date, repo, id, sleepData)
 }
@@ -189,23 +190,23 @@ function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateStr
   avgStepsToday.insertAdjacentHTML("afterBegin", `<p>Step Count:</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'numSteps')}</span></p>`);
   userMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'minutesActive')}</span></p>`);
   avgMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'minutesActive')}</span></p>`);
-  userStepsThisWeek.insertAdjacentHTML("afterBegin", makeStepsHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, "numSteps")));
-  userStairsThisWeek.insertAdjacentHTML("afterBegin", makeStairsHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, "flightsOfStairs")));
-  userMinutesThisWeek.insertAdjacentHTML("afterBegin", makeMinutesHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, "minutesActive")));
-  bestUserSteps.insertAdjacentHTML("afterBegin", makeStepsHTML(user, activityInfo, userStorage, activityInfo.userDataForWeek(winnerId, dateString, userStorage, "numSteps")));
+  // userStepsThisWeek.insertAdjacentHTML("afterBegin", makeStepsHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, "numSteps")));
+  // userStairsThisWeek.insertAdjacentHTML("afterBegin", makeStairsHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, "flightsOfStairs")));
+  // userMinutesThisWeek.insertAdjacentHTML("afterBegin", makeMinutesHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, "minutesActive")));
+  // bestUserSteps.insertAdjacentHTML("afterBegin", makeStepsHTML(user, activityInfo, userStorage, activityInfo.userDataForWeek(winnerId, dateString, userStorage, "numSteps")));
 }
 
-function makeStepsHTML(id, activityInfo, userStorage, method) {
-  return method.map(activityData => `<li class="historical-list-listItem">On ${activityData} steps</li>`).join('');
-}
+// function makeStepsHTML(id, activityInfo, userStorage, method) {
+//   return method.map(activityData => `<li class="historical-list-listItem">On ${activityData} steps</li>`).join('');
+// }
 
-function makeStairsHTML(id, activityInfo, userStorage, method) {
-  return method.map(data => `<li class="historical-list-listItem">On ${data} flights</li>`).join('');
-}
+// function makeStairsHTML(id, activityInfo, userStorage, method) {
+//   return method.map(data => `<li class="historical-list-listItem">On ${data} flights</li>`).join('');
+// }
 
-function makeMinutesHTML(id, activityInfo, userStorage, method) {
-  return method.map(data => `<li class="historical-list-listItem">On ${data} minutes</li>`).join('');
-}
+// function makeMinutesHTML(id, activityInfo, userStorage, method) {
+//   return method.map(data => `<li class="historical-list-listItem">On ${data} minutes</li>`).join('');
+// }
 
 // function addMilesWalked(actData) {
 //   milesWalked.innerHTML = `You walked ${actData.getMilesFromStepsByDatemiles()}!`;

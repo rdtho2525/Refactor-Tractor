@@ -37,7 +37,10 @@ class Activity {
     return userData.find(data => data.date === date)[relevantData];
   }
   userDataForWeek(id, date, userRepo, releventData) {
-    return userRepo.getWeekFromDate(date, id, this.activityData).map((data) => `${data.date}: ${data[releventData]}`);
+    return userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, data) => {
+      acc[data.date] = data[releventData];
+      return acc;
+    },{});
   }
 
   // Friends
