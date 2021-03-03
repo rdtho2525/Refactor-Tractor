@@ -39,6 +39,7 @@ var userMinutesToday = document.getElementById('userMinutesToday');
 var avgMinutesToday = document.getElementById('avgMinutesToday');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes');
+const milesWalked = document.querySelector('#milesWalked');
 const hydrationChart = document.querySelector('#hydrationChart');
 const emailIcon = document.querySelector('.fa-envelope');
 const addressIcon = document.querySelector('.fa-home');
@@ -58,7 +59,7 @@ var stepNumberInput = document.querySelector('#stepNumberInput');
 var activeMinutesInput = document.querySelector('#activeMinutesInput');
 var flightsOfStairsInput = document.querySelector('#flightInput');
 var submitButton = document.querySelector('#submitButton');
-const milesWalked = document.querySelector('.miles-walked');
+
 
 
 var userNowId;
@@ -133,8 +134,8 @@ function addInfoToSidebar(user, userStorage) {
   headerText.innerText = `${user.name}'s Activity Tracker`;
   userAddress.innerText = user.address;
   userEmail.innerText = user.email;
-  stepGoalCard.innerText = `Step goal is ${user.dailyStepGoal}. Avg goal: ${user.dailyStepGoal}.`
-  userStridelength.innerText = `Stridelength is ${user.strideLength} meters.`;
+  stepGoalCard.innerText = `Step goal is ${user.dailyStepGoal}. Avg goal: ${userStorage.calculateAverageStepGoal()}.`
+  userStridelength.innerText = `Stridelength is ${user.strideLength} feet.`;
   friendList.insertAdjacentHTML('afterBegin', makeFriendHTML(user, userStorage))
 };
 
@@ -179,6 +180,7 @@ function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateStr
   avgStepsToday.insertAdjacentHTML("afterBegin", `<p>Step Count:</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'numSteps')}</span></p>`);
   userMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'minutesActive')}</span></p>`);
   avgMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'minutesActive')}</span></p>`);
+  milesWalked.insertAdjacentHTML("afterBegin", `<p>Total Miles Walked This Week:</p><p><span class="number">${activityInfo.getMilesFromStepsByDate(id, dateString, user)}</span></p>`)
 }
 
 // function addMilesWalked(actData) {
@@ -186,7 +188,7 @@ function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateStr
 // }
 
 function addFriendGameInfo(id, activityInfo, userStorage, dateString, laterDateString, user) {
-  friendChallengeListToday.insertAdjacentHTML("afterBegin", makeFriendChallengeHTML(id, activityInfo, userStorage, activityInfo.showChallengeListAndWinner(user, dateString, userStorage)));
+  friendChallengeListToday.insertAdjacentHTML("afterBegin", makeFriendChallengeHTML(id, activityInfo, userStorage, activityInfo.compareWeeklyUsers(user, dateString, userStorage)));
   // streakList.insertAdjacentHTML("afterBegin", makeStepStreakHTML(id, activityInfo, userStorage, activityInfo.getStreak(userStorage, id, 'numSteps')));
   // streakListMinutes.insertAdjacentHTML("afterBegin", makeStepStreakHTML(id, activityInfo, userStorage, activityInfo.getStreak(userStorage, id, 'minutesActive')));
   bigWinner.insertAdjacentHTML('afterBegin', `${activityInfo.showcaseWinner(user, dateString, userStorage)} steps`)
