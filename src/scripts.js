@@ -64,6 +64,7 @@ var stepNumberInput = document.querySelector('#stepNumberInput');
 var activeMinutesInput = document.querySelector('#activeMinutesInput');
 var flightsOfStairsInput = document.querySelector('#flightInput');
 var submitButton = document.querySelector('#submitButton');
+const formErrorMessage = document.querySelector('.form-error-message');
 const milesWalked = document.querySelector('.miles-walked');
 
 
@@ -249,6 +250,35 @@ Promise.all([userFetch, hydrationFetch, sleepFetch, activityFetch])
   .then(values => startApp(values));
 
 
+function isEmpty(input) {
+  const trimmedInput = input.trim();
+  if (!trimmedInput) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function displayErrorMessage(message) {
+  formErrorMessage.innerHTML = message;
+}
+
+function isValidForm(date, ounces, hours, quality, steps, minutes, flights) {
+  let errorMessage = '';
+
+  if (isEmpty(ounces) 
+    && isEmpty(hours) 
+    && isEmpty(quality) 
+    && isEmpty(steps) 
+    && isEmpty(minutes) 
+    && isEmpty(flights)
+  ) {
+    // TODO make error message useful, then add more checks
+    displayErrorMessage('Yo that is bad');
+    console.log(errorMessage);
+    return false;
+  }
+}  
 
 
 // Old way (listen for click on button):
@@ -257,6 +287,11 @@ Promise.all([userFetch, hydrationFetch, sleepFetch, activityFetch])
 // New way (listen for submit on form):
 inputForm.addEventListener('submit', (event) => {
   event.preventDefault();
+
+  if (!isValidForm(dateInput.value, waterInput.value, hoursSleptInput.value, sleepQualityInput.value, stepNumberInput.value, activeMinutesInput.value, flightsOfStairsInput.value)) {
+    return;
+  }
+
   const sleepObj = {
     "userID": userNowId,
     "date": dateInput.value,
@@ -279,33 +314,35 @@ inputForm.addEventListener('submit', (event) => {
   };
 
   const postSleep = fetch('http://localhost:3001/api/v1/sleep', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(sleepObj),
-})
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(sleepObj),
+  })
   .then(response => response.json())
+  .then(thisData => console.log("sleep data: ", thisData))
   .catch(err => console.log(err))
 
-const postActivity = fetch('http://localhost:3001/api/v1/activity', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(activityObj)
-})
+  const postActivity = fetch('http://localhost:3001/api/v1/activity', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(activityObj)
+  })
   .then(response => response.json())
+  .then(thisData => console.log("activity data: ", thisData))
   .catch(err => console.log(err))
 
-const postHydration = fetch('http://localhost:3001/api/v1/hydration', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(hydrationObj),
-})
+  const postHydration = fetch('http://localhost:3001/api/v1/hydration', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(hydrationObj),
+  })
   .then(response => response.json())
-  .then(thisData => console.log(thisData))
+  .then(thisData => console.log("hydration data: ", thisData))
   .catch(err => console.log(err))
-})
+});
