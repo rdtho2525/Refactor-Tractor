@@ -312,9 +312,43 @@ main {
 }
 
 // MOBILE //
-@media screen and (max-width: 501px) {
+@media screen and (max-width: 600px) {
 
-  
+  main {
+    margin: 1em;
+    grid-gap: 1em;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50px 850px;
+    grid-template-areas:
+      "hTitle"
+      "hData"
+      "sTitle"
+      "sData"
+      "aTitle"
+      "aData";
+  }
+
+  .activiy-container {
+    display: grid;
+    height: auto;
+    grid-template-columns: 100%;
+    grid-template-rows: 150px 90px 300px;
+    grid-template-areas:
+      "tracker"
+      "stairActMin"
+      "allStairActMin"
+      "stepChart"
+      "actMinChart";
+    grid-area: aData;
+  }
+
+  .friends {
+    @include flex-col();
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
 
 }
 
