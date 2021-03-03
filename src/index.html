@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Activity Tracker</title>
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Activity Tracker</title>
 </head>
 <body>
   <h1 id="headerText">Activity Tracker</h1>
   <hr />
   <nav class="nav-bar">
     <div class="user-prof">
-      <img src="./images/The Rock.jpg" class="user-img"></img>
+      <img src="./images/The Rock.jpg" class="user-img" alt="User Profile Image"></img>
       <div>
         <div class="icon-display">
           <i class="fas fa-envelope"></i>
@@ -72,6 +73,7 @@
       <div class="hydration-card">
         <p id="hydrationAverage"></p>
       </div>
+      OZ DRANK
       <canvas id="hydrationChart" width="500" height="600"></canvas>
     </section>
     <section class="activiy-container grid-boxA">
@@ -91,19 +93,16 @@
       </div>
       <div class="miles-walked"></div>
       <div class="all-act-stats">
-        STAIR CHART COUNT THIS WEEK
+        WEEKLY STEP COUNT
         <canvas id="stepCountChart"></canvas>
-        <ul class="card-vertical-list" id="userStairsThisWeek"></ul>
       </div>
       <div class="step-chart">
-        STEP CHART COUNT THIS WEEK
+        WEEKLY STAIRS CLIMBED
         <canvas id="flightsOfStairsChart"></canvas>
-        <ul class="card-vertical-list"id="userStepsThisWeek"></ul>
       </div>
       <div class="act-min-chart">
-        ACTIVE MINUTE CHART THIS WEEK
+        WEEKLY ACTIVE MINUTES
         <canvas id="activeMinutesChart"></canvas>
-        <ul class="card-vertical-list" id="userMinutesThisWeek"></ul>
       </div>
     </section>
     <section class="sleep-container grid-boxS">
@@ -120,55 +119,42 @@
       </div>
       <div class="sleep-chart">
         <div id="sleepThisWeek"></div>
+        HOURS SLEPT
         <canvas id="hoursSleptChart" width="500" height="275"></canvas>
+        QUALITY OF SLEEP
         <canvas id="sleepQualityChart" width="500" height="275"></canvas>
       </div>
     </section>
   </main>
   <hr />
   <section class="friends">
-    <img class="friend-img" src="./images/person walking on path.jpg"/>
-    <h2 class="friends-title">FRIENDLY STEP CHALLENGE!</h2>
-    <p class="sidebar-header-userInfo" id="bigWinner"></p>
-    <p class="sidebar-header-userInfo" id="stepGoalCard"></p>
-    <p class="sidebar-header-userInfo" id="avStepGoalCard"><p>
-      <section class="sidebar-friendContainer-listItems">
-        <p class="thisWeek">Rank this week</p>
-        <ul class="card-vertical-list" id="friendChallengeListToday"></ul>
-        <p class="historicalWeek">- Historical Rank</p>
-        <ul class="card-vertical-list" id="friendChallengeListHistory"></ul>
-      </section>
+    <div class="week-winner-container">
+      <h2 class="friends-title">FRIENDLY STEP CHALLENGE!</h2>
+      <div class="winner">
+        <i class="fas fa-trophy"></i>
+        <h2>WINNER</h2>
+        <i class="fas fa-trophy"></i>
+      </div>
+      <p class="winner-name" id="bigWinner"></p>
+    </div>
+    <!-- <p class="sidebar-header-userInfo" id="stepGoalCard"></p> -->
+    <!-- <p class="" id="avStepGoalCard"><p> -->
+    <img class="friend-img" src="./images/person walking on path.jpg" alt="Friends Activity Image"/>
+    <section class="week-winner-container">
+      <p class="thisWeek">Rank this week</p>
+      <ul class="card-vertical-list" id="friendChallengeListToday"></ul>
+      <!-- <p class="historicalWeek">- Historical Rank</p>
+      <ul class="card-vertical-list" id="friendChallengeListHistory"></ul> -->
+    </section>
   </section>
   <hr />
   <section>
     <!-- INCREASING ACTIVITY -->
-    <canvas id="increasinglyActiveChart"></canvas>
+    <!-- <canvas id="increasinglyActiveChart"></canvas>
     <p class="thisWeek">Keep up the good work! You were increasingly active on these dates:</p>
     <ul class="card-vertical-list" id="streakListMinutes">
     <p class="thisWeek">You had 3 DAY STEP STREAKS on these days:</p>
-    <ul class="card-vertical-list"id="streakList"></ul>
-  </section>
-  <section class="main2">
-    <section class="body-main-infoContainter">
-        <section class="infoContainer-cardContainer-card-horizontal">
-          <section class="horizontalCard-activity-container">
-            <div class="card-history-activity">
-              <p class="thisWeek">Your minutes of activity this week</p>
-              <div class="sidebar-header-line"></div>
-              <ul class="card-vertical-list" id="userMinutesThisWeek">
-                Activity week list goes here
-              </ul>
-            </div>
-            <div class="card-history-activity">
-              <p class="thisWeek">Winner's steps this week</p>
-              <div class="sidebar-header-line"></div>
-              <ul class="card-vertical-list" id="bestUserSteps">
-                Activity week list goes here
-              </ul>
-            </div>
-          </section>
-        </section>
-      </section>
+    <ul class="card-vertical-list"id="streakList"></ul> -->
   </section>
 </body>
 

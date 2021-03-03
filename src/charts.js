@@ -7,7 +7,6 @@ export function buildHydroChart(userRepo, user, hydration) {
     data: {
       labels: Object.keys(hydration.calculateFirstWeekOunces(userRepo, user)),
       datasets: [{
-        label: 'Ounces of water drank',
         data: Object.values(hydration.calculateFirstWeekOunces(userRepo, user)),
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         borderColor: 'rgba(54, 162, 235, 1)',
@@ -15,6 +14,12 @@ export function buildHydroChart(userRepo, user, hydration) {
       }]
     },
     options: {
+      legend: {
+         display: false
+      },
+      tooltips: {
+         enabled: false
+      },
       scales: {
         yAxes: [{
           ticks: {
@@ -36,7 +41,6 @@ export function buildStepChart(id, date, userRepo, activityInfo) {
     data: {
       labels: Object.keys(activityInfo.userDataForWeek(id, date, userRepo, "numSteps")),
       datasets: [{
-        label: 'Steps taken this week: ',
         data: Object.values(activityInfo.userDataForWeek(id, date, userRepo, "numSteps")),
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgba(255, 99, 132, 1)',
@@ -44,6 +48,12 @@ export function buildStepChart(id, date, userRepo, activityInfo) {
       }]
     },
     options: {
+      legend: {
+         display: false
+      },
+      tooltips: {
+         enabled: false
+      },
       scales: {
         yAxes: [{
           ticks: {
@@ -65,7 +75,6 @@ export function buildStairsChart(id, date, userRepo, activityInfo) {
     data: {
       labels: Object.keys(activityInfo.userDataForWeek(id, date, userRepo, "flightsOfStairs")),
       datasets: [{
-        label: 'Flights of stairs walked this week:',
         data: Object.values(activityInfo.userDataForWeek(id, date, userRepo, "flightsOfStairs")),
         backgroundColor: 'rgba(255, 159, 64, 0.2)',
         borderColor: 'rgba(255, 159, 64, 1)',
@@ -73,6 +82,12 @@ export function buildStairsChart(id, date, userRepo, activityInfo) {
       }]
     },
     options: {
+      legend: {
+         display: false
+      },
+      tooltips: {
+         enabled: false
+      },
       scales: {
         yAxes: [{
           ticks: {
@@ -94,7 +109,6 @@ export function buildStairsChart(id, date, userRepo, activityInfo) {
     data: {
       labels: Object.keys(activityInfo.userDataForWeek(id, date, userRepo, "minutesActive")),
       datasets: [{
-        label: 'Minutes active this week:',
         data: Object.values(activityInfo.userDataForWeek(id, date, userRepo, "minutesActive")),
         backgroundColor: 'rgba(153, 102, 255, 0.2)',
         borderColor: 'rgba(153, 102, 255, 1)',
@@ -102,6 +116,12 @@ export function buildStairsChart(id, date, userRepo, activityInfo) {
       }]
     },
     options: {
+      legend: {
+         display: false
+      },
+      tooltips: {
+         enabled: false
+      },
       scales: {
         yAxes: [{
           ticks: {
@@ -123,7 +143,6 @@ export function buildSleepChart(date, userRepo, user, sleepData) {
     data: {
       labels: Object.keys(sleepData.calculateWeekSleep(date, user, userRepo)),
       datasets: [{
-        label: 'Hours slept',
         data: Object.values(sleepData.calculateWeekSleep(date, user, userRepo)),
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
@@ -131,6 +150,12 @@ export function buildSleepChart(date, userRepo, user, sleepData) {
       }]
     },
     options: {
+      legend: {
+         display: false
+      },
+      tooltips: {
+         enabled: false
+      },
       scales: {
         yAxes: [{
           ticks: {
@@ -152,7 +177,6 @@ export function buildSleepQualityChart(date, userRepo, user, sleepData) {
     data: {
       labels: Object.keys(sleepData.calculateWeekSleepQuality(date, user, userRepo)),
       datasets: [{
-        label: 'Quality of sleep:',
         data: Object.values(sleepData.calculateWeekSleepQuality(date, user, userRepo)),
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
@@ -160,6 +184,12 @@ export function buildSleepQualityChart(date, userRepo, user, sleepData) {
       }]
     },
     options: {
+      legend: {
+         display: false
+      },
+      tooltips: {
+         enabled: false
+      },
       scales: {
         yAxes: [{
           ticks: {
@@ -181,7 +211,6 @@ function buildIncreasinglyActChart() {
     data: {
       labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
       datasets: [{
-        label: 'Current streak of increased activity:',
         data: getTestData(),
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         borderColor: 'rgba(54, 162, 235, 1)',
@@ -189,6 +218,12 @@ function buildIncreasinglyActChart() {
       }]
     },
     options: {
+      legend: {
+         display: false
+      },
+      tooltips: {
+         enabled: false
+      },
       scales: {
         yAxes: [{
           ticks: {
