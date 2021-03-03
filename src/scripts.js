@@ -283,7 +283,6 @@ function displayErrorMessage(location, message) {
 }
 
 function isValidForm(date, ounces, hours, quality, steps, minutes, flights) {
-  let errorMessage = '';
   hide(formErrorMessage);
   hideInputErrors();
 
@@ -298,6 +297,21 @@ function isValidForm(date, ounces, hours, quality, steps, minutes, flights) {
     return false;
   } else if (ounces < 0) {
     displayErrorMessage('ounces', 'Must be greater than 0');
+    return false;
+  } else if (hours < 0 || hours > 24) {
+    displayErrorMessage('hours', 'Must be between 0 and 24');
+    return false;
+  } else if (quality < 0 || quality > 5) {
+    displayErrorMessage('quality', 'Must be between 0 and 5');
+    return false;
+  } else if (steps < 0) {
+    displayErrorMessage('steps', 'Must be greater than 0');
+    return false;
+  } else if (minutes < 0) {
+    displayErrorMessage('minutes', 'Must be greater than 0');
+    return false;
+  } else if (flights < 0) {
+    displayErrorMessage('flights', 'Must be greater than 0');
     return false;
   } else {
     return true;
