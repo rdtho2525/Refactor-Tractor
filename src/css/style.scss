@@ -232,11 +232,29 @@ main {
 // FRIENDS //
 .friends {
   @include flex-row();
-  justify-content: start;
+  justify-content: space-around;
+}
+
+.week-winner-container {
+  @include flex-col();
+  align-items: center;
+  background-color: $graybackground;
+  border-radius: 6px;
+  padding: 1em;
+}
+
+.winner {
+  @include flex-row();
+  align-items: baseline;
+  justify-content: center;
+}
+
+.winner-name {
+  font-size: x-large;
 }
 
 .friends-title {
-
+  border-bottom: solid darkgray;
 }
 
 // HIDDEN //

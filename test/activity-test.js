@@ -218,6 +218,9 @@ describe('Activity', function() {
   it('should return true/false if the given user met their step goal on a given day', function() {
     expect(activity.accomplishStepGoal(4, "2019/06/15", userRepo.users[3])).to.eql(false);
   });
+  it('should return true if user exceeds their step goal', function() {
+    expect(activity.accomplishStepGoal(1, "2019/06/17", userRepo.users[0])).to.eql(true);
+  });
   it('should return all days that a given user exceeded their step goal', function() {
     expect(activity.getDaysGoalExceeded(1, userRepo.users[0])).to.eql([
       "2019/06/17",
@@ -535,26 +538,40 @@ describe('Friend Activity', function() {
 
   it('should get a users ranked friendslist activity for a chosen week', function() {
     expect(activity.getFriendsAverageStepsForWeek(user4, "2019/06/15", userRepo)).to.eql([{
-        '2': 9552
+        '2': 19104
       },
       {
-        '1': 7475.5
+        '1': 14951
       }
     ]);
   });
 
   it('should get a users ranked friendslist activity for a chosen week with names', function() {
-    expect(activity.showChallengeListAndWinner(user4, "2019/06/15", userRepo)).to.eql([
-      'Allie McCarthy: 9552', 'Alex Roth: 7475.5'
+    expect(activity.compareWeeklyUsers(user4, "2019/06/15", userRepo)).to.eql([
+      'Allie McCarthy: 19104', 'Alex Roth: 14951'
+    ])
+  });
+  it('should include user in competition for weekly challenge', function() {
+    expect(activity.compareWeeklyUsers(user4, "2019/06/15", userRepo)).to.eql([
+      'Allie McCarthy: 19104', 'Rainbow Dash: 23075', 'Alex Roth: 14951'
     ])
   });
   it('should know the ID of the winning friend', function() {
     expect(activity.getWinnerId(user4, "2019/06/15", userRepo)).to.eql(2)
-  })
+  });
   it('should show a 3-day increasing streak for a users step count', function() {
     expect(activity.getStreak(userRepo, 1, 'numSteps')).to.eql(['2019/06/17', '2019/06/18'])
   });
   it('should show a 3-day increasing streak for a users minutes of activity', function() {
     expect(activity.getStreak(userRepo, 1, 'minutesActive')).to.eql(['2019/06/18'])
   });
+  it('should display the sum of steps in a given week for each of the user\'s friends', function() {
+    expect(activity.getFriendsWeeklyTotalSteps(user4, '2019/06/15', userRepo)).to.eql([{
+        '2': 19104
+      },
+      {
+        '1': 14951
+      }
+    ])
+  })
 });

@@ -2,10 +2,11 @@ class Activity {
   constructor(activityData) {
     this.activityData = activityData
   }
-  getMilesFromStepsByDate(id, date, userRepo) {
+  getMilesFromStepsByDate(id, date, user) {
     let userStepsByDate = this.activityData.find(data => id === data.userID && date === data.date);
-    return parseFloat(((userStepsByDate.numSteps * userRepo.strideLength) / 5280).toFixed(1));
+    return parseFloat(((userStepsByDate.numSteps * user.strideLength) / 5280).toFixed(1));
   }
+
   getActiveMinutesByDate(id, date) {
     let userActivityByDate = this.activityData.find(data => id === data.userID && date === data.date);
     return userActivityByDate.minutesActive;
@@ -17,7 +18,7 @@ class Activity {
   }
   accomplishStepGoal(id, date, userRepo) {
     let userStepsByDate = this.activityData.find(data => id === data.userID && date === data.date);
-    if (userStepsByDate.numSteps === userRepo.dailyStepGoal) {
+    if (userStepsByDate.numSteps >= userRepo.dailyStepGoal) {
       return true;
     }
     return false;
@@ -44,23 +45,40 @@ class Activity {
   }
 
   // Friends
-  getFriendsActivity(user, userRepo) {
+  getAllUserActivity(user, userRepo) {
     let data = this.activityData;
-    let userDatalist = user.friends.map(function(friend) {
+    let userData = userRepo.getDataFromUserID(user.id, data);
+    let friendsDatalist = user.friends.map(function(friend) {
       return userRepo.getDataFromUserID(friend, data)
     });
-    return userDatalist.reduce(function(arraySoFar, listItem) {
+    const fullDataList = friendsDatalist.concat(userData);
+    return fullDataList.reduce(function(arraySoFar, listItem) {
       return arraySoFar.concat(listItem);
     }, []);
   }
-  getFriendsAverageStepsForWeek(user, date, userRepo) {
-    let friendsActivity = this.getFriendsActivity(user, userRepo);
-    let timeline = userRepo.chooseWeekDataForAllUsers(friendsActivity, date);
-    return userRepo.combineRankedUserIDsAndAveragedData(friendsActivity, date, 'numSteps', timeline)
+  calcWeeklyStepsAverage(user, date, userRepo) {
+    let allActivity = this.getAllUserActivity(user, userRepo);
+    let timeline = userRepo.chooseWeekDataForAllUsers(allActivity, date);
+    return userRepo.combineRankedUserIDsAndAveragedData(allActivity, date, 'numSteps', timeline)
   }
-  showChallengeListAndWinner(user, date, userRepo) {
-    let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
 
+  calcWeeklyStepsTotal(user, date, userRepo) {
+    const allActivity = this.getAllUserActivity(user, userRepo);
+    const timeline = userRepo.chooseWeekDataForAllUsers(allActivity, date);
+    const sortedObjectKeys = userRepo.isolateUsernameAndRelevantData(allActivity, date, 'numSteps', timeline);
+    const rankedUsersAndAverages = userRepo.rankUserIDsbyRelevantDataValue(allActivity, date, 'numSteps', timeline);
+    return rankedUsersAndAverages.map(function(rankedUser) {
+      const result = rankedUser = {
+      [rankedUser]: sortedObjectKeys[rankedUser].reduce(
+        function(currentSum, stepValue) {
+          return currentSum + stepValue;
+        }, 0)
+      }
+      return result;
+    });
+  }
+  compareWeeklyUsers(user, date, userRepo) {
+    let rankedList = this.calcWeeklyStepsTotal(user, date, userRepo);
     return rankedList.map(function(listItem) {
       let userID = Object.keys(listItem)[0];
       let userName = userRepo.getDataFromID(parseInt(userID)).name;
@@ -68,8 +86,7 @@ class Activity {
     })
   }
   showcaseWinner(user, date, userRepo) {
-    let namedList = this.showChallengeListAndWinner(user, date, userRepo);
-    let winner = this.showChallengeListAndWinner(user, date, userRepo).shift();
+    let winner = this.compareWeeklyUsers(user, date, userRepo).shift();
     return winner;
   }
   getStreak(userRepo, id, relevantData) {
@@ -85,7 +102,7 @@ class Activity {
     })
   }
   getWinnerId(user, date, userRepo) {
-    let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
+    let rankedList = this.calcWeeklyStepsTotal(user, date, userRepo);
     let keysList = rankedList.map(listItem => Object.keys(listItem));
     return parseInt(keysList[0].join(''))
   }

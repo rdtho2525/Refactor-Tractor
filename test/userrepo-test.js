@@ -61,16 +61,12 @@ describe('User Repo', function() {
   });
 
   it('should return user data when given user ID', function() {
-
-
     userRepo.getDataFromID(1);
 
     expect(userRepo.getDataFromID(1)).to.eql(user1);
   });
 
   it('should return the average of all users step goals', function() {
-
-
     userRepo.calculateAverageStepGoal();
 
     expect(userRepo.calculateAverageStepGoal()).to.eql(9500);
@@ -469,12 +465,35 @@ describe('User Repo', function() {
           "numOunces": 30
         }
       ]);
+      expect(userRepo.getDataFromUserID(2, sleepData)[1]).to.eql({
+        "userID": 2,
+        "date": "2018/07/15",
+        "hoursSlept": 9.6,
+        "sleepQuality": 2.9
+      });
+    });
+    it('should make a sorted user array', function() {
+      expect(userRepo.makeSortedUserArray(2, hydrationData)).to.eql([{
+          "userID": 2,
+          "date": "2019/06/15",
+          "numOunces": 38
+        },
+        {
+          "userID": 2,
+          "date": "2018/10/23",
+          "numOunces": 34
+        },
+        {
+          "userID": 2,
+          "date": "2016/04/27",
+          "numOunces": 40
+        },
+      ]);
     });
     it('should get a users most recent date using the app', function() {
       expect(userRepo.getToday(4, hydrationData)).to.eql("2019/09/20");
     });
     it('should sort data by date and extract its week', function() {
-
       expect(userRepo.getFirstWeek(4, hydrationData)[3].date).to.eql("2019/09/17");
     });
     it('should get a sorted week of data for a single user from a date', function() {
