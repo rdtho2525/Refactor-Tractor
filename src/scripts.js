@@ -61,7 +61,12 @@ var activeMinutesInput = document.querySelector('#activeMinutesInput');
 var flightsOfStairsInput = document.querySelector('#flightInput');
 var submitButton = document.querySelector('#submitButton');
 const formErrorMessage = document.querySelector('.form-error-message');
-const milesWalked = document.querySelector('.miles-walked');
+const ouncesErrorMessage = document.querySelector('#ounces-error-message');
+const hoursErrorMessage = document.querySelector('#hours-error-message');
+const sleepQualityErrorMessage = document.querySelector('#sleep-quality-error-message');
+const stepsErrorMessage = document.querySelector('#steps-error-message');
+const minutesErrorMessage = document.querySelector('#minutes-error-message');
+const stairsErrorMessage = document.querySelector('#stairs-error-message');
 
 
 var userNowId;
@@ -105,6 +110,8 @@ function startApp(lists) {
   // addMilesWalked(activityRepo);
   addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
   buildCharts(today, userRepo, userNowId, hydrationRepo, sleepRepo, activityRepo);
+  hide(formErrorMessage);
+  hideInputErrors();
 }
 
 function buildCharts(date, repo, id, hydroData, sleepData, actData) {
@@ -223,6 +230,22 @@ const activityFetch = fetch('http://localhost:3001/api/v1/activity')
 Promise.all([userFetch, hydrationFetch, sleepFetch, activityFetch])
   .then(values => startApp(values));
 
+function hide(something) {
+  something.classList.add('hidden');
+}
+
+function show(something) {
+  something.classList.remove('hidden');
+}
+
+function hideInputErrors() {
+  hide(ouncesErrorMessage);
+  hide(hoursErrorMessage);
+  hide(sleepQualityErrorMessage);
+  hide(stepsErrorMessage);
+  hide(minutesErrorMessage);
+  hide(stairsErrorMessage);
+}
 
 function isEmpty(input) {
   const trimmedInput = input.trim();
@@ -233,12 +256,36 @@ function isEmpty(input) {
   }
 }
 
-function displayErrorMessage(message) {
-  formErrorMessage.innerHTML = message;
+function displayErrorMessage(location, message) {
+  // TODO refactor as a switch?
+  if (location === 'general') {
+    formErrorMessage.innerHTML = message;
+    show(formErrorMessage);
+  } else if (location === 'ounces') {
+    ouncesErrorMessage.innerHTML = message;
+    show(ouncesErrorMessage);
+  } else if (location === 'hours') {
+    hoursErrorMessage.innerHTML = message;
+    show(hoursErrorMessage);
+  } else if (location === 'quality') {
+    sleepQualityErrorMessage.innerHTML = message;
+    show(sleepQualityErrorMessage);
+  } else if (location === 'steps') {
+    stepsErrorMessage.innerHTML = message;
+    show(stepsErrorMessage);
+  } else if (location === 'minutes') {
+    minutesErrorMessage.innerHTML = message;
+    show(minutesErrorMessage);
+  } else if (location === 'flights') {
+    stairsErrorMessage.innerHTML = message;
+    show(stairsErrorMessage);
+  }
 }
 
 function isValidForm(date, ounces, hours, quality, steps, minutes, flights) {
   let errorMessage = '';
+  hide(formErrorMessage);
+  hideInputErrors();
 
   if (isEmpty(ounces) 
     && isEmpty(hours) 
@@ -247,10 +294,13 @@ function isValidForm(date, ounces, hours, quality, steps, minutes, flights) {
     && isEmpty(minutes) 
     && isEmpty(flights)
   ) {
-    // TODO make error message useful, then add more checks
-    displayErrorMessage('Yo that is bad');
-    console.log(errorMessage);
+    displayErrorMessage('general', 'Please enter data for at least one category');
     return false;
+  } else if (ounces < 0) {
+    displayErrorMessage('ounces', 'Must be greater than 0');
+    return false;
+  } else {
+    return true;
   }
 }  
 
