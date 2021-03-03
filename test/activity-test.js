@@ -552,8 +552,8 @@ describe('Friend Activity', function() {
     ])
   });
   it.only('should include user in competition for weekly challenge', function() {
-    expect(activity.compareWeeklyUsers(user2, "2019/06/15", userRepo)).to.eql([
-      'Allie McCarthy: 9552', 'Rainbow Dash: 7691.67', 'Alex Roth: 7475.5'
+    expect(activity.compareWeeklyUsers(user4, "2019/06/15", userRepo)).to.eql([
+      'Allie McCarthy: 9552', 'Rainbow Dash: 7691.7', 'Alex Roth: 7475.5'
     ])
   });
   it('should know the ID of the winning friend', function() {
