@@ -257,6 +257,34 @@ main {
   border-bottom: solid darkgray;
 }
 
+// TABLET //
+@media screen and (max-width: 950px) {
+
+  //navbar//
+  .nav-bar, .friends {
+    @include flex-col();
+    justify-content: center;
+    height: auto;
+  }
+
+  .input-box {
+    @include flex-row();
+    justify-content: space-around;
+    background-color: $graybackground;
+    border-radius: 6px;
+    width: 100%;
+  }
+
+  .user-prof {
+    width: 100%;
+  }
+}
+
+// MOBILE //
+@media screen and (max-width: 501px) {
+
+}
+
 // HIDDEN //
 .hidden {
   display: none;
