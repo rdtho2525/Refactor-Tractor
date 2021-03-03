@@ -66,11 +66,11 @@ class UserRepo {
     let rankedUsersAndAverages = this.rankUserIDsbyRelevantDataValue(dataSet, date, relevantData, listFromMethod)
     return rankedUsersAndAverages.map(function(rankedUser) {
       rankedUser = {
-        [rankedUser]: sortedObjectKeys[rankedUser].reduce(
+        [rankedUser]: Math.round((sortedObjectKeys[rankedUser].reduce(
           function(sumSoFar, sleepQualityValue) {
             sumSoFar += sleepQualityValue
             return sumSoFar;
-          }, 0) / sortedObjectKeys[rankedUser].length
+          }, 0) / sortedObjectKeys[rankedUser].length) * 10) / 10
       };
       return rankedUser;
     });
