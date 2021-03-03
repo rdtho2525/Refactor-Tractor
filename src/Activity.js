@@ -42,38 +42,40 @@ class Activity {
 
   // Friends
 
-  getFriendsActivity(user, userRepo) {
+  getAllUserActivity(user, userRepo) {
     let data = this.activityData;
-    let userDatalist = user.friends.map(function(friend) {
+    let userData = userRepo.getDataFromUserID(user.id, data);
+    let friendsDatalist = user.friends.map(function(friend) {
       return userRepo.getDataFromUserID(friend, data)
     });
-    return userDatalist.reduce(function(arraySoFar, listItem) {
+    const fullDataList = friendsDatalist.concat(userData);
+    return fullDataList.reduce(function(arraySoFar, listItem) {
       return arraySoFar.concat(listItem);
     }, []);
   }
-  getFriendsAverageStepsForWeek(user, date, userRepo) {
-    let friendsActivity = this.getFriendsActivity(user, userRepo);
-    let timeline = userRepo.chooseWeekDataForAllUsers(friendsActivity, date);
-    return userRepo.combineRankedUserIDsAndAveragedData(friendsActivity, date, 'numSteps', timeline)
+  calcWeeklyStepsAverage(user, date, userRepo) {
+    let allActivity = this.getAllUserActivity(user, userRepo);
+    let timeline = userRepo.chooseWeekDataForAllUsers(allActivity, date);
+    return userRepo.combineRankedUserIDsAndAveragedData(allActivity, date, 'numSteps', timeline)
   }
 
-  getFriendsWeeklyTotalSteps(user, date, userRepo) {
-    const friendsActivity = this.getFriendsActivity(user, userRepo);
-    const timeline = userRepo.chooseWeekDataForAllUsers(friendsActivity, date);
-    const sortedObjectKeys = userRepo.isolateUsernameAndRelevantData(friendsActivity, date, 'numSteps', timeline);
-    const rankedUsersAndAverages = userRepo.rankUserIDsbyRelevantDataValue(friendsActivity, date, 'numSteps', timeline);
+  calcWeeklyStepsTotal(user, date, userRepo) {
+    const allActivity = this.getAllUserActivity(user, userRepo);
+    const timeline = userRepo.chooseWeekDataForAllUsers(allActivity, date);
+    const sortedObjectKeys = userRepo.isolateUsernameAndRelevantData(allActivity, date, 'numSteps', timeline);
+    const rankedUsersAndAverages = userRepo.rankUserIDsbyRelevantDataValue(allActivity, date, 'numSteps', timeline);
     return rankedUsersAndAverages.map(function(rankedUser) {
-      return rankedUser = {
+      const result = rankedUser = {
       [rankedUser]: sortedObjectKeys[rankedUser].reduce(
         function(currentSum, stepValue) {
           return currentSum + stepValue;
         }, 0)
       }
+      return result;
     });
   }
-  showChallengeListAndWinner(user, date, userRepo) {
-    let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
-
+  compareWeeklyUsers(user, date, userRepo) {
+    let rankedList = this.calcWeeklyStepsAverage(user, date, userRepo);
     return rankedList.map(function(listItem) {
       let userID = Object.keys(listItem)[0];
       let userName = userRepo.getDataFromID(parseInt(userID)).name;
@@ -81,8 +83,8 @@ class Activity {
     })
   }
   showcaseWinner(user, date, userRepo) {
-    let namedList = this.showChallengeListAndWinner(user, date, userRepo);
-    let winner = this.showChallengeListAndWinner(user, date, userRepo).shift();
+    let namedList = this.compareWeeklyUsers(user, date, userRepo);
+    let winner = this.compareWeeklyUsers(user, date, userRepo).shift();
     return winner;
   }
   getStreak(userRepo, id, relevantData) {
@@ -98,7 +100,7 @@ class Activity {
     })
   }
   getWinnerId(user, date, userRepo) {
-    let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
+    let rankedList = this.calcWeeklyStepsAverage(user, date, userRepo);
     let keysList = rankedList.map(listItem => Object.keys(listItem));
     return parseInt(keysList[0].join(''))
   }
