@@ -83,7 +83,6 @@ class Activity {
     })
   }
   showcaseWinner(user, date, userRepo) {
-    let namedList = this.compareWeeklyUsers(user, date, userRepo);
     let winner = this.compareWeeklyUsers(user, date, userRepo).shift();
     return winner;
   }
