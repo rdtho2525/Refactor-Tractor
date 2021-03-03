@@ -538,22 +538,22 @@ describe('Friend Activity', function() {
 
   it('should get a users ranked friendslist activity for a chosen week', function() {
     expect(activity.getFriendsAverageStepsForWeek(user4, "2019/06/15", userRepo)).to.eql([{
-        '2': 9552
+        '2': 19104
       },
       {
-        '1': 7475.5
+        '1': 14951
       }
     ]);
   });
 
   it('should get a users ranked friendslist activity for a chosen week with names', function() {
     expect(activity.compareWeeklyUsers(user4, "2019/06/15", userRepo)).to.eql([
-      'Allie McCarthy: 9552', 'Alex Roth: 7475.5'
+      'Allie McCarthy: 19104', 'Alex Roth: 14951'
     ])
   });
-  it.only('should include user in competition for weekly challenge', function() {
+  it('should include user in competition for weekly challenge', function() {
     expect(activity.compareWeeklyUsers(user4, "2019/06/15", userRepo)).to.eql([
-      'Allie McCarthy: 9552', 'Rainbow Dash: 7691.7', 'Alex Roth: 7475.5'
+      'Allie McCarthy: 19104', 'Rainbow Dash: 23075', 'Alex Roth: 14951'
     ])
   });
   it('should know the ID of the winning friend', function() {
