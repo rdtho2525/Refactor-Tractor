@@ -20,7 +20,7 @@ class Activity {
     if (userStepsByDate.numSteps === userRepo.dailyStepGoal) {
       return true;
     }
-    return false
+    return false;
   }
   getDaysGoalExceeded(id, userRepo) {
     return this.activityData.filter(data => id === data.userID && data.numSteps > userRepo.dailyStepGoal).map(data => data.date);
@@ -37,11 +37,13 @@ class Activity {
     return userData.find(data => data.date === date)[relevantData];
   }
   userDataForWeek(id, date, userRepo, releventData) {
-    return userRepo.getWeekFromDate(date, id, this.activityData).map((data) => `${data.date}: ${data[releventData]}`);
+    return userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, data) => {
+      acc[data.date] = data[releventData];
+      return acc;
+    },{});
   }
 
   // Friends
-
   getFriendsActivity(user, userRepo) {
     let data = this.activityData;
     let userDatalist = user.friends.map(function(friend) {

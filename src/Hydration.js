@@ -8,15 +8,17 @@ class Hydration {
     let roundNum = perDayUserHydration.reduce((sumSoFar, data) => {
       return sumSoFar += data.numOunces;
     }, 0) / perDayUserHydration.length;
-    return Math.round(roundNum * 10) /10; 
+    return Math.round(roundNum * 10) /10;
   }
   calculateDailyOunces(id, date) {
     let findOuncesByDate = this.hydrationData.find((data) => id === data.userID && date === data.date);
     return findOuncesByDate.numOunces;
   }
   calculateFirstWeekOunces(userRepo, id) {
-    // returns the 7 most recent entries, even if they don't all appear in the same week
-    return userRepo.getFirstWeek(id, this.hydrationData).map((data) => `${data.date}: ${data.numOunces}`);
+    return userRepo.getFirstWeek(id, this.hydrationData).reduce((acc, data) => {
+      acc[data.date] = data.numOunces;
+      return acc;
+    },{});
   }
   calculateRandomWeekOunces(date, id, userRepo) {
     // returns the 7 most recent entries leading up to and including the given data
@@ -25,6 +27,5 @@ class Hydration {
     return userRepo.getWeekFromDate(date, id, this.hydrationData).map((data) => `${data.date}: ${data.numOunces}`);
   }
 }
-
 
 export default Hydration;

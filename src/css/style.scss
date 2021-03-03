@@ -111,7 +111,13 @@ i {
 }
 
 .submit-btn {
-  
+  margin: 1em;
+  border-radius: 50%;
+  height: 7em;
+  box-shadow: 0 0 0.75em #808080;
+  font-size: medium;
+  font-weight: bold;
+  padding: 1em;
 }
 
 label {
@@ -124,7 +130,6 @@ input {
 }
 
 // MAIN GRID DISPLAY //
-// text-shadow: 0 0 .75em #808080;
 main {
   margin: 1em;
   display: grid;
@@ -169,12 +174,6 @@ main {
   width: 90%;
 }
 
-#hydrationChart {
-  width: 100%;
-  height: 60%;
-  border: solid red;
-}
-
 // ACTIVITY //
 .grid-boxA {
   background-color: $graybackground;
@@ -189,6 +188,8 @@ main {
 .user-act-daily, .all-act-avg {
   @include flex-row();
   justify-content: space-around;
+  align-items: center;
+  border-bottom: solid darkgray;
 }
 
 .user-act-stats {
@@ -223,14 +224,37 @@ main {
   border-radius: 6px;
 }
 
+.user-sleep {
+  @include flex-row();
+  justify-content: space-around;
+}
+
 // FRIENDS //
 .friends {
   @include flex-row();
-  justify-content: start;
+  justify-content: space-around;
+}
+
+.week-winner-container {
+  @include flex-col();
+  align-items: center;
+  background-color: $graybackground;
+  border-radius: 6px;
+  padding: 1em;
+}
+
+.winner {
+  @include flex-row();
+  align-items: baseline;
+  justify-content: center;
+}
+
+.winner-name {
+  font-size: x-large;
 }
 
 .friends-title {
-
+  border-bottom: solid darkgray;
 }
 
 // HIDDEN //

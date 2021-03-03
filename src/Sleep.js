@@ -25,16 +25,16 @@ class Sleep {
     return findSleepQualityByDate.sleepQuality;
   }
   calculateWeekSleep(date, id, userRepo) {
-    // NB: returns data for (up to) 7 data points leading up to and including given date
-    // ... but keep in mind that if there are any days leading up to the given date that we don't have data for,
-    // then the data points returned will not correspond to the calendar dates you might expect
-    return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.hoursSlept}`);
+    return userRepo.getWeekFromDate(date, id, this.sleepData).reduce((acc, data) => {
+      acc[data.date] = data.hoursSlept;
+      return acc;
+    },{});
   }
   calculateWeekSleepQuality(date, id, userRepo) {
-    // NB: returns data for (up to) 7 data points leading up to and including given date
-    // ... but keep in mind that if there are any days leading up to the given date that we don't have data for,
-    // then the data points returned will not correspond to the calendar dates you might expect
-    return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.sleepQuality}`);
+    return userRepo.getWeekFromDate(date, id, this.sleepData).reduce((acc, data) => {
+      acc[data.date] = data.sleepQuality;
+      return acc;
+    },{});
   }
   calculateAllUserSleepQuality() {
     var totalSleepQuality = this.sleepData.reduce(function(sumSoFar, dataItem) {
@@ -87,6 +87,5 @@ class Sleep {
     });
   }
 }
-
 
 export default Sleep;
