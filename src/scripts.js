@@ -55,6 +55,7 @@ const address = document.querySelector('#userAddress');
 const stride = document.querySelector('#userStridelength');
 const step = document.querySelector('#stepGoalCard');
 const friends = document.querySelector('#friendList');
+const inputForm = document.querySelector('.input-box');
 var dateInput = document.querySelector("#date");
 var waterInput = document.querySelector('#waterInput');
 var hoursSleptInput = document.querySelector('#hoursSleptInput');
@@ -248,7 +249,13 @@ Promise.all([userFetch, hydrationFetch, sleepFetch, activityFetch])
   .then(values => startApp(values));
 
 
-submitButton.addEventListener('click', (event) => {
+
+
+// Old way (listen for click on button):
+// submitButton.addEventListener('click', (event) => {
+
+// New way (listen for submit on form):
+inputForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const sleepObj = {
     "userID": userNowId,
