@@ -547,17 +547,18 @@ describe('Friend Activity', function() {
   });
 
   it('should get a users ranked friendslist activity for a chosen week with names', function() {
-    expect(activity.showChallengeListAndWinner(user4, "2019/06/15", userRepo)).to.eql([
+    expect(activity.compareWeeklyUsers(user4, "2019/06/15", userRepo)).to.eql([
       'Allie McCarthy: 9552', 'Alex Roth: 7475.5'
+    ])
+  });
+  it.only('should include user in competition for weekly challenge', function() {
+    expect(activity.compareWeeklyUsers(user2, "2019/06/15", userRepo)).to.eql([
+      'Allie McCarthy: 9552', 'Rainbow Dash: 7691.67', 'Alex Roth: 7475.5'
     ])
   });
   it('should know the ID of the winning friend', function() {
     expect(activity.getWinnerId(user4, "2019/06/15", userRepo)).to.eql(2)
   });
-
-  it.only('should include user in competition for weekly challenge', function() {
-    expect(activity.showcaseWinner(user4, "2019/06/15", userRepo)).to.eql(2)
-  })
   it('should show a 3-day increasing streak for a users step count', function() {
     expect(activity.getStreak(userRepo, 1, 'numSteps')).to.eql(['2019/06/17', '2019/06/18'])
   });
