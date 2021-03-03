@@ -57,7 +57,7 @@ h1 {
 .nav-bar, .friends {
   @include flex-row();
   justify-content: center;
-  height: 220px;
+  height: auto;
   padding: 10px;
 }
 
@@ -135,6 +135,9 @@ main {
   display: grid;
   grid-template-columns: 25% 50% 25%;
   grid-template-rows: 50px 700px;
+  grid-template-areas:
+    "hTitle aTitle sTitle"
+    "hData aData sData";
   grid-gap: 1em;
 }
 
@@ -154,12 +157,14 @@ main {
 .grid-boxH {
   background-color: $graybackground;
   border-radius: 6px;
+  grid-area: hTitle;
 }
 
 .hydration-container {
   border: solid #e0e0e0;
   background-color: $graybackground;
   border-radius: 6px;
+  grid-area: hData;
 }
 
 .hydration-card, .sleep-card {
@@ -178,6 +183,7 @@ main {
 .grid-boxA {
   background-color: $graybackground;
   border-radius: 6px;
+  grid-area: aTitle;
 }
 
 .user-all-compare {
@@ -216,12 +222,18 @@ main {
     "tracker tracker"
     "stairActMin allStairActMin"
     "stepChart actMinChart";
+  grid-area: aData;
 }
 
 // SLEEP //
 .grid-boxS {
   background-color: $graybackground;
   border-radius: 6px;
+  grid-area: sTitle;
+}
+
+.sleep-container {
+  grid-area: sData;
 }
 
 .user-sleep {
@@ -255,6 +267,89 @@ main {
 
 .friends-title {
   border-bottom: solid darkgray;
+}
+
+// TABLET //
+@media screen and (max-width: 1100px) {
+
+  //navbar//
+
+  .input-box {
+    @include flex-row();
+    background-color: $graybackground;
+    border-radius: 6px;
+    width: auto;
+  }
+
+  .user-prof {
+    width: auto;
+  }
+
+  .nav-bar {
+    @include flex-col();
+    justify-content: center;
+    height: auto;
+  }
+
+  .hydration-container {
+    padding: 1em;
+    width: 92%;
+  }
+
+  main {
+    margin: 1em;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50px 850px;
+    grid-template-areas:
+      "hTitle sTitle"
+      "hData sData"
+      "aTitle aTitle"
+      "aData aData";
+    grid-gap: 1em;
+  }
+
+}
+
+// MOBILE //
+@media screen and (max-width: 600px) {
+
+  main {
+    margin: 1em;
+    grid-gap: 1em;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50px 850px;
+    grid-template-areas:
+      "hTitle"
+      "hData"
+      "sTitle"
+      "sData"
+      "aTitle"
+      "aData";
+  }
+
+  .activiy-container {
+    display: grid;
+    height: auto;
+    grid-template-columns: 100%;
+    grid-template-rows: 150px 90px 300px;
+    grid-template-areas:
+      "tracker"
+      "stairActMin"
+      "allStairActMin"
+      "stepChart"
+      "actMinChart";
+    grid-area: aData;
+  }
+
+  .friends {
+    @include flex-col();
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
+
 }
 
 // HIDDEN //
