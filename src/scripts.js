@@ -39,6 +39,7 @@ var userMinutesToday = document.getElementById('userMinutesToday');
 var avgMinutesToday = document.getElementById('avgMinutesToday');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes');
+const milesWalked = document.querySelector('#milesWalked');
 const hydrationChart = document.querySelector('#hydrationChart');
 const emailIcon = document.querySelector('.fa-envelope');
 const addressIcon = document.querySelector('.fa-home');
@@ -133,8 +134,9 @@ function addInfoToSidebar(user, userStorage) {
   headerText.innerText = `${user.name}'s Activity Tracker`;
   userAddress.innerText = user.address;
   userEmail.innerText = user.email;
-  stepGoalCard.innerText = `Step goal is ${user.dailyStepGoal}. Avg goal: ${user.dailyStepGoal}.`
-  userStridelength.innerText = `Stridelength is ${user.strideLength} meters.`;
+  stepGoalCard.innerText = `Step goal is ${user.dailyStepGoal}. Avg goal: ${userStorage.calculateAverageStepGoal()}.`
+  avStepGoalCard.innerText = `The average daily step goal is ${userStorage.calculateAverageStepGoal()}`;
+  userStridelength.innerText = `Stridelength is ${user.strideLength} feet.`;
   friendList.insertAdjacentHTML('afterBegin', makeFriendHTML(user, userStorage))
 };
 
@@ -179,6 +181,7 @@ function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateStr
   avgStepsToday.insertAdjacentHTML("afterBegin", `<p>Step Count:</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'numSteps')}</span></p>`);
   userMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'minutesActive')}</span></p>`);
   avgMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'minutesActive')}</span></p>`);
+  milesWalked.insertAdjacentHTML("afterBegin", `<p>Total Miles Walked This Week:</p><p><span class="number">${activityInfo.getMilesFromStepsByDate(id, dateString, user)}</span></p>`)
 }
 
 // function addMilesWalked(actData) {
