@@ -61,13 +61,6 @@ var activeMinutesInput = document.querySelector('#activeMinutesInput');
 var flightsOfStairsInput = document.querySelector('#flightInput');
 var submitButton = document.querySelector('#submitButton');
 const formErrorMessage = document.querySelector('.form-error-message');
-const ouncesErrorMessage = document.querySelector('#ounces-error-message');
-const hoursErrorMessage = document.querySelector('#hours-error-message');
-const sleepQualityErrorMessage = document.querySelector('#sleep-quality-error-message');
-const stepsErrorMessage = document.querySelector('#steps-error-message');
-const minutesErrorMessage = document.querySelector('#minutes-error-message');
-const stairsErrorMessage = document.querySelector('#stairs-error-message');
-
 
 var userNowId;
 
@@ -111,7 +104,6 @@ function startApp(lists) {
   addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
   buildCharts(today, userRepo, userNowId, hydrationRepo, sleepRepo, activityRepo);
   hide(formErrorMessage);
-  hideInputErrors();
 }
 
 function buildCharts(date, repo, id, hydroData, sleepData, actData) {
@@ -238,15 +230,6 @@ function show(something) {
   something.classList.remove('hidden');
 }
 
-function hideInputErrors() {
-  hide(ouncesErrorMessage);
-  hide(hoursErrorMessage);
-  hide(sleepQualityErrorMessage);
-  hide(stepsErrorMessage);
-  hide(minutesErrorMessage);
-  hide(stairsErrorMessage);
-}
-
 function isEmpty(input) {
   const trimmedInput = input.trim();
   if (!trimmedInput) {
@@ -256,35 +239,8 @@ function isEmpty(input) {
   }
 }
 
-function displayErrorMessage(location, message) {
-  // TODO refactor as a switch?
-  if (location === 'general') {
-    formErrorMessage.innerHTML = message;
-    show(formErrorMessage);
-  } else if (location === 'ounces') {
-    ouncesErrorMessage.innerHTML = message;
-    show(ouncesErrorMessage);
-  } else if (location === 'hours') {
-    hoursErrorMessage.innerHTML = message;
-    show(hoursErrorMessage);
-  } else if (location === 'quality') {
-    sleepQualityErrorMessage.innerHTML = message;
-    show(sleepQualityErrorMessage);
-  } else if (location === 'steps') {
-    stepsErrorMessage.innerHTML = message;
-    show(stepsErrorMessage);
-  } else if (location === 'minutes') {
-    minutesErrorMessage.innerHTML = message;
-    show(minutesErrorMessage);
-  } else if (location === 'flights') {
-    stairsErrorMessage.innerHTML = message;
-    show(stairsErrorMessage);
-  }
-}
-
 function isValidForm(date, ounces, hours, quality, steps, minutes, flights) {
   hide(formErrorMessage);
-  hideInputErrors();
 
   if (isEmpty(ounces) 
     && isEmpty(hours) 
@@ -293,36 +249,14 @@ function isValidForm(date, ounces, hours, quality, steps, minutes, flights) {
     && isEmpty(minutes) 
     && isEmpty(flights)
   ) {
-    displayErrorMessage('general', 'Please enter data for at least one category');
-    return false;
-  } else if (ounces < 0) {
-    displayErrorMessage('ounces', 'Must be greater than 0');
-    return false;
-  } else if (hours < 0 || hours > 24) {
-    displayErrorMessage('hours', 'Must be between 0 and 24');
-    return false;
-  } else if (quality < 0 || quality > 5) {
-    displayErrorMessage('quality', 'Must be between 0 and 5');
-    return false;
-  } else if (steps < 0) {
-    displayErrorMessage('steps', 'Must be greater than 0');
-    return false;
-  } else if (minutes < 0) {
-    displayErrorMessage('minutes', 'Must be greater than 0');
-    return false;
-  } else if (flights < 0) {
-    displayErrorMessage('flights', 'Must be greater than 0');
+    formErrorMessage.innerHTML = 'Please enter data for at least one category';
+    show(formErrorMessage);
     return false;
   } else {
     return true;
   }
 }  
 
-
-// Old way (listen for click on button):
-// submitButton.addEventListener('click', (event) => {
-
-// New way (listen for submit on form):
 inputForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
