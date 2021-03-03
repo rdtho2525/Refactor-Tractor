@@ -4,7 +4,7 @@
 _FitLit_ is a new app to help anyone begin and maintain their fitness journey.  By logging one's daily hydration, activity, and sleep habits users can keep track of their progress on the path to healthy living.
 
 ## How to use:
-+ When the user first loads the page they will see a nav bar with their profile photo and several icons. Each of these icons can be clicked on to display the relevant data. Moving to the right side of the nav bar the user will notice several input fields. This is where the user can input a date and their daily stats for hydration, activity, and sleep.
++ When the user first loads the page they will see a nav bar with their profile photo and several icons. Each of these icons can be clicked on to display the relevant data. Moving to the right side of the nav bar the user will notice several input fields. This is where the user can input a date and their daily stats for hydration, activity, and sleep. The user will be prompted with the type of data required for each field. If a field isn't properly filled out then an error message will display telling the user how to correct their input. 
 
 <SCREENSHOT OF NAV BAR (and whatever else will fit in the screenshot)>
 
