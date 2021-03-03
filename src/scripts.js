@@ -135,7 +135,6 @@ function addInfoToSidebar(user, userStorage) {
   userAddress.innerText = user.address;
   userEmail.innerText = user.email;
   stepGoalCard.innerText = `Step goal is ${user.dailyStepGoal}. Avg goal: ${userStorage.calculateAverageStepGoal()}.`
-  // avStepGoalCard.innerText = `The average daily step goal is ${userStorage.calculateAverageStepGoal()}`;
   userStridelength.innerText = `Stridelength is ${user.strideLength} feet.`;
   friendList.insertAdjacentHTML('afterBegin', makeFriendHTML(user, userStorage))
 };
