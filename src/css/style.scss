@@ -261,11 +261,6 @@ main {
 @media screen and (max-width: 1000px) {
 
   //navbar//
-  .nav-bar, .friends {
-    @include flex-col();
-    justify-content: center;
-    height: auto;
-  }
 
   .input-box {
     @include flex-row();
@@ -277,6 +272,11 @@ main {
 
   .user-prof {
     width: 100%;
+  }
+  .nav-bar, .friends {
+    @include flex-col();
+    justify-content: center;
+    height: auto;
   }
 }
 
