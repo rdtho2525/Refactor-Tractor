@@ -257,6 +257,30 @@ function isValidForm(date, ounces, hours, quality, steps, minutes, flights) {
   }
 }  
 
+function isValidSleep(sleepObj) {
+  if (sleepObj.hoursSlept || sleepObj.sleepQuality) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isValidActivity(activityObj) {
+  if (activityObj.numSteps || activityObj.minutesActive || activityObj.flightsOfStairs) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isValidHydration(hydrationObj) {
+  if (hydrationObj.numOunces) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 inputForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
@@ -285,36 +309,42 @@ inputForm.addEventListener('submit', (event) => {
     "numOunces": waterInput.value
   };
 
-  const postSleep = fetch('http://localhost:3001/api/v1/sleep', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(sleepObj),
-  })
-  .then(response => response.json())
-  .then(thisData => console.log("sleep data: ", thisData))
-  .catch(err => console.log(err))
+  if (isValidSleep(sleepObj)) {
+    const postSleep = fetch('http://localhost:3001/api/v1/sleep', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(sleepObj),
+    })
+    .then(response => response.json())
+    .then(thisData => console.log("sleep data: ", thisData))
+    .catch(err => console.log(err))
+  }
 
-  const postActivity = fetch('http://localhost:3001/api/v1/activity', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(activityObj)
-  })
-  .then(response => response.json())
-  .then(thisData => console.log("activity data: ", thisData))
-  .catch(err => console.log(err))
+  if (isValidActivity(activityObj)) {
+    const postActivity = fetch('http://localhost:3001/api/v1/activity', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(activityObj)
+    })
+    .then(response => response.json())
+    .then(thisData => console.log("activity data: ", thisData))
+    .catch(err => console.log(err))
+  }
 
-  const postHydration = fetch('http://localhost:3001/api/v1/hydration', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(hydrationObj),
-  })
-  .then(response => response.json())
-  .then(thisData => console.log("hydration data: ", thisData))
-  .catch(err => console.log(err))
+  if (isValidHydration(hydrationObj)) {
+    const postHydration = fetch('http://localhost:3001/api/v1/hydration', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(hydrationObj),
+    })
+    .then(response => response.json())
+    .then(thisData => console.log("hydration data: ", thisData))
+    .catch(err => console.log(err))
+  }
 });
