@@ -6,10 +6,8 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
 </head>
-
 <body>
   <h1 id="headerText">Activity Tracker</h1>
-  <!-- <h2 class="sidebar-header-name" id="sidebarName">Name Name</h2> -->
   <hr />
   <nav class="nav-bar">
     <div class="user-prof">
@@ -35,7 +33,6 @@
           <i class="fas fa-user-friends"></i>
           <ul class="user-info friend-list hidden" id="friendList"></ul>
         </div>
-        <!-- <p class="sidebar-header-userInfo" id="avStepGoalCard"> -->
       </div>
     </div>
     <div class="input-box">
@@ -75,28 +72,24 @@
       <div class="hydration-card">
         <p id="hydrationAverage"></p>
       </div>
-      <canvas id="hydrationChart"></canvas>
-      WATER INTAKE WEEK
-      <!-- <ul class="card-vertical-list" id="hydrationThisWeek"></ul> -->
+      <canvas id="hydrationChart" width="500" height="600"></canvas>
     </section>
     <section class="activiy-container grid-boxA">
       <div class="user-all-compare">
         <div class="user-act-daily">
-          <h2>YOUR STATS</h2>
+          <h2>YOUR STATS :</h2>
           <div><p id="userStepsToday"></p></div>
           <div><p id="userStairsToday"></p></div>
           <div><p id="userMinutesToday"></p></div>
         </div>
         <div class="all-act-avg">
-          <h2>USER AVG</h2>
+          <h2>USER AVG :</h2>
           <div><p id="avgStepsToday"></p></div>
           <div><p id="avgStairsToday"></p></div>
           <div><p id="avgMinutesToday"></p></div>
         </div>
       </div>
-      <div class="user-act-stats">
-        MILES WALKED
-      </div>
+      <div class="miles-walked"></div>
       <div class="all-act-stats">
         STAIR CHART COUNT THIS WEEK
         <canvas id="stepCountChart"></canvas>
@@ -114,21 +107,21 @@
       </div>
     </section>
     <section class="sleep-container grid-boxS">
-      <div class="sleep-card">
-        <p id="sleepToday"></p>
-      </div>
-      <div class="sleep-card">
-        <p id="sleepQualityToday"></p>
+      <div class="user-sleep">
+        <div class="sleep-card">
+          <p id="sleepToday"></p>
+        </div>
+        <div class="sleep-card">
+          <p id="sleepQualityToday"></p>
+        </div>
       </div>
       <div class="sleep-card">
         <p id="avUserSleepQuality"></p>
       </div>
       <div class="sleep-chart">
-        <div id="sleepThisWeek">
-
-        </div>
-        <canvas id="hoursSleptChart"></canvas>
-        CHART FOR WEEKLY SLEEP HOURS?
+        <div id="sleepThisWeek"></div>
+        <canvas id="hoursSleptChart" width="500" height="275"></canvas>
+        <canvas id="sleepQualityChart" width="500" height="275"></canvas>
       </div>
     </section>
   </main>

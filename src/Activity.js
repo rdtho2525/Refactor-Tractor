@@ -4,6 +4,7 @@ class Activity {
   }
   getMilesFromStepsByDate(id, date, userRepo) {
     let userStepsByDate = this.activityData.find(data => id === data.userID && date === data.date);
+    console.log(userStepsByDate);
     return parseFloat(((userStepsByDate.numSteps * userRepo.strideLength) / 5280).toFixed(1));
   }
   getActiveMinutesByDate(id, date) {
@@ -75,7 +76,7 @@ class Activity {
     });
   }
   compareWeeklyUsers(user, date, userRepo) {
-    let rankedList = this.calcWeeklyStepsAverage(user, date, userRepo);
+    let rankedList = this.calcWeeklyStepsTotal(user, date, userRepo);
     return rankedList.map(function(listItem) {
       let userID = Object.keys(listItem)[0];
       let userName = userRepo.getDataFromID(parseInt(userID)).name;
@@ -99,7 +100,7 @@ class Activity {
     })
   }
   getWinnerId(user, date, userRepo) {
-    let rankedList = this.calcWeeklyStepsAverage(user, date, userRepo);
+    let rankedList = this.calcWeeklyStepsTotal(user, date, userRepo);
     let keysList = rankedList.map(listItem => Object.keys(listItem));
     return parseInt(keysList[0].join(''))
   }
