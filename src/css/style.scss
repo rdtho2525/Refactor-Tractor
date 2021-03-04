@@ -3,7 +3,8 @@
 }
 
 body {
-  font-family: 'Open Sans';
+  width: 100%;
+  font-family: "Open Sans";
   margin: 0;
   background-color: white;
 }
@@ -42,7 +43,7 @@ h1 {
   text-align: center;
   font-size: 1em;
   font-weight: bolder;
-  margin: .5em;
+  margin: 0.5em;
   color: black;
 }
 
@@ -53,13 +54,13 @@ h1 {
 }
 
 .historical-list-listItem {
-  padding: .3em;
+  padding: 0.3em;
   font-weight: bold;
   font-family: sans-serif;
 }
 
 // NAV BAR //
-.nav-bar, .friends {
+.friends {
   @include flex-row();
   justify-content: center;
   height: auto;
@@ -67,18 +68,25 @@ h1 {
 }
 
 .user-info {
+  @include flex-row();
+  min-height: 50px;
+  width: 311.5px;
+  align-items: center;
+  padding-left: 4px;
   font-family: sans-serif;
   font-weight: bold;
   font-size: 1.2em;
 }
 
 .user-prof {
-  @include flex-row();
+  @include flex-col();
   align-items: center;
-  width: 50%;
+  // width: 50%;
 }
 
-.user-img, .friend-img {
+.user-img,
+.friend-img {
+  display: block;
   border-radius: 50%;
   border-style: solid;
   border-width: 1px;
@@ -90,6 +98,10 @@ h1 {
 .icon-display {
   @include flex-row();
   align-items: center;
+}
+
+.info-container {
+  @include flex-row();
 }
 
 i {
@@ -107,7 +119,6 @@ i {
   justify-content: space-around;
   background-color: $graybackground;
   border-radius: 6px;
-  width: 50%;
 }
 
 .input-field {
@@ -126,7 +137,7 @@ i {
 }
 
 label {
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 
 input {
@@ -152,9 +163,14 @@ main {
   grid-gap: 1em;
 }
 
-.box-title  {
+.box-title {
   @include flex-col();
   align-items: center;
+}
+
+.chart-label {
+  @include flex-center();
+  width: 100%;
 }
 
 .number {
@@ -178,10 +194,11 @@ main {
   grid-area: hData;
 }
 
-.hydration-card, .sleep-card {
+.hydration-card,
+.sleep-card {
   text-align: center;
   font-size: 1.5em;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   font-family: sans-serif;
 }
 
@@ -202,7 +219,8 @@ main {
   @include flex-col();
 }
 
-.user-act-daily, .all-act-avg {
+.user-act-daily,
+.all-act-avg {
   @include flex-row();
   justify-content: space-around;
   align-items: center;
@@ -234,6 +252,13 @@ main {
     "stairActMin allStairActMin"
     "stepChart actMinChart";
   grid-area: aData;
+}
+
+.miles-walked {
+  @include flex-col();
+  align-items: center;
+  justify-content: center;
+  font-size: 3em;
 }
 
 // SLEEP //
@@ -282,7 +307,6 @@ main {
 
 // TABLET //
 @media screen and (max-width: 1100px) {
-
   //navbar//
 
   .input-box {
@@ -292,6 +316,10 @@ main {
     width: auto;
   }
 
+  .selected {
+    color: $graybackground;
+  }
+
   .user-prof {
     width: auto;
   }
@@ -299,7 +327,8 @@ main {
   .nav-bar {
     @include flex-col();
     justify-content: center;
-    height: auto;
+    // height: 274px;
+    overflow: scroll;
   }
 
   .hydration-container {
@@ -319,18 +348,21 @@ main {
       "aData aData";
     grid-gap: 1em;
   }
-
 }
 
 // MOBILE //
 @media screen and (max-width: 600px) {
+  .user-img {
+    height: 107;
+    width: 100;
+  }
 
   main {
     margin: 1em;
     grid-gap: 1em;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 50px 850px;
+    grid-template-rows: 50px 625px;
     grid-template-areas:
       "hTitle"
       "hData"
@@ -340,11 +372,15 @@ main {
       "aData";
   }
 
+  .hydration-container {
+    padding: 0.62em;
+  }
+
   .activiy-container {
     display: grid;
     height: auto;
     grid-template-columns: 100%;
-    grid-template-rows: 150px 90px 300px;
+    grid-template-rows: 150px 200px 200px 200px 200px;
     grid-template-areas:
       "tracker"
       "stairActMin"
@@ -354,13 +390,16 @@ main {
     grid-area: aData;
   }
 
+  .number {
+    font-size: 1.2em;
+  }
+
   .friends {
     @include flex-col();
     justify-content: center;
     align-items: center;
     height: auto;
   }
-
 }
 
 // HIDDEN //

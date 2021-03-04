@@ -46,6 +46,9 @@ const addressIcon = document.querySelector('.fa-home');
 const strideIcon = document.querySelector('.fa-walking');
 const stepIcon = document.querySelector('.fa-shoe-prints');
 const friendsIcon = document.querySelector('.fa-user-friends');
+const arrowIcon = document.querySelector('.fa-angle-double-down');
+const inputBox = document.querySelector('#inputBox');
+const infoContainer = document.querySelector('#infoContainer');
 const email = document.querySelector('#userEmail');
 const address = document.querySelector('#userAddress');
 const stride = document.querySelector('#userStridelength');
@@ -80,6 +83,10 @@ stepIcon.addEventListener('click', function() {
 friendsIcon.addEventListener('click', function() {
   displayIconInfo(friends)
 });
+
+arrowIcon.addEventListener('click', function() {
+  return inputBox.classList.toggle('hidden')
+})
 
 function displayIconInfo(icon) {
   icon.classList.toggle('hidden');
@@ -137,13 +144,13 @@ function addInfoToSidebar(user, userStorage) {
   headerText.innerText = `${user.name}'s Activity Tracker`;
   userAddress.innerText = user.address;
   userEmail.innerText = user.email;
-  stepGoalCard.innerText = `Step goal is ${user.dailyStepGoal}. Avg goal: ${userStorage.calculateAverageStepGoal()}.`
-  userStridelength.innerText = `Stridelength is ${user.strideLength} feet.`;
+  stepGoalCard.innerText = `Step goal: ${user.dailyStepGoal}. Avg goal: ${userStorage.calculateAverageStepGoal()}.`
+  userStridelength.innerText = `Stridelength: ${user.strideLength} feet.`;
   friendList.insertAdjacentHTML('afterBegin', makeFriendHTML(user, userStorage))
 };
 
 function makeFriendHTML(user, userStorage) {
-  return user.getFriendsNames(userStorage).map(friendName => `-${friendName}`).join('');
+  return user.getFriendsNames(userStorage).map(friendName => ` ${friendName} | `).join('');
 }
 
 function makeWinnerID(activityInfo, user, dateString, userStorage){
@@ -169,7 +176,7 @@ function addHydrationInfo(id, hydrationInfo, dateString, userStorage, laterDateS
 function addSleepInfo(id, sleepInfo, dateString, userStorage, laterDateString) {
   sleepToday.insertAdjacentHTML("afterBegin", `<p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> <p>hours slept</p>`);
   sleepQualityToday.insertAdjacentHTML("afterBegin", `<p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span></p><p>sleep quality of 5</p>`);
-  avUserSleepQuality.insertAdjacentHTML("afterBegin", `<p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() *100)/100}</span></p><p>average sleep quality of 5</p>`);
+  // avUserSleepQuality.insertAdjacentHTML("afterBegin", `<p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() *100)/100}</span></p><p>average sleep quality of 5</p>`);
 }
 
 function makeSleepQualityHTML(id, sleepInfo, userStorage, method) {
@@ -183,7 +190,7 @@ function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateStr
   avgStepsToday.insertAdjacentHTML("afterBegin", `<p>Step Count:</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'numSteps')}</span></p>`);
   userMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'minutesActive')}</span></p>`);
   avgMinutesToday.insertAdjacentHTML("afterBegin", `<p>Active Minutes:</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'minutesActive')}</span></p>`);
-  milesWalked.insertAdjacentHTML("afterBegin", `<p>Total Miles Walked This Week:</p><p><span class="number">${activityInfo.getMilesFromStepsByDate(id, dateString, user)}</span></p>`)
+  milesWalked.insertAdjacentHTML("afterBegin", `<p><span class="number">${activityInfo.getMilesFromStepsByDate(id, dateString, user)}</span><p>miles walked</p></p>`)
 }
 
 // function addMilesWalked(actData) {

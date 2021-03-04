@@ -18,48 +18,38 @@
       <div class="icon-container">
         <div class="icon-display">
           <i class="fas fa-envelope"></i>
-          <p class="user-info hidden" id="userEmail"></p>
-        </div>
-        <div class="icon-display">
           <i class="fas fa-home"></i>
-          <p class="user-info hidden" id="userAddress"></p>
-        </div>
-        <div class="icon-display">
           <i class="fas fa-walking"></i>
-          <p class="user-info hidden" id="userStridelength"></p>
-        </div>
-        <div class="icon-display">
           <i class="fas fa-shoe-prints"></i>
-          <p class="user-info hidden" id="stepGoalCard"></p>
-        </div>
-        <div class="icon-display">
           <i class="fas fa-user-friends"></i>
-          <ul class="user-info friend-list hidden" id="friendList"></ul>
+          <i class="fas fa-angle-double-down"></i>
         </div>
+        <p class="user-info hidden" id="userEmail"></p>
+        <p class="user-info hidden" id="userAddress"></p>
+        <p class="user-info hidden" id="userStridelength"></p>
+        <p class="user-info hidden" id="stepGoalCard"></p>
+        <ul class="user-info friend-list hidden" id="friendList"></ul>
       </div>
     </div>
-    <form class="input-box">
+    <form id="inputBox" class="input-box hidden">
       <div class="input-field user-info">
+        <h2>Enter Your Daily Activity:</h2>
         <label for="date">Date:</label>
         <input type="text" id="date" name="date" placeholder="YYYY/MM/DD" required>
-        <input type="submit" class="submit-btn" id="submitButton" value="SUBMIT"/>
-        <p class="form-error-message">Placeholder message</p>
-      </div>
-      <div class="input-field user-info">
         <label for="waterInput">Ounces Drank:</label>
         <input type="number" step="any" min="0" id="waterInput" name="oz-input">
         <label for="hoursSleptInput">Hours Slept:</label>
         <input type="number" step="any" min="0" max="24" id="hoursSleptInput" name="hr-sleep-input">
         <label for="sleepQualityInput">Sleep Quality:</label>
         <input type="number" step="any" min="0" max="5" id="sleepQualityInput" name="qa-sleep-input">
-      </div>
-      <div class="input-field user-info">
         <label for="stepNumberInput">Number of Steps:</label>
         <input type="number" min="0" id="stepNumberInput" name="num-step-input">
         <label for="activeMinutesInput">Minutes Active:</label>
         <input type="number" step="any" min="0" id="activeMinutesInput" name="min-act-input">
         <label for="flightInput">Flights of Stairs:</label>
         <input type="number" step="any" min="0" id="flightInput" name="flight-input">
+        <input type="submit" class="submit-btn" id="submitButton" value="SUBMIT">
+        <p class="form-error-message">Placeholder message</p>
       </div>
     </form>
   </nav>
@@ -75,8 +65,8 @@
       <div class="hydration-card">
         <p id="hydrationAverage"></p>
       </div>
-      OZ DRANK
-      <canvas id="hydrationChart" width="500" height="600"></canvas>
+      <p class="chart-label">OZ DRANK</p>
+      <canvas id="hydrationChart" width="500" height="500"></canvas>
     </section>
     <section class="activiy-container grid-boxA">
       <div class="user-all-compare">
@@ -93,17 +83,17 @@
           <div><p id="avgMinutesToday"></p></div>
         </div>
       </div>
-      <div id="milesWalked" class="miles-walked"></div>
+      <div id="milesWalked" class="miles-walked all-act-avg"></div>
       <div class="all-act-stats">
-        WEEKLY STEP COUNT
+        <p class="chart-label">WEEKLY STEP COUNT</p>
         <canvas id="stepCountChart"></canvas>
       </div>
       <div class="step-chart">
-        WEEKLY STAIRS CLIMBED
+        <p class="chart-label">WEEKLY STAIRS CLIMBED</p>
         <canvas id="flightsOfStairsChart"></canvas>
       </div>
       <div class="act-min-chart">
-        WEEKLY ACTIVE MINUTES
+        <p class="chart-label">WEEKLY ACTIVE MINUTES</p>
         <canvas id="activeMinutesChart"></canvas>
       </div>
     </section>
@@ -121,9 +111,9 @@
       </div>
       <div class="sleep-chart">
         <div id="sleepThisWeek"></div>
-        HOURS SLEPT
+        <p class="chart-label">HOURS SLEPT</p>
         <canvas id="hoursSleptChart" width="500" height="275"></canvas>
-        QUALITY OF SLEEP
+        <p class="chart-label">QUALITY OF SLEEP</p>
         <canvas id="sleepQualityChart" width="500" height="275"></canvas>
       </div>
     </section>
