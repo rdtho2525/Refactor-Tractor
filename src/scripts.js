@@ -54,7 +54,8 @@ const address = document.querySelector('#userAddress');
 const stride = document.querySelector('#userStridelength');
 const step = document.querySelector('#stepGoalCard');
 const friends = document.querySelector('#friendList');
-var dateInput = document.querySelector("#waterDate");
+const inputForm = document.querySelector('.input-box');
+var dateInput = document.querySelector("#date");
 var waterInput = document.querySelector('#waterInput');
 var hoursSleptInput = document.querySelector('#hoursSleptInput');
 var sleepQualityInput = document.querySelector('#sleepQualityInput');
@@ -62,6 +63,8 @@ var stepNumberInput = document.querySelector('#stepNumberInput');
 var activeMinutesInput = document.querySelector('#activeMinutesInput');
 var flightsOfStairsInput = document.querySelector('#flightInput');
 var submitButton = document.querySelector('#submitButton');
+const formErrorMessage = document.querySelector('.form-error-message');
+const bigErrorMessage = document.querySelector('#bigErrorMessage');
 
 var userNowId;
 
@@ -108,6 +111,8 @@ function startApp(lists) {
   // addMilesWalked(activityRepo);
   addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
   buildCharts(today, userRepo, userNowId, hydrationRepo, sleepRepo, activityRepo);
+  hide(bigErrorMessage);
+  hide(formErrorMessage);
 }
 
 function buildCharts(date, repo, id, hydroData, sleepData, actData) {
@@ -208,27 +213,115 @@ function makeFriendChallengeHTML(id, activityInfo, userStorage, method) {
 // }
 
 const userFetch = fetch('http://localhost:3001/api/v1/users')
-  .then(response => response.json())
-  .catch(err => console.log(err));
+  .then(checkForError)
+  .catch(err => displayErrorMessage(err));
 
 const hydrationFetch = fetch('http://localhost:3001/api/v1/hydration')
-  .then(response => response.json())
-  .catch(err => console.log(err));
+  .then(checkForError)
+  .catch(err => displayErrorMessage(err));
 
 const sleepFetch = fetch('http://localhost:3001/api/v1/sleep')
-  .then(response => response.json())
-  .catch(err => console.log(err));
+  .then(checkForError)
+  .catch(err => displayErrorMessage(err));
 
 const activityFetch = fetch('http://localhost:3001/api/v1/activity')
-  .then(response => response.json())
-  .catch(err => console.log(err));
+  .then(checkForError)
+  .catch(err => displayErrorMessage(err));
 
 Promise.all([userFetch, hydrationFetch, sleepFetch, activityFetch])
   .then(values => startApp(values));
 
+function hide(something) {
+  something.classList.add('hidden');
+}
 
-submitButton.addEventListener('click', (event) => {
+function show(something) {
+  something.classList.remove('hidden');
+}
+
+function isEmpty(input) {
+  const trimmedInput = input.trim();
+  if (!trimmedInput) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isValidForm(date, ounces, hours, quality, steps, minutes, flights) {
+  hide(formErrorMessage);
+
+  if (isEmpty(ounces) 
+    && isEmpty(hours) 
+    && isEmpty(quality) 
+    && isEmpty(steps) 
+    && isEmpty(minutes) 
+    && isEmpty(flights)
+  ) {
+    formErrorMessage.innerHTML = 'Please enter data for at least one category';
+    show(formErrorMessage);
+    return false;
+  } else {
+    return true;
+  }
+}  
+
+function isValidSleep(sleepObj) {
+  if (sleepObj.hoursSlept || sleepObj.sleepQuality) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isValidActivity(activityObj) {
+  if (activityObj.numSteps || activityObj.minutesActive || activityObj.flightsOfStairs) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isValidHydration(hydrationObj) {
+  if (hydrationObj.numOunces) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function checkForError(response) {
+  if (!response.ok) {
+    throw new Error('Please make sure you\'ve entered some data.');
+  } else {
+    return response.json();
+  }
+}
+
+function displayErrorMessage(err) {
+  let message = '';
+
+  if (err.message === 'Failed to fetch') {
+    message = 'Something went wrong. Please check your internet connection.';
+    bigErrorMessage.innerText = message;
+    show(bigErrorMessage);
+    hide(formErrorMessage);
+  } else {
+    message = err.message;
+    formErrorMessage.innerText = message;
+    show(formErrorMessage);
+    hide(bigErrorMessage);
+  }
+}
+
+
+inputForm.addEventListener('submit', (event) => {
   event.preventDefault();
+
+  if (!isValidForm(dateInput.value, waterInput.value, hoursSleptInput.value, sleepQualityInput.value, stepNumberInput.value, activeMinutesInput.value, flightsOfStairsInput.value)) {
+    return;
+  }
+
   const sleepObj = {
     "userID": userNowId,
     "date": dateInput.value,
@@ -250,34 +343,44 @@ submitButton.addEventListener('click', (event) => {
     "numOunces": waterInput.value
   };
 
-  const postSleep = fetch('http://localhost:3001/api/v1/sleep', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(sleepObj),
-})
-  .then(response => response.json())
-  .catch(err => console.log(err))
+  if (isValidSleep(sleepObj)) {
+    const postSleep = fetch('http://localhost:3001/api/v1/sleep', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(sleepObj),
+    })
+    .then(checkForError)
+    .then(thisData => console.log("sleep data: ", thisData))
+    .catch(err => displayErrorMessage(err));
+  }
 
-const postActivity = fetch('http://localhost:3001/api/v1/activity', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(activityObj)
-})
-  .then(response => response.json())
-  .catch(err => console.log(err))
+  if (isValidActivity(activityObj)) {
+    const postActivity = fetch('http://localhost:3001/api/v1/activity', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(activityObj)
+    })
+    .then(checkForError)
+    .then(thisData => console.log("activity data: ", thisData))
+    .catch(err => displayErrorMessage(err));
+  }
 
-const postHydration = fetch('http://localhost:3001/api/v1/hydration', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(hydrationObj),
-})
-  .then(response => response.json())
-  .then(thisData => console.log(thisData))
-  .catch(err => console.log(err))
-})
+  if (isValidHydration(hydrationObj)) {
+    const postHydration = fetch('http://localhost:3001/api/v1/hydration', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(hydrationObj),
+    })
+    .then(checkForError)
+    .then(thisData => console.log("hydration data: ", thisData))
+    .catch(err => displayErrorMessage(err));
+  }
+
+  event.target.reset();
+});

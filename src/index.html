@@ -10,6 +10,7 @@
 </head>
 <body>
   <h1 id="headerText">Activity Tracker</h1>
+  <h2 class="big-error-message" id="bigErrorMessage">Placeholder big error message</h2>
   <hr />
   <nav class="nav-bar">
     <div class="user-prof">
@@ -30,26 +31,27 @@
         <ul class="user-info friend-list hidden" id="friendList"></ul>
       </div>
     </div>
-    <div id="inputBox" class="input-box hidden">
-      <div class="input-feild user-info">
+    <form id="inputBox" class="input-box hidden">
+      <div class="input-field user-info">
         <h2>Enter Your Daily Activity:</h2>
-        <label for="water-date">Date:</label>
-        <input type="text" id="water-date" name="water-date">
-        <label for="oz-input">Ounces Drank:</label>
-        <input type="number" id="oz-input" name="oz-input">
-        <label for="hr-sleep-input">Hours Slept:</label>
-        <input type="number" id="hr-sleep-input" name="hr-sleep-input">
-        <label for="qa-sleep-input">Sleep Quality:</label>
-        <input type="number" id="qa-sleep-input" name="qa-sleep-input">
-        <label for="num-step-input">Number of Steps:</label>
-        <input type="number" id="num-step-input" name="num-step-input">
-        <label for="min-act-input">Minutes Active:</label>
-        <input type="number" id="min-act-input" name="min-act-input">
-        <label for="flight-input">Flight of Stairs:</label>
-        <input type="number" id="flight-input" name="flight-input">
-        <input type="submit" class="submit-btn" id="submitButton" value="SUBMIT"></input>
+        <label for="date">Date:</label>
+        <input type="text" id="date" name="date" placeholder="YYYY/MM/DD" required>
+        <label for="waterInput">Ounces Drank:</label>
+        <input type="number" step="any" min="0" id="waterInput" name="oz-input">
+        <label for="hoursSleptInput">Hours Slept:</label>
+        <input type="number" step="any" min="0" max="24" id="hoursSleptInput" name="hr-sleep-input">
+        <label for="sleepQualityInput">Sleep Quality:</label>
+        <input type="number" step="any" min="0" max="5" id="sleepQualityInput" name="qa-sleep-input">
+        <label for="stepNumberInput">Number of Steps:</label>
+        <input type="number" min="0" id="stepNumberInput" name="num-step-input">
+        <label for="activeMinutesInput">Minutes Active:</label>
+        <input type="number" step="any" min="0" id="activeMinutesInput" name="min-act-input">
+        <label for="flightInput">Flights of Stairs:</label>
+        <input type="number" step="any" min="0" id="flightInput" name="flight-input">
+        <input type="submit" class="submit-btn" id="submitButton" value="SUBMIT">
+        <p class="form-error-message">Placeholder message</p>
       </div>
-    </div>
+    </form>
   </nav>
   <hr />
   <main>
