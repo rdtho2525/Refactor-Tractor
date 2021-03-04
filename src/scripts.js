@@ -205,19 +205,19 @@ function makeFriendChallengeHTML(id, activityInfo, userStorage, method) {
 
 const userFetch = fetch('http://localhost:3001/api/v1/users')
   .then(response => response.json())
-  .catch(err => console.log(err));
+  .catch(err => displayErrorMessage(err));
 
 const hydrationFetch = fetch('http://localhost:3001/api/v1/hydration')
   .then(response => response.json())
-  .catch(err => console.log(err));
+  .catch(err => displayErrorMessage(err));
 
 const sleepFetch = fetch('http://localhost:3001/api/v1/sleep')
   .then(response => response.json())
-  .catch(err => console.log(err));
+  .catch(err => displayErrorMessage(err));
 
 const activityFetch = fetch('http://localhost:3001/api/v1/activity')
   .then(response => response.json())
-  .catch(err => console.log(err));
+  .catch(err => displayErrorMessage(err));
 
 Promise.all([userFetch, hydrationFetch, sleepFetch, activityFetch])
   .then(values => startApp(values));
@@ -281,6 +281,28 @@ function isValidHydration(hydrationObj) {
   }
 }
 
+function checkForError(response) {
+  if (!response.ok) {
+    // TODO change this message text
+    throw new Error('Testing throwing an error.');
+  } else {
+    return response.json();
+  }
+}
+
+function displayErrorMessage(err) {
+  let message = '';
+
+  if (err.message === 'Failed to fetch') {
+    message = 'Something went wrong. Please check your internet connection.';
+  } else {
+    message = err.message;
+  }
+
+  formErrorMessage.innerText = message;
+}
+
+
 inputForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
@@ -317,9 +339,9 @@ inputForm.addEventListener('submit', (event) => {
       },
       body: JSON.stringify(sleepObj),
     })
-    .then(response => response.json())
+    .then(checkForError)
     .then(thisData => console.log("sleep data: ", thisData))
-    .catch(err => console.log(err))
+    .catch(err => displayErrorMessage(err));
   }
 
   if (isValidActivity(activityObj)) {
@@ -330,9 +352,9 @@ inputForm.addEventListener('submit', (event) => {
       },
       body: JSON.stringify(activityObj)
     })
-    .then(response => response.json())
+    .then(checkForError)
     .then(thisData => console.log("activity data: ", thisData))
-    .catch(err => console.log(err))
+    .catch(err => displayErrorMessage(err));
   }
 
   if (isValidHydration(hydrationObj)) {
@@ -343,9 +365,10 @@ inputForm.addEventListener('submit', (event) => {
       },
       body: JSON.stringify(hydrationObj),
     })
-    .then(response => response.json())
+    .then(checkForError)
     .then(thisData => console.log("hydration data: ", thisData))
     .catch(err => console.log(err))
+    .catch(err => displayErrorMessage(err));
   }
 
   event.target.reset();
