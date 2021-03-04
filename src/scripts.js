@@ -12,35 +12,26 @@ import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
 
-var sidebarName = document.getElementById('sidebarName');
-var stepGoalCard = document.getElementById('stepGoalCard');
-var headerText = document.getElementById('headerText');
-var userAddress = document.getElementById('userAddress');
-var userEmail = document.getElementById('userEmail');
-var userStridelength = document.getElementById('userStridelength');
-var friendList = document.getElementById('friendList');
-var hydrationToday = document.getElementById('hydrationToday');
-var hydrationAverage = document.getElementById('hydrationAverage');
-var hydrationEarlierWeek = document.getElementById('hydrationEarlierWeek');
-var historicalWeek = document.querySelectorAll('.historicalWeek');
-var sleepToday = document.getElementById('sleepToday');
-var sleepQualityToday = document.getElementById('sleepQualityToday');
-var avUserSleepQuality = document.getElementById('avUserSleepQuality');
-var sleepThisWeek = document.getElementById('sleepThisWeek');
-var sleepEarlierWeek = document.getElementById('sleepEarlierWeek');
-var friendChallengeListToday = document.getElementById('friendChallengeListToday');
-var friendChallengeListHistory = document.getElementById('friendChallengeListHistory');
-var bigWinner = document.getElementById('bigWinner');
-var userStepsToday = document.getElementById('userStepsToday');
-var avgStepsToday = document.getElementById('avgStepsToday');
-var userStairsToday = document.getElementById('userStairsToday');
-var avgStairsToday = document.getElementById('avgStairsToday');
-var userMinutesToday = document.getElementById('userMinutesToday');
-var avgMinutesToday = document.getElementById('avgMinutesToday');
-var streakList = document.getElementById('streakList');
-var streakListMinutes = document.getElementById('streakListMinutes');
+const stepGoalCard = document.getElementById('stepGoalCard');
+const headerText = document.getElementById('headerText');
+const userAddress = document.getElementById('userAddress');
+const userEmail = document.getElementById('userEmail');
+const userStridelength = document.getElementById('userStridelength');
+const friendList = document.getElementById('friendList');
+const hydrationToday = document.getElementById('hydrationToday');
+const hydrationAverage = document.getElementById('hydrationAverage');
+const historicalWeek = document.querySelectorAll('.historicalWeek');
+const sleepToday = document.getElementById('sleepToday');
+const sleepQualityToday = document.getElementById('sleepQualityToday');
+const friendChallengeListToday = document.getElementById('friendChallengeListToday');
+const bigWinner = document.getElementById('bigWinner');
+const userStepsToday = document.getElementById('userStepsToday');
+const avgStepsToday = document.getElementById('avgStepsToday');
+const userStairsToday = document.getElementById('userStairsToday');
+const avgStairsToday = document.getElementById('avgStairsToday');
+const userMinutesToday = document.getElementById('userMinutesToday');
+const avgMinutesToday = document.getElementById('avgMinutesToday');
 const milesWalked = document.querySelector('#milesWalked');
-const hydrationChart = document.querySelector('#hydrationChart');
 const emailIcon = document.querySelector('.fa-envelope');
 const addressIcon = document.querySelector('.fa-home');
 const strideIcon = document.querySelector('.fa-walking');
@@ -48,25 +39,23 @@ const stepIcon = document.querySelector('.fa-shoe-prints');
 const friendsIcon = document.querySelector('.fa-user-friends');
 const arrowIcon = document.querySelector('.fa-angle-double-down');
 const inputBox = document.querySelector('#inputBox');
-const infoContainer = document.querySelector('#infoContainer');
 const email = document.querySelector('#userEmail');
 const address = document.querySelector('#userAddress');
 const stride = document.querySelector('#userStridelength');
 const step = document.querySelector('#stepGoalCard');
 const friends = document.querySelector('#friendList');
 const inputForm = document.querySelector('.input-box');
-var dateInput = document.querySelector("#date");
-var waterInput = document.querySelector('#waterInput');
-var hoursSleptInput = document.querySelector('#hoursSleptInput');
-var sleepQualityInput = document.querySelector('#sleepQualityInput');
-var stepNumberInput = document.querySelector('#stepNumberInput');
-var activeMinutesInput = document.querySelector('#activeMinutesInput');
-var flightsOfStairsInput = document.querySelector('#flightInput');
-var submitButton = document.querySelector('#submitButton');
+const dateInput = document.querySelector("#date");
+const waterInput = document.querySelector('#waterInput');
+const hoursSleptInput = document.querySelector('#hoursSleptInput');
+const sleepQualityInput = document.querySelector('#sleepQualityInput');
+const stepNumberInput = document.querySelector('#stepNumberInput');
+const activeMinutesInput = document.querySelector('#activeMinutesInput');
+const flightsOfStairsInput = document.querySelector('#flightInput');
 const formErrorMessage = document.querySelector('.form-error-message');
 const bigErrorMessage = document.querySelector('#bigErrorMessage');
 
-var userNowId;
+let userNowId;
 
 emailIcon.addEventListener('click', function() {
   displayIconInfo(email)
@@ -94,22 +83,21 @@ function displayIconInfo(icon) {
 
 function startApp(lists) {
   const allUsers = makeUsers(lists[0].userData);
-  let userRepo = new UserRepo(allUsers);
-  let hydrationRepo = new Hydration(lists[1].hydrationData);
-  let sleepRepo = new Sleep(lists[2].sleepData);
-  let activityRepo = new Activity(lists[3].activityData);
+  const userRepo = new UserRepo(allUsers);
+  const hydrationRepo = new Hydration(lists[1].hydrationData);
+  const sleepRepo = new Sleep(lists[2].sleepData);
+  const activityRepo = new Activity(lists[3].activityData);
   userNowId = pickUser();
-  let userNow = getUserById(userNowId, userRepo);
-  let today = makeToday(userRepo, userNowId, lists[1].hydrationData);
-  let randomHistory = makeRandomDate(userRepo, userNowId, lists[1].hydrationData);
+  const userNow = getUserById(userNowId, userRepo);
+  const today = makeToday(userRepo, userNowId, lists[1].hydrationData);
+  const randomHistory = makeRandomDate(userRepo, userNowId, lists[1].hydrationData);
   historicalWeek.forEach(instance => instance.insertAdjacentHTML('afterBegin', `Week of ${randomHistory}`));
   addInfoToSidebar(userNow, userRepo);
   addHydrationInfo(userNowId, hydrationRepo, today, userRepo, randomHistory);
   addSleepInfo(userNowId, sleepRepo, today, userRepo, randomHistory);
-  let winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
-  addActivityInfo(userNowId, activityRepo, today, userRepo, randomHistory, userNow, winnerNow);
-  // addMilesWalked(activityRepo);
-  addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
+  const winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
+  addActivityInfo(userNowId, activityRepo, today, userRepo, userNow);
+  addFriendGameInfo(userNowId, activityRepo, userRepo, today, userNow);
   buildCharts(today, userRepo, userNowId, hydrationRepo, sleepRepo, activityRepo);
   hide(bigErrorMessage);
   hide(formErrorMessage);
@@ -126,7 +114,7 @@ function buildCharts(date, repo, id, hydroData, sleepData, actData) {
 
 function makeUsers(userList) {
   const allUsers = userList.map( function(dataItem) {
-    let user = new User(dataItem);
+    const user = new User(dataItem);
     return user;
   });
   return allUsers;
@@ -158,32 +146,28 @@ function makeWinnerID(activityInfo, user, dateString, userStorage){
 }
 
 function makeToday(userStorage, id, dataSet) {
-  var sortedArray = userStorage.makeSortedUserArray(id, dataSet);
+  const sortedArray = userStorage.makeSortedUserArray(id, dataSet);
   return sortedArray[0].date;
 }
 
 function makeRandomDate(userStorage, id, dataSet) {
-  var sortedArray = userStorage.makeSortedUserArray(id, dataSet);
+  const sortedArray = userStorage.makeSortedUserArray(id, dataSet);
   return sortedArray[Math.floor(Math.random() * sortedArray.length + 1)].date
 
 }
 
-function addHydrationInfo(id, hydrationInfo, dateString, userStorage, laterDateString) {
+function addHydrationInfo(id, hydrationInfo, dateString) {
   hydrationToday.insertAdjacentHTML('afterBegin', `<p><span class="number">${hydrationInfo.calculateDailyOunces(id, dateString)}</span></p><p>oz water</p>`);
   hydrationAverage.insertAdjacentHTML('afterBegin', `<p><span class="number">${hydrationInfo.calculateAverageOunces(id)}</span></p> <p>average oz per day</p>`)
 }
 
-function addSleepInfo(id, sleepInfo, dateString, userStorage, laterDateString) {
+function addSleepInfo(id, sleepInfo, dateString) {
   sleepToday.insertAdjacentHTML("afterBegin", `<p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> <p>hours slept</p>`);
   sleepQualityToday.insertAdjacentHTML("afterBegin", `<p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span></p><p>sleep quality of 5</p>`);
-  // avUserSleepQuality.insertAdjacentHTML("afterBegin", `<p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() *100)/100}</span></p><p>average sleep quality of 5</p>`);
 }
 
-function makeSleepQualityHTML(id, sleepInfo, userStorage, method) {
-  return method.map(sleepQualityData => `<li class="historical-list-listItem">On ${sleepQualityData}/5 quality of sleep</li>`).join('');
-}
 
-function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateString, user, winnerId) {
+function addActivityInfo(id, activityInfo, dateString, userStorage, user) {
   userStairsToday.insertAdjacentHTML("afterBegin", `<p>Stair Count:</p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'flightsOfStairs')}</span></p>`);
   avgStairsToday.insertAdjacentHTML("afterBegin", `<p>Stair Count: </p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'flightsOfStairs')}</span></p>`);
   userStepsToday.insertAdjacentHTML("afterBegin", `<p>Step Count:</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'numSteps')}</span></p>`);
@@ -193,24 +177,14 @@ function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateStr
   milesWalked.insertAdjacentHTML("afterBegin", `<p><span class="number">${activityInfo.getMilesFromStepsByDate(id, dateString, user)}</span><p>miles walked</p></p>`)
 }
 
-// function addMilesWalked(actData) {
-//   milesWalked.innerHTML = `You walked ${actData.getMilesFromStepsByDatemiles()}!`;
-// }
-
-function addFriendGameInfo(id, activityInfo, userStorage, dateString, laterDateString, user) {
-  friendChallengeListToday.insertAdjacentHTML("afterBegin", makeFriendChallengeHTML(id, activityInfo, userStorage, activityInfo.compareWeeklyUsers(user, dateString, userStorage)));
-  // streakList.insertAdjacentHTML("afterBegin", makeStepStreakHTML(id, activityInfo, userStorage, activityInfo.getStreak(userStorage, id, 'numSteps')));
-  // streakListMinutes.insertAdjacentHTML("afterBegin", makeStepStreakHTML(id, activityInfo, userStorage, activityInfo.getStreak(userStorage, id, 'minutesActive')));
+function addFriendGameInfo(id, activityInfo, userStorage, dateString, user) {
+  friendChallengeListToday.insertAdjacentHTML("afterBegin", makeFriendChallengeHTML(activityInfo.compareWeeklyUsers(user, dateString, userStorage)));
   bigWinner.insertAdjacentHTML('afterBegin', `${activityInfo.showcaseWinner(user, dateString, userStorage)} steps`)
 }
 
-function makeFriendChallengeHTML(id, activityInfo, userStorage, method) {
+function makeFriendChallengeHTML(method) {
   return method.map(friendChallengeData => `<li class="historical-list-listItem">Your friend ${friendChallengeData} total steps.</li>`).join('');
 }
-
-// function makeStepStreakHTML(id, activityInfo, userStorage, method) {
-//   return method.map(streakData => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
-// }
 
 const userFetch = fetch('http://localhost:3001/api/v1/users')
   .then(checkForError)
@@ -299,7 +273,7 @@ function checkForError(response) {
 }
 
 function displayErrorMessage(err) {
-  let message = '';
+  const message = '';
 
   if (err.message === 'Failed to fetch') {
     message = 'Something went wrong. Please check your internet connection.';

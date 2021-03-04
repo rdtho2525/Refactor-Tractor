@@ -1,5 +1,5 @@
 import Chart from 'chart.js';
-console.log('hi there')
+
 export function buildHydroChart(userRepo, user, hydration) {
   var hydrationChart = document.getElementById('hydrationChart');
   var waterConsumed = new Chart(hydrationChart, {
