@@ -61,6 +61,7 @@ var activeMinutesInput = document.querySelector('#activeMinutesInput');
 var flightsOfStairsInput = document.querySelector('#flightInput');
 var submitButton = document.querySelector('#submitButton');
 const formErrorMessage = document.querySelector('.form-error-message');
+const bigErrorMessage = document.querySelector('#bigErrorMessage');
 
 var userNowId;
 
@@ -103,6 +104,7 @@ function startApp(lists) {
   // addMilesWalked(activityRepo);
   addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
   buildCharts(today, userRepo, userNowId, hydrationRepo, sleepRepo, activityRepo);
+  hide(bigErrorMessage);
   hide(formErrorMessage);
 }
 
@@ -204,19 +206,19 @@ function makeFriendChallengeHTML(id, activityInfo, userStorage, method) {
 // }
 
 const userFetch = fetch('http://localhost:3001/api/v1/users')
-  .then(response => response.json())
+  .then(checkForError)
   .catch(err => displayErrorMessage(err));
 
 const hydrationFetch = fetch('http://localhost:3001/api/v1/hydration')
-  .then(response => response.json())
+  .then(checkForError)
   .catch(err => displayErrorMessage(err));
 
 const sleepFetch = fetch('http://localhost:3001/api/v1/sleep')
-  .then(response => response.json())
+  .then(checkForError)
   .catch(err => displayErrorMessage(err));
 
 const activityFetch = fetch('http://localhost:3001/api/v1/activity')
-  .then(response => response.json())
+  .then(checkForError)
   .catch(err => displayErrorMessage(err));
 
 Promise.all([userFetch, hydrationFetch, sleepFetch, activityFetch])
@@ -283,8 +285,7 @@ function isValidHydration(hydrationObj) {
 
 function checkForError(response) {
   if (!response.ok) {
-    // TODO change this message text
-    throw new Error('Testing throwing an error.');
+    throw new Error('Please make sure you\'ve entered some data.');
   } else {
     return response.json();
   }
@@ -295,11 +296,15 @@ function displayErrorMessage(err) {
 
   if (err.message === 'Failed to fetch') {
     message = 'Something went wrong. Please check your internet connection.';
+    bigErrorMessage.innerText = message;
+    show(bigErrorMessage);
+    hide(formErrorMessage);
   } else {
     message = err.message;
+    formErrorMessage.innerText = message;
+    show(formErrorMessage);
+    hide(bigErrorMessage);
   }
-
-  formErrorMessage.innerText = message;
 }
 
 
@@ -367,7 +372,6 @@ inputForm.addEventListener('submit', (event) => {
     })
     .then(checkForError)
     .then(thisData => console.log("hydration data: ", thisData))
-    .catch(err => console.log(err))
     .catch(err => displayErrorMessage(err));
   }
 
