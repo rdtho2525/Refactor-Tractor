@@ -108,7 +108,6 @@ function startApp(lists) {
   addSleepInfo(userNowId, sleepRepo, today, userRepo, randomHistory);
   let winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
   addActivityInfo(userNowId, activityRepo, today, userRepo, randomHistory, userNow, winnerNow);
-  // addMilesWalked(activityRepo);
   addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
   buildCharts(today, userRepo, userNowId, hydrationRepo, sleepRepo, activityRepo);
   hide(bigErrorMessage);
@@ -176,12 +175,8 @@ function addHydrationInfo(id, hydrationInfo, dateString, userStorage, laterDateS
 function addSleepInfo(id, sleepInfo, dateString, userStorage, laterDateString) {
   sleepToday.insertAdjacentHTML("afterBegin", `<p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> <p>hours slept</p>`);
   sleepQualityToday.insertAdjacentHTML("afterBegin", `<p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span></p><p>sleep quality of 5</p>`);
-  // avUserSleepQuality.insertAdjacentHTML("afterBegin", `<p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() *100)/100}</span></p><p>average sleep quality of 5</p>`);
 }
 
-function makeSleepQualityHTML(id, sleepInfo, userStorage, method) {
-  return method.map(sleepQualityData => `<li class="historical-list-listItem">On ${sleepQualityData}/5 quality of sleep</li>`).join('');
-}
 
 function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateString, user, winnerId) {
   userStairsToday.insertAdjacentHTML("afterBegin", `<p>Stair Count:</p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'flightsOfStairs')}</span></p>`);
@@ -193,24 +188,14 @@ function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateStr
   milesWalked.insertAdjacentHTML("afterBegin", `<p><span class="number">${activityInfo.getMilesFromStepsByDate(id, dateString, user)}</span><p>miles walked</p></p>`)
 }
 
-// function addMilesWalked(actData) {
-//   milesWalked.innerHTML = `You walked ${actData.getMilesFromStepsByDatemiles()}!`;
-// }
-
 function addFriendGameInfo(id, activityInfo, userStorage, dateString, laterDateString, user) {
   friendChallengeListToday.insertAdjacentHTML("afterBegin", makeFriendChallengeHTML(id, activityInfo, userStorage, activityInfo.compareWeeklyUsers(user, dateString, userStorage)));
-  // streakList.insertAdjacentHTML("afterBegin", makeStepStreakHTML(id, activityInfo, userStorage, activityInfo.getStreak(userStorage, id, 'numSteps')));
-  // streakListMinutes.insertAdjacentHTML("afterBegin", makeStepStreakHTML(id, activityInfo, userStorage, activityInfo.getStreak(userStorage, id, 'minutesActive')));
   bigWinner.insertAdjacentHTML('afterBegin', `${activityInfo.showcaseWinner(user, dateString, userStorage)} steps`)
 }
 
 function makeFriendChallengeHTML(id, activityInfo, userStorage, method) {
   return method.map(friendChallengeData => `<li class="historical-list-listItem">Your friend ${friendChallengeData} total steps.</li>`).join('');
 }
-
-// function makeStepStreakHTML(id, activityInfo, userStorage, method) {
-//   return method.map(streakData => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
-// }
 
 const userFetch = fetch('http://localhost:3001/api/v1/users')
   .then(checkForError)
