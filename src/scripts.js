@@ -12,25 +12,25 @@ import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
 
-var stepGoalCard = document.getElementById('stepGoalCard');
-var headerText = document.getElementById('headerText');
-var userAddress = document.getElementById('userAddress');
-var userEmail = document.getElementById('userEmail');
-var userStridelength = document.getElementById('userStridelength');
-var friendList = document.getElementById('friendList');
-var hydrationToday = document.getElementById('hydrationToday');
-var hydrationAverage = document.getElementById('hydrationAverage');
-var historicalWeek = document.querySelectorAll('.historicalWeek');
-var sleepToday = document.getElementById('sleepToday');
-var sleepQualityToday = document.getElementById('sleepQualityToday');
-var friendChallengeListToday = document.getElementById('friendChallengeListToday');
-var bigWinner = document.getElementById('bigWinner');
-var userStepsToday = document.getElementById('userStepsToday');
-var avgStepsToday = document.getElementById('avgStepsToday');
-var userStairsToday = document.getElementById('userStairsToday');
-var avgStairsToday = document.getElementById('avgStairsToday');
-var userMinutesToday = document.getElementById('userMinutesToday');
-var avgMinutesToday = document.getElementById('avgMinutesToday');
+const stepGoalCard = document.getElementById('stepGoalCard');
+const headerText = document.getElementById('headerText');
+const userAddress = document.getElementById('userAddress');
+const userEmail = document.getElementById('userEmail');
+const userStridelength = document.getElementById('userStridelength');
+const friendList = document.getElementById('friendList');
+const hydrationToday = document.getElementById('hydrationToday');
+const hydrationAverage = document.getElementById('hydrationAverage');
+const historicalWeek = document.querySelectorAll('.historicalWeek');
+const sleepToday = document.getElementById('sleepToday');
+const sleepQualityToday = document.getElementById('sleepQualityToday');
+const friendChallengeListToday = document.getElementById('friendChallengeListToday');
+const bigWinner = document.getElementById('bigWinner');
+const userStepsToday = document.getElementById('userStepsToday');
+const avgStepsToday = document.getElementById('avgStepsToday');
+const userStairsToday = document.getElementById('userStairsToday');
+const avgStairsToday = document.getElementById('avgStairsToday');
+const userMinutesToday = document.getElementById('userMinutesToday');
+const avgMinutesToday = document.getElementById('avgMinutesToday');
 const milesWalked = document.querySelector('#milesWalked');
 const emailIcon = document.querySelector('.fa-envelope');
 const addressIcon = document.querySelector('.fa-home');
@@ -45,17 +45,17 @@ const stride = document.querySelector('#userStridelength');
 const step = document.querySelector('#stepGoalCard');
 const friends = document.querySelector('#friendList');
 const inputForm = document.querySelector('.input-box');
-var dateInput = document.querySelector("#date");
-var waterInput = document.querySelector('#waterInput');
-var hoursSleptInput = document.querySelector('#hoursSleptInput');
-var sleepQualityInput = document.querySelector('#sleepQualityInput');
-var stepNumberInput = document.querySelector('#stepNumberInput');
-var activeMinutesInput = document.querySelector('#activeMinutesInput');
-var flightsOfStairsInput = document.querySelector('#flightInput');
+const dateInput = document.querySelector("#date");
+const waterInput = document.querySelector('#waterInput');
+const hoursSleptInput = document.querySelector('#hoursSleptInput');
+const sleepQualityInput = document.querySelector('#sleepQualityInput');
+const stepNumberInput = document.querySelector('#stepNumberInput');
+const activeMinutesInput = document.querySelector('#activeMinutesInput');
+const flightsOfStairsInput = document.querySelector('#flightInput');
 const formErrorMessage = document.querySelector('.form-error-message');
 const bigErrorMessage = document.querySelector('#bigErrorMessage');
 
-var userNowId;
+let userNowId;
 
 emailIcon.addEventListener('click', function() {
   displayIconInfo(email)
@@ -83,19 +83,19 @@ function displayIconInfo(icon) {
 
 function startApp(lists) {
   const allUsers = makeUsers(lists[0].userData);
-  let userRepo = new UserRepo(allUsers);
-  let hydrationRepo = new Hydration(lists[1].hydrationData);
-  let sleepRepo = new Sleep(lists[2].sleepData);
-  let activityRepo = new Activity(lists[3].activityData);
+  const userRepo = new UserRepo(allUsers);
+  const hydrationRepo = new Hydration(lists[1].hydrationData);
+  const sleepRepo = new Sleep(lists[2].sleepData);
+  const activityRepo = new Activity(lists[3].activityData);
   userNowId = pickUser();
-  let userNow = getUserById(userNowId, userRepo);
-  let today = makeToday(userRepo, userNowId, lists[1].hydrationData);
-  let randomHistory = makeRandomDate(userRepo, userNowId, lists[1].hydrationData);
+  const userNow = getUserById(userNowId, userRepo);
+  const today = makeToday(userRepo, userNowId, lists[1].hydrationData);
+  const randomHistory = makeRandomDate(userRepo, userNowId, lists[1].hydrationData);
   historicalWeek.forEach(instance => instance.insertAdjacentHTML('afterBegin', `Week of ${randomHistory}`));
   addInfoToSidebar(userNow, userRepo);
   addHydrationInfo(userNowId, hydrationRepo, today, userRepo, randomHistory);
   addSleepInfo(userNowId, sleepRepo, today, userRepo, randomHistory);
-  let winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
+  const winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
   addActivityInfo(userNowId, activityRepo, today, userRepo, userNow);
   addFriendGameInfo(userNowId, activityRepo, userRepo, today, userNow);
   buildCharts(today, userRepo, userNowId, hydrationRepo, sleepRepo, activityRepo);
@@ -114,7 +114,7 @@ function buildCharts(date, repo, id, hydroData, sleepData, actData) {
 
 function makeUsers(userList) {
   const allUsers = userList.map( function(dataItem) {
-    let user = new User(dataItem);
+    const user = new User(dataItem);
     return user;
   });
   return allUsers;
@@ -146,12 +146,12 @@ function makeWinnerID(activityInfo, user, dateString, userStorage){
 }
 
 function makeToday(userStorage, id, dataSet) {
-  var sortedArray = userStorage.makeSortedUserArray(id, dataSet);
+  const sortedArray = userStorage.makeSortedUserArray(id, dataSet);
   return sortedArray[0].date;
 }
 
 function makeRandomDate(userStorage, id, dataSet) {
-  var sortedArray = userStorage.makeSortedUserArray(id, dataSet);
+  const sortedArray = userStorage.makeSortedUserArray(id, dataSet);
   return sortedArray[Math.floor(Math.random() * sortedArray.length + 1)].date
 
 }
@@ -273,7 +273,7 @@ function checkForError(response) {
 }
 
 function displayErrorMessage(err) {
-  let message = '';
+  const message = '';
 
   if (err.message === 'Failed to fetch') {
     message = 'Something went wrong. Please check your internet connection.';
