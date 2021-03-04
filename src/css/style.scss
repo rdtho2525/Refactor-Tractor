@@ -33,6 +33,11 @@ h1 {
   padding-top: 10px;
 }
 
+.big-error-message {
+  text-align: center;
+  color: orangered;
+}
+
 .thisWeek {
   text-align: center;
   font-size: 1em;
@@ -105,7 +110,7 @@ i {
   width: 50%;
 }
 
-.input-feild {
+.input-field {
   @include flex-col();
   justify-content: start;
 }
@@ -128,6 +133,12 @@ input {
   border-radius: 6px;
   height: 2em;
 }
+
+.form-error-message {
+  font-size: small;
+  color: orangered;
+}
+
 
 // MAIN GRID DISPLAY //
 main {
