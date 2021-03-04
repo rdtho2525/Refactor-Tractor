@@ -347,4 +347,6 @@ inputForm.addEventListener('submit', (event) => {
     .then(thisData => console.log("hydration data: ", thisData))
     .catch(err => console.log(err))
   }
+
+  event.target.reset();
 });
